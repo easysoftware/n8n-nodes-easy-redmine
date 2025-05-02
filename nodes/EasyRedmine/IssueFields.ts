@@ -37,4 +37,36 @@ export const IssueFields: INodeProperties[] = [
 		},
 		default: '',
 	},
+
+	{
+		displayName: 'Update Fields',
+		name: 'update_options_issues',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.issues],
+			},
+		},
+		options: [
+			{
+				displayName: 'Subject',
+				name: 'subject',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'Subject of the issue',
+			},
+			{
+				displayName: 'Description',
+				name: 'description',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'Issue description',
+			},
+		],
+	},
 ];

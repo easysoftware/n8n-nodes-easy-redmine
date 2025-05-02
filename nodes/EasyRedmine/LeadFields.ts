@@ -37,4 +37,28 @@ export const LeadFields: INodeProperties[] = [
 		},
 		default: '',
 	},
+
+	{
+		displayName: 'Update Fields',
+		name: 'update_options_leads',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.leads],
+			},
+		},
+		options: [
+			{
+				displayName: 'Description',
+				name: 'description',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'Lead description',
+			},
+		],
+	},
 ];

@@ -14,7 +14,7 @@ export const AccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['accounts'],
+				resource: ['easy_contacts'],
 			},
 		},
 		default: '',
@@ -36,5 +36,29 @@ export const AccountFields: INodeProperties[] = [
 			loadOptionsMethod: 'getEasyAccountsQueries',
 		},
 		default: '',
+	},
+
+	{
+		displayName: 'Update Fields',
+		name: 'update_options_accounts',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [
+			{
+				displayName: 'Name',
+				name: 'firstname',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'Account name',
+			}
+		],
 	},
 ];

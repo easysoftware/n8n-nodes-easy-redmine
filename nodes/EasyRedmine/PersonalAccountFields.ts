@@ -14,7 +14,7 @@ export const PersonalAccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['personal_accounts'],
+				resource: ['easy_personal_contacts'],
 			},
 		},
 		default: '',
