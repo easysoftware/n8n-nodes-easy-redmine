@@ -14,6 +14,11 @@ import { processGetManyOperation } from './helpers/ProcessGetMany';
 import { processGetOneOperation } from './helpers/ProcessGetOne';
 import { processAddCommentOperation } from './helpers/ProcessAddCommentOperation';
 import { processUpdateOperation } from './helpers/ProcessUpdateOperation';
+import { IssueFields } from './IssueFields';
+import { LeadFields } from './LeadFields';
+import { OpportunityFields } from './OpportunityFields';
+import { AccountFields } from './AccountFields';
+import { PersonalAccountFields } from './PersonalAccountFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -71,6 +76,14 @@ export class EasyRedmine implements INodeType {
 						name: 'Opportunity',
 						value: EasyNodeResourceType.opportunities,
 					},
+					{
+						name: 'Account',
+						value: EasyNodeResourceType.accounts,
+					},
+					{
+						name: 'Personal Account',
+						value: EasyNodeResourceType.personalAccounts,
+					},
 				],
 			},
 
@@ -85,6 +98,8 @@ export class EasyRedmine implements INodeType {
 							EasyNodeResourceType.issues,
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
+							EasyNodeResourceType.accounts,
+							EasyNodeResourceType.personalAccounts,
 						],
 					},
 				},
@@ -118,76 +133,11 @@ export class EasyRedmine implements INodeType {
 				],
 			},
 
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'number',
-				noDataExpression: false,
-				displayOptions: {
-					show: {
-						operation: [
-							EasyNodeOperationType.getOne,
-							EasyNodeOperationType.addComment,
-							EasyNodeOperationType.update,
-						],
-					},
-				},
-				default: '',
-			},
-
-			{
-				displayName: 'EasyRedmine Issues Query Name or ID',
-				name: 'issue_query_id',
-				type: 'options',
-				description:
-					'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-				displayOptions: {
-					show: {
-						resource: [EasyNodeResourceType.issues],
-						operation: [EasyNodeOperationType.getMany],
-					},
-				},
-				typeOptions: {
-					loadOptionsMethod: 'getEasyIssueQueries',
-				},
-				default: '',
-			},
-
-			{
-				displayName: 'EasyRedmine Leads Query Name or ID',
-				name: 'lead_query_id',
-				type: 'options',
-				description:
-					'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-				displayOptions: {
-					show: {
-						resource: [EasyNodeResourceType.leads],
-						operation: [EasyNodeOperationType.getMany],
-					},
-				},
-				typeOptions: {
-					loadOptionsMethod: 'getEasyLeadsQueries',
-				},
-				default: '',
-			},
-
-			{
-				displayName: 'EasyRedmine Opportunities Query Name or ID',
-				name: 'opportunity_query_id',
-				type: 'options',
-				description:
-					'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-				displayOptions: {
-					show: {
-						resource: [EasyNodeResourceType.opportunities],
-						operation: [EasyNodeOperationType.getMany],
-					},
-				},
-				typeOptions: {
-					loadOptionsMethod: 'getEasyCrmCaseQueries',
-				},
-				default: '',
-			},
+			...IssueFields,
+			...LeadFields,
+			...OpportunityFields,
+			...AccountFields,
+			...PersonalAccountFields,
 
 			{
 				displayName: 'Comment',
@@ -310,6 +260,18 @@ export class EasyRedmine implements INodeType {
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyCrmCaseQuery');
+			},
+
+			getEasyAccountsQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyContactQuery');
+			},
+
+			getEasyPersonalAccountsQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
 			},
 		},
 	};

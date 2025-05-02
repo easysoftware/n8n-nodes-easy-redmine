@@ -23,6 +23,12 @@ export async function processGetManyOperation(
 		case EasyNodeResourceType.opportunities:
 			query_id_parameter = 'opportunity_query_id';
 			break;
+		case EasyNodeResourceType.accounts:
+			query_id_parameter = 'account_query_id';
+			break;
+		case EasyNodeResourceType.personalAccounts:
+			query_id_parameter = 'personal_account_query_id';
+			break;
 		default:
 			throw new Error(`Unsupported resource type: ${resource}`);
 	}
