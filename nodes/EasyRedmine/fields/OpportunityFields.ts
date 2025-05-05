@@ -40,7 +40,7 @@ export const OpportunityFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_opportunities',
+		name: 'update_options_opportunity',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

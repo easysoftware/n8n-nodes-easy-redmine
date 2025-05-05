@@ -40,7 +40,7 @@ export const IssueFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_issues',
+		name: 'update_options_issue',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

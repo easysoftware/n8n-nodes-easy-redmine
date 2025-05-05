@@ -66,4 +66,60 @@ export const UserFields: INodeProperties[] = [
 		},
 		default: '',
 	},
+
+	{
+		displayName: 'Update Fields',
+		name: 'update_options_user',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		options: [
+			{
+				displayName: 'Login',
+				name: 'login',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'User login',
+			},
+			{
+				displayName: 'First Name',
+				name: 'firstname',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+			},
+
+			{
+				displayName: 'Last Name',
+				name: 'lastname',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+			},
+
+			{
+				displayName: 'Email',
+				name: 'mail',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'Email address',
+			},
+			{
+				displayName: 'Phone',
+				name: 'phone',
+				type: 'string',
+				noDataExpression: true,
+				default: '',
+				description: 'Phone number',
+			},
+		],
+	},
 ];

@@ -40,7 +40,7 @@ export const LeadFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_leads',
+		name: 'update_options_lead',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

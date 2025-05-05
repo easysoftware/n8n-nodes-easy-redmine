@@ -1,5 +1,98 @@
 import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
+import { AccountUpdateOptions, OpportunityUpdateOptions, UserUpdateOptions } from './UpdateModel';
+import { sanitizeDomain } from '../utils/SanitizeDomain';
+
+function createUpdateBodyForIssue(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const { subject, description } = this.getNodeParameter('update_options_issue', itemIndex, {}) as {
+		subject: string | undefined;
+		description: string | undefined;
+	};
+
+	return {
+		issue: {
+			subject,
+			description,
+		},
+	};
+}
+
+function createUpdateBodyForLead(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const { description } = this.getNodeParameter('update_options_lead', itemIndex, {}) as {
+		description: string | undefined;
+	};
+
+	return {
+		easy_lead: {
+			description,
+		},
+	};
+}
+
+function createUpdateBodyForOpportunity(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const { name, description } = this.getNodeParameter(
+		'update_options_opportunity',
+		itemIndex,
+		{},
+	) as OpportunityUpdateOptions;
+
+	return {
+		easy_crm_case: {
+			name,
+			description,
+		},
+	};
+}
+
+function createUpdateBodyForAccount(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const { firstname } = this.getNodeParameter(
+		'update_options_accounts',
+		itemIndex,
+		{},
+	) as AccountUpdateOptions;
+
+	return {
+		easy_contact: {
+			firstname,
+		},
+	};
+}
+
+function createUpdateBodyForPersonalAccount(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	// update_options_personal_account
+	return {
+		easy_personal_contact: {},
+	};
+}
+
+function createUpdateBodyForUser(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const { login, firstname, lastname, mail, phone } = this.getNodeParameter(
+		'update_options_user',
+		itemIndex,
+		{},
+	) as UserUpdateOptions;
+	return {
+		user: { login, firstname, lastname, mail, phone },
+	};
+}
 
 export async function processUpdateOperation(
 	this: IExecuteFunctions,
@@ -7,78 +100,27 @@ export async function processUpdateOperation(
 	itemIndex: number,
 ) {
 	const credentials = await this.getCredentials('easyRedmineApi');
+	const domain = sanitizeDomain(credentials.domain as string);
 
-	let domain = credentials.domain as string;
-	if (domain.endsWith('/')) {
-		domain = domain.slice(0, -1);
-	}
-
-	let updateOptName: string;
+	let body: { [key: string]: any };
 	switch (resource) {
 		case EasyNodeResourceType.issues:
-			updateOptName = 'update_options_issues';
+			body = createUpdateBodyForIssue.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.leads:
-			updateOptName = 'update_options_leads';
+			body = createUpdateBodyForLead.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.opportunities:
-			updateOptName = 'update_options_opportunities';
+			body = createUpdateBodyForOpportunity.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.accounts:
-			updateOptName = 'update_options_accounts';
+			body = createUpdateBodyForAccount.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.personalAccounts:
-			updateOptName = 'update_options_personal_accounts';
+			body = createUpdateBodyForPersonalAccount.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:
-			updateOptName = 'users';
-			break;
-		default:
-			throw new Error(`Update options for resource ${resource} was not implemented`);
-	}
-	const { subject, name, firstname, description } = this.getNodeParameter(
-		updateOptName,
-		itemIndex,
-		{},
-	) as {
-		subject: string | undefined;
-		name: string | undefined;
-		firstname: string | undefined;
-		description: string | undefined;
-	};
-	this.logger.debug(`Subject: ${subject}`);
-	this.logger.debug(`Description: ${description}`);
-
-	const entity: { [key: string]: any } = {};
-	if (subject !== undefined) {
-		entity['subject'] = subject;
-	}
-	if (name !== undefined) {
-		entity['name'] = name;
-	}
-	if (firstname !== undefined) {
-		entity['firstname'] = firstname;
-	}
-	if (description !== undefined) {
-		entity['description'] = description;
-	}
-
-	const body: { [key: string]: any } = {};
-	switch (resource) {
-		case EasyNodeResourceType.issues:
-			body['issue'] = entity;
-			break;
-		case EasyNodeResourceType.leads:
-			body['easy_lead'] = entity;
-			break;
-		case EasyNodeResourceType.opportunities:
-			body['easy_crm_case'] = entity;
-			break;
-		case EasyNodeResourceType.accounts:
-			body['easy_contact'] = entity;
-			break;
-		case EasyNodeResourceType.personalAccounts:
-			body['easy_personal_contact'] = entity;
+			body = createUpdateBodyForUser.call(this, itemIndex);
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
