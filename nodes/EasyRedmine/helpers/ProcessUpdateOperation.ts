@@ -1,6 +1,6 @@
 import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
-import { AccountUpdateOptions, OpportunityUpdateOptions, UserUpdateOptions } from './updateModel';
+import { AccountUpdateOptions, OpportunityUpdateOptions, UserUpdateOptions } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 function createUpdateBodyForIssue(
