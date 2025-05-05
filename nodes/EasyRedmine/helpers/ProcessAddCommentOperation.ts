@@ -30,6 +30,9 @@ export async function processAddCommentOperation(
 		case EasyNodeResourceType.opportunities:
 			body['easy_crm_case'] = entity;
 			break;
+		case EasyNodeResourceType.accounts:
+			body['easy_contact'] = entity;
+			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
 	}
@@ -41,7 +44,7 @@ export async function processAddCommentOperation(
 		json: true,
 	} satisfies IRequestOptions;
 
-	this.logger.debug(`Add comment ${resource} with ${JSON.stringify(options)}`);
+	this.logger.info(`Add comment ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

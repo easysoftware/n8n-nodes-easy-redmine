@@ -24,12 +24,26 @@ export async function processUpdateOperation(
 		case EasyNodeResourceType.opportunities:
 			updateOptName = 'update_options_opportunities';
 			break;
+		case EasyNodeResourceType.accounts:
+			updateOptName = 'update_options_accounts';
+			break;
+		case EasyNodeResourceType.personalAccounts:
+			updateOptName = 'update_options_personal_accounts';
+			break;
+		case EasyNodeResourceType.users:
+			updateOptName = 'users';
+			break;
 		default:
 			throw new Error(`Update options for resource ${resource} was not implemented`);
 	}
-	const { subject, name, description } = this.getNodeParameter(updateOptName, itemIndex, {}) as {
+	const { subject, name, firstname, description } = this.getNodeParameter(
+		updateOptName,
+		itemIndex,
+		{},
+	) as {
 		subject: string | undefined;
 		name: string | undefined;
+		firstname: string | undefined;
 		description: string | undefined;
 	};
 	this.logger.debug(`Subject: ${subject}`);
@@ -41,6 +55,9 @@ export async function processUpdateOperation(
 	}
 	if (name !== undefined) {
 		entity['name'] = name;
+	}
+	if (firstname !== undefined) {
+		entity['firstname'] = firstname;
 	}
 	if (description !== undefined) {
 		entity['description'] = description;
@@ -57,6 +74,12 @@ export async function processUpdateOperation(
 		case EasyNodeResourceType.opportunities:
 			body['easy_crm_case'] = entity;
 			break;
+		case EasyNodeResourceType.accounts:
+			body['easy_contact'] = entity;
+			break;
+		case EasyNodeResourceType.personalAccounts:
+			body['easy_personal_contact'] = entity;
+			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
 	}
@@ -69,7 +92,7 @@ export async function processUpdateOperation(
 		json: true,
 	} satisfies IRequestOptions;
 
-	this.logger.debug(`Update ${resource} with ${JSON.stringify(options)}`);
+	this.logger.info(`Update ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

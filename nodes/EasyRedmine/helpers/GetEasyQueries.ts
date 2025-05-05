@@ -1,6 +1,12 @@
 import { ILoadOptionsFunctions, INodePropertyOptions, IRequestOptions } from 'n8n-workflow';
 
-export type EasyQueryType = 'EasyIssueQuery' | 'EasyLeadQuery' | 'EasyCrmCaseQuery';
+export type EasyQueryType =
+	| 'EasyIssueQuery'
+	| 'EasyLeadQuery'
+	| 'EasyCrmCaseQuery'
+	| 'EasyContactQuery'
+	| 'EasyPersonalContactQuery'
+	| 'EasyUserQuery';
 
 export async function getEasyQueries(this: ILoadOptionsFunctions, type: EasyQueryType) {
 	const resource = this.getCurrentNodeParameter('resource');

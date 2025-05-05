@@ -14,6 +14,12 @@ import { processGetManyOperation } from './helpers/ProcessGetMany';
 import { processGetOneOperation } from './helpers/ProcessGetOne';
 import { processAddCommentOperation } from './helpers/ProcessAddCommentOperation';
 import { processUpdateOperation } from './helpers/ProcessUpdateOperation';
+import { IssueFields } from './fields/IssueFields';
+import { LeadFields } from './fields/LeadFields';
+import { OpportunityFields } from './fields/OpportunityFields';
+import { AccountFields } from './fields/AccountFields';
+import { PersonalAccountFields } from './fields/PersonalAccountFields';
+import { UserFields } from './fields/UserFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -71,6 +77,18 @@ export class EasyRedmine implements INodeType {
 						name: 'Opportunity',
 						value: EasyNodeResourceType.opportunities,
 					},
+					{
+						name: 'Account',
+						value: EasyNodeResourceType.accounts,
+					},
+					{
+						name: 'Personal Account',
+						value: EasyNodeResourceType.personalAccounts,
+					},
+					{
+						name: 'User',
+						value: EasyNodeResourceType.users,
+					},
 				],
 			},
 
@@ -85,6 +103,7 @@ export class EasyRedmine implements INodeType {
 							EasyNodeResourceType.issues,
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
+							EasyNodeResourceType.accounts,
 						],
 					},
 				},
@@ -108,7 +127,6 @@ export class EasyRedmine implements INodeType {
 						value: EasyNodeOperationType.addComment,
 						action: 'Add comment',
 					},
-
 					{
 						name: 'Update',
 						description: 'Update entity',
@@ -118,76 +136,12 @@ export class EasyRedmine implements INodeType {
 				],
 			},
 
-			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'number',
-				noDataExpression: false,
-				displayOptions: {
-					show: {
-						operation: [
-							EasyNodeOperationType.getOne,
-							EasyNodeOperationType.addComment,
-							EasyNodeOperationType.update,
-						],
-					},
-				},
-				default: '',
-			},
-
-			{
-				displayName: 'EasyRedmine Issues Query Name or ID',
-				name: 'issue_query_id',
-				type: 'options',
-				description:
-					'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-				displayOptions: {
-					show: {
-						resource: [EasyNodeResourceType.issues],
-						operation: [EasyNodeOperationType.getMany],
-					},
-				},
-				typeOptions: {
-					loadOptionsMethod: 'getEasyIssueQueries',
-				},
-				default: '',
-			},
-
-			{
-				displayName: 'EasyRedmine Leads Query Name or ID',
-				name: 'lead_query_id',
-				type: 'options',
-				description:
-					'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-				displayOptions: {
-					show: {
-						resource: [EasyNodeResourceType.leads],
-						operation: [EasyNodeOperationType.getMany],
-					},
-				},
-				typeOptions: {
-					loadOptionsMethod: 'getEasyLeadsQueries',
-				},
-				default: '',
-			},
-
-			{
-				displayName: 'EasyRedmine Opportunities Query Name or ID',
-				name: 'opportunity_query_id',
-				type: 'options',
-				description:
-					'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-				displayOptions: {
-					show: {
-						resource: [EasyNodeResourceType.opportunities],
-						operation: [EasyNodeOperationType.getMany],
-					},
-				},
-				typeOptions: {
-					loadOptionsMethod: 'getEasyCrmCaseQueries',
-				},
-				default: '',
-			},
+			...IssueFields,
+			...LeadFields,
+			...OpportunityFields,
+			...AccountFields,
+			...PersonalAccountFields,
+			...UserFields,
 
 			{
 				displayName: 'Comment',
@@ -200,94 +154,6 @@ export class EasyRedmine implements INodeType {
 					},
 				},
 				default: '',
-			},
-
-			{
-				displayName: 'Update Fields',
-				name: 'update_options_issues',
-				type: 'collection',
-				placeholder: 'Add option',
-				default: {},
-				displayOptions: {
-					show: {
-						operation: [EasyNodeOperationType.update],
-						resource: [EasyNodeResourceType.issues],
-					},
-				},
-				options: [
-					{
-						displayName: 'Subject',
-						name: 'subject',
-						type: 'string',
-						noDataExpression: true,
-						default: '',
-						description: 'Subject of the issue',
-					},
-					{
-						displayName: 'Description',
-						name: 'description',
-						type: 'string',
-						noDataExpression: true,
-						default: '',
-						description: 'Issue description',
-					},
-				],
-			},
-
-			{
-				displayName: 'Update Fields',
-				name: 'update_options_leads',
-				type: 'collection',
-				placeholder: 'Add option',
-				default: {},
-				displayOptions: {
-					show: {
-						operation: [EasyNodeOperationType.update],
-						resource: [EasyNodeResourceType.leads],
-					},
-				},
-				options: [
-					{
-						displayName: 'Description',
-						name: 'description',
-						type: 'string',
-						noDataExpression: true,
-						default: '',
-						description: 'Lead description',
-					},
-				],
-			},
-
-			{
-				displayName: 'Update Fields',
-				name: 'update_options_opportunities',
-				type: 'collection',
-				placeholder: 'Add option',
-				default: {},
-				displayOptions: {
-					show: {
-						operation: [EasyNodeOperationType.update],
-						resource: [EasyNodeResourceType.opportunities],
-					},
-				},
-				options: [
-					{
-						displayName: 'Name',
-						name: 'name',
-						type: 'string',
-						noDataExpression: true,
-						default: '',
-						description: 'Opportunity name',
-					},
-					{
-						displayName: 'Description',
-						name: 'description',
-						type: 'string',
-						noDataExpression: true,
-						default: '',
-						description: 'Opportunity description',
-					},
-				],
 			},
 		],
 	};
@@ -310,6 +176,24 @@ export class EasyRedmine implements INodeType {
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyCrmCaseQuery');
+			},
+
+			getEasyAccountsQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyContactQuery');
+			},
+
+			getEasyPersonalAccountsQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
+			},
+
+			getEasyUsersQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyUserQuery');
 			},
 		},
 	};
