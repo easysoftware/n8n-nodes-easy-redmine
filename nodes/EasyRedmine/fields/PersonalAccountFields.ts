@@ -1,7 +1,40 @@
-import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
+import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 
 export const PersonalAccountFields: INodeProperties[] = [
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.personalAccounts],
+			},
+		},
+		default: 'get-many',
+		options: [
+			{
+				name: 'Get One',
+				description: 'Get a single entity',
+				value: EasyNodeOperationType.getOne,
+				action: 'Get one',
+			},
+			{
+				name: 'Get Many',
+				description: 'Get multiple entities',
+				value: EasyNodeOperationType.getMany,
+				action: 'Get many',
+			},
+			{
+				name: 'Update',
+				description: 'Update entity',
+				value: EasyNodeOperationType.update,
+				action: 'Update',
+			},
+		],
+	},
+
 	{
 		displayName: 'Personal Account ID',
 		name: 'id',
@@ -14,7 +47,7 @@ export const PersonalAccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['easy_personal_contacts'],
+				resource: [EasyNodeResourceType.personalAccounts],
 			},
 		},
 		default: '',

@@ -14,11 +14,12 @@ import { processGetManyOperation } from './helpers/ProcessGetMany';
 import { processGetOneOperation } from './helpers/ProcessGetOne';
 import { processAddCommentOperation } from './helpers/ProcessAddCommentOperation';
 import { processUpdateOperation } from './helpers/ProcessUpdateOperation';
-import { IssueFields } from './IssueFields';
-import { LeadFields } from './LeadFields';
-import { OpportunityFields } from './OpportunityFields';
-import { AccountFields } from './AccountFields';
-import { PersonalAccountFields } from './PersonalAccountFields';
+import { IssueFields } from './fields/IssueFields';
+import { LeadFields } from './fields/LeadFields';
+import { OpportunityFields } from './fields/OpportunityFields';
+import { AccountFields } from './fields/AccountFields';
+import { PersonalAccountFields } from './fields/PersonalAccountFields';
+import { UserFields } from './fields/UserFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -84,6 +85,10 @@ export class EasyRedmine implements INodeType {
 						name: 'Personal Account',
 						value: EasyNodeResourceType.personalAccounts,
 					},
+					{
+						name: 'User',
+						value: EasyNodeResourceType.users,
+					},
 				],
 			},
 
@@ -99,7 +104,6 @@ export class EasyRedmine implements INodeType {
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
 							EasyNodeResourceType.accounts,
-							EasyNodeResourceType.personalAccounts,
 						],
 					},
 				},
@@ -123,7 +127,6 @@ export class EasyRedmine implements INodeType {
 						value: EasyNodeOperationType.addComment,
 						action: 'Add comment',
 					},
-
 					{
 						name: 'Update',
 						description: 'Update entity',
@@ -138,6 +141,7 @@ export class EasyRedmine implements INodeType {
 			...OpportunityFields,
 			...AccountFields,
 			...PersonalAccountFields,
+			...UserFields,
 
 			{
 				displayName: 'Comment',
@@ -184,6 +188,12 @@ export class EasyRedmine implements INodeType {
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
+			},
+
+			getEasyUsersQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyUserQuery');
 			},
 		},
 	};

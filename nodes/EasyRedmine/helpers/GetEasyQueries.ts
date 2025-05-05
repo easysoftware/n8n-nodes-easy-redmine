@@ -5,7 +5,8 @@ export type EasyQueryType =
 	| 'EasyLeadQuery'
 	| 'EasyCrmCaseQuery'
 	| 'EasyContactQuery'
-	| 'EasyPersonalContactQuery';
+	| 'EasyPersonalContactQuery'
+	| 'EasyUserQuery';
 
 export async function getEasyQueries(this: ILoadOptionsFunctions, type: EasyQueryType) {
 	const resource = this.getCurrentNodeParameter('resource');

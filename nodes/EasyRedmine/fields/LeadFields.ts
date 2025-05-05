@@ -1,9 +1,9 @@
-import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
+import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 
-export const AccountFields: INodeProperties[] = [
+export const LeadFields: INodeProperties[] = [
 	{
-		displayName: 'Account ID',
+		displayName: 'Lead ID',
 		name: 'id',
 		type: 'number',
 		noDataExpression: false,
@@ -14,51 +14,51 @@ export const AccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['easy_contacts'],
+				resource: ['leads'],
 			},
 		},
 		default: '',
 	},
 
 	{
-		displayName: 'EasyRedmine Accounts Query Name or ID',
-		name: 'account_query_id',
+		displayName: 'EasyRedmine Leads Query Name or ID',
+		name: 'lead_query_id',
 		type: 'options',
 		description:
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
-				resource: [EasyNodeResourceType.accounts],
+				resource: [EasyNodeResourceType.leads],
 				operation: [EasyNodeOperationType.getMany],
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyAccountsQueries',
+			loadOptionsMethod: 'getEasyLeadsQueries',
 		},
 		default: '',
 	},
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_accounts',
+		name: 'update_options_leads',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
 		displayOptions: {
 			show: {
 				operation: [EasyNodeOperationType.update],
-				resource: [EasyNodeResourceType.accounts],
+				resource: [EasyNodeResourceType.leads],
 			},
 		},
 		options: [
 			{
-				displayName: 'Name',
-				name: 'firstname',
+				displayName: 'Description',
+				name: 'description',
 				type: 'string',
 				noDataExpression: true,
 				default: '',
-				description: 'Account name',
-			}
+				description: 'Lead description',
+			},
 		],
 	},
 ];

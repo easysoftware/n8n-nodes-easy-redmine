@@ -29,6 +29,9 @@ export async function processGetManyOperation(
 		case EasyNodeResourceType.personalAccounts:
 			query_id_parameter = 'personal_account_query_id';
 			break;
+		case EasyNodeResourceType.users:
+			query_id_parameter = 'user_query_id';
+			break;
 		default:
 			throw new Error(`Unsupported resource type: ${resource}`);
 	}
@@ -50,7 +53,7 @@ export async function processGetManyOperation(
 		json: true,
 	} satisfies IRequestOptions;
 
-	this.logger.debug(`Get many ${resource} with ${JSON.stringify(options)}`);
+	this.logger.info(`Get many ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

@@ -1,4 +1,4 @@
-import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
+import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 
 export const IssueFields: INodeProperties[] = [

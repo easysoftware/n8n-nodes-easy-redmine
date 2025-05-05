@@ -33,9 +33,6 @@ export async function processAddCommentOperation(
 		case EasyNodeResourceType.accounts:
 			body['easy_contact'] = entity;
 			break;
-		case EasyNodeResourceType.personalAccounts:
-			body['easy_personal_account'] = entity;
-			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
 	}

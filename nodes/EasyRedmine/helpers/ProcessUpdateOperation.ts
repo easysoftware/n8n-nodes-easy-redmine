@@ -75,7 +75,7 @@ export async function processUpdateOperation(
 			body['easy_contact'] = entity;
 			break;
 		case EasyNodeResourceType.personalAccounts:
-			body['easy_personal_account'] = entity;
+			body['easy_personal_contact'] = entity;
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
