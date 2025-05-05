@@ -30,6 +30,9 @@ export async function processUpdateOperation(
 		case EasyNodeResourceType.personalAccounts:
 			updateOptName = 'update_options_personal_accounts';
 			break;
+		case EasyNodeResourceType.users:
+			updateOptName = 'users';
+			break;
 		default:
 			throw new Error(`Update options for resource ${resource} was not implemented`);
 	}
