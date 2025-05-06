@@ -1,16 +1,23 @@
 import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
-import { AccountUpdateOptions, OpportunityUpdateOptions, UserUpdateOptions } from './UpdateModel';
+import {
+	AccountUpdateOptions,
+	IssueUpdateOptions,
+	LeadUpdateOptions,
+	OpportunityUpdateOptions,
+	UserUpdateOptions,
+} from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 function createUpdateBodyForIssue(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { subject, description } = this.getNodeParameter('update_options_issue', itemIndex, {}) as {
-		subject: string | undefined;
-		description: string | undefined;
-	};
+	const { subject, description } = this.getNodeParameter(
+		'update_options_issue',
+		itemIndex,
+		{},
+	) as IssueUpdateOptions;
 
 	return {
 		issue: {
@@ -24,9 +31,11 @@ function createUpdateBodyForLead(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { description } = this.getNodeParameter('update_options_lead', itemIndex, {}) as {
-		description: string | undefined;
-	};
+	const { description } = this.getNodeParameter(
+		'update_options_lead',
+		itemIndex,
+		{},
+	) as LeadUpdateOptions;
 
 	return {
 		easy_lead: {
