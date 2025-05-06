@@ -1,19 +1,28 @@
+export interface CustomField {
+	id: number;
+	value: string;
+}
+
 export interface IssueUpdateOptions {
 	subject: string | undefined;
 	description: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
 }
 
 export interface LeadUpdateOptions {
 	description: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
 }
 
 export interface OpportunityUpdateOptions {
 	name: string | undefined;
 	description: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
 }
 
 export interface AccountUpdateOptions {
 	firstname: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
 }
 
 export interface UserUpdateOptions {
@@ -22,4 +31,12 @@ export interface UserUpdateOptions {
 	lastname: string | undefined;
 	mail: string | undefined;
 	phone: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
 }
+
+export type OptionsWithCustomFields =
+	| AccountUpdateOptions
+	| IssueUpdateOptions
+	| LeadUpdateOptions
+	| OpportunityUpdateOptions
+	| UserUpdateOptions;

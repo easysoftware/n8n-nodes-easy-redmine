@@ -2,27 +2,40 @@ import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import {
 	AccountUpdateOptions,
+	CustomField,
 	IssueUpdateOptions,
 	LeadUpdateOptions,
 	OpportunityUpdateOptions,
+	OptionsWithCustomFields,
 	UserUpdateOptions,
 } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
+
+function convertCustomFields(options: OptionsWithCustomFields): CustomField[] | undefined {
+	return options.customFields?.field.map((customField) => ({
+		id: customField.id,
+		value: customField.value,
+	}));
+}
 
 function createUpdateBodyForIssue(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { subject, description } = this.getNodeParameter(
+	const options = this.getNodeParameter(
 		'update_options_issue',
 		itemIndex,
 		{},
 	) as IssueUpdateOptions;
 
+	this.logger.info(`Update issue with subject: ${JSON.stringify(options)}`);
+
+	const customFields = convertCustomFields(options);
 	return {
 		issue: {
-			subject,
-			description,
+			subject: options.subject,
+			description: options.description,
+			custom_fields: customFields,
 		},
 	};
 }
@@ -31,15 +44,16 @@ function createUpdateBodyForLead(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { description } = this.getNodeParameter(
-		'update_options_lead',
-		itemIndex,
-		{},
-	) as LeadUpdateOptions;
+	const options = this.getNodeParameter('update_options_lead', itemIndex, {}) as LeadUpdateOptions;
+
+	this.logger.info(`Update lead with subject: ${JSON.stringify(options)}`);
+
+	const customFields = convertCustomFields(options);
 
 	return {
 		easy_lead: {
-			description,
+			description: options.description,
+			custom_fields: customFields,
 		},
 	};
 }
@@ -48,16 +62,19 @@ function createUpdateBodyForOpportunity(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { name, description } = this.getNodeParameter(
+	const options = this.getNodeParameter(
 		'update_options_opportunity',
 		itemIndex,
 		{},
 	) as OpportunityUpdateOptions;
 
+	const customFields = convertCustomFields(options);
+
 	return {
 		easy_crm_case: {
-			name,
-			description,
+			name: options.name,
+			description: options.description,
+			custom_fields: customFields,
 		},
 	};
 }
@@ -66,15 +83,18 @@ function createUpdateBodyForAccount(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { firstname } = this.getNodeParameter(
+	const options = this.getNodeParameter(
 		'update_options_accounts',
 		itemIndex,
 		{},
 	) as AccountUpdateOptions;
 
+	const customFields = convertCustomFields(options);
+
 	return {
 		easy_contact: {
-			firstname,
+			firstname: options.firstname,
+			custom_fields: customFields,
 		},
 	};
 }
@@ -93,13 +113,19 @@ function createUpdateBodyForUser(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	const { login, firstname, lastname, mail, phone } = this.getNodeParameter(
-		'update_options_user',
-		itemIndex,
-		{},
-	) as UserUpdateOptions;
+	const options = this.getNodeParameter('update_options_user', itemIndex, {}) as UserUpdateOptions;
+
+	const customFields = convertCustomFields(options);
+
 	return {
-		user: { login, firstname, lastname, mail, phone },
+		user: {
+			login: options.login,
+			firstname: options.firstname,
+			lastname: options.lastname,
+			mail: options.mail,
+			phone: options.phone,
+			custom_fields: customFields,
+		},
 	};
 }
 

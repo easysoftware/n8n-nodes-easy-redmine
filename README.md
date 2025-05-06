@@ -47,16 +47,38 @@ Currently available operations and resources are:
 
 A list of all available entities in Easy Redmine node.
 
+- Accounts
 - Issues
 - Leads
 - Opportunities
+- Personal contacts
+- Users
 
-### Easy Redmine Operations
+### Accounts
 
-Summary of Easy Redmine operations.
+Account entity is used to manage company contacts. It has identifier `easy_contacts`
+
+**Operations**
 
 - **Get one** - returns a detailed view of a single entity. The entitiy is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the entity.
 - **Update** - updates some fields of the entity.
+  - Name (known as firstname in entity schema)
+  - Custom fields
+
+## Leads
+
+Issues are mostly Redmine issues. The identifier is `issue`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single entity. The entitiy is specified by its ID.
+- **Get many** - returns a list of entities. You should use easy query id to specify the filter.
+- **Add comment** - adds a comment to the entity.
+- **Update** - updates some fields of the entity.
+  - Subject
+  - Description
+  - Custom fields
+
 

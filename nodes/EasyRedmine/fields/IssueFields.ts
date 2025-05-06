@@ -1,5 +1,6 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
+import { CustomFieldsOption } from './CustomFields';
 
 export const IssueFields: INodeProperties[] = [
 	{
@@ -67,6 +68,7 @@ export const IssueFields: INodeProperties[] = [
 				default: '',
 				description: 'Issue description',
 			},
+			CustomFieldsOption,
 		],
 	},
 ];

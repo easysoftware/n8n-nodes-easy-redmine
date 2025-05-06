@@ -1,5 +1,6 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
+import { CustomFieldsOption } from './CustomFields';
 
 export const AccountFields: INodeProperties[] = [
 	{
@@ -58,7 +59,8 @@ export const AccountFields: INodeProperties[] = [
 				noDataExpression: true,
 				default: '',
 				description: 'Account name',
-			}
+			},
+			CustomFieldsOption,
 		],
 	},
 ];

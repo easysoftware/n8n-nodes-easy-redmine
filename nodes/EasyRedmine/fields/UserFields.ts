@@ -1,5 +1,6 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
+import { CustomFieldsOption } from './CustomFields';
 
 export const UserFields: INodeProperties[] = [
 	{
@@ -120,6 +121,8 @@ export const UserFields: INodeProperties[] = [
 				default: '',
 				description: 'Phone number',
 			},
+
+			CustomFieldsOption,
 		],
 	},
 ];

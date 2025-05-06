@@ -1,5 +1,6 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
+import { CustomFieldsOption } from './CustomFields';
 
 export const OpportunityFields: INodeProperties[] = [
 	{
@@ -14,7 +15,7 @@ export const OpportunityFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['opportunities'],
+				resource: [EasyNodeResourceType.opportunities],
 			},
 		},
 		default: '',
@@ -67,6 +68,7 @@ export const OpportunityFields: INodeProperties[] = [
 				default: '',
 				description: 'Opportunity description',
 			},
+			CustomFieldsOption,
 		],
 	},
 ];

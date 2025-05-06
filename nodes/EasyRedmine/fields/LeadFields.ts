@@ -1,5 +1,6 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
+import { CustomFieldsOption } from './CustomFields';
 
 export const LeadFields: INodeProperties[] = [
 	{
@@ -14,7 +15,7 @@ export const LeadFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['leads'],
+				resource: [EasyNodeResourceType.leads],
 			},
 		},
 		default: '',
@@ -59,6 +60,7 @@ export const LeadFields: INodeProperties[] = [
 				default: '',
 				description: 'Lead description',
 			},
+			CustomFieldsOption
 		],
 	},
 ];
