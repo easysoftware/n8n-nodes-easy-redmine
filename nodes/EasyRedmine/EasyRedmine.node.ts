@@ -3,23 +3,24 @@ import {
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
 	INodeExecutionData,
+	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
 } from 'n8n-workflow';
-import { INodePropertyOptions } from 'n8n-workflow';
-import { getEasyQueries } from './helpers/GetEasyQueries';
+import { getEasyQueries } from './operations/GetEasyQueries';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
-import { processGetManyOperation } from './helpers/ProcessGetMany';
-import { processGetOneOperation } from './helpers/ProcessGetOne';
-import { processAddCommentOperation } from './helpers/ProcessAddCommentOperation';
-import { processUpdateOperation } from './helpers/ProcessUpdateOperation';
+import { processGetManyOperation } from './operations/ProcessGetMany';
+import { processGetOneOperation } from './operations/ProcessGetOne';
+import { processAddCommentOperation } from './operations/ProcessAddCommentOperation';
+import { processUpdateOperation } from './operations/ProcessUpdateOperation';
 import { IssueFields } from './fields/IssueFields';
 import { LeadFields } from './fields/LeadFields';
 import { OpportunityFields } from './fields/OpportunityFields';
 import { AccountFields } from './fields/AccountFields';
 import { PersonalAccountFields } from './fields/PersonalAccountFields';
 import { UserFields } from './fields/UserFields';
+import { processCreateOperation } from './operations/ProcessCreateOperation';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -82,7 +83,7 @@ export class EasyRedmine implements INodeType {
 						value: EasyNodeResourceType.accounts,
 					},
 					{
-						name: 'Personal Account',
+						name: 'Personal Contact',
 						value: EasyNodeResourceType.personalAccounts,
 					},
 					{
@@ -128,6 +129,12 @@ export class EasyRedmine implements INodeType {
 						action: 'Add comment',
 					},
 					{
+						name: 'Create',
+						description: 'Create entity',
+						value: EasyNodeOperationType.create,
+						action: 'Create',
+					},
+					{
 						name: 'Update',
 						description: 'Update entity',
 						value: EasyNodeOperationType.update,
@@ -147,7 +154,6 @@ export class EasyRedmine implements INodeType {
 				displayName: 'Comment',
 				name: 'comment',
 				type: 'string',
-				noDataExpression: false,
 				displayOptions: {
 					show: {
 						operation: [EasyNodeOperationType.addComment],
@@ -222,6 +228,9 @@ export class EasyRedmine implements INodeType {
 						break;
 					case EasyNodeOperationType.update:
 						responseData = await processUpdateOperation.call(this, resource, itemIndex);
+						break;
+					case EasyNodeOperationType.create:
+						responseData = await processCreateOperation.call(this, resource, itemIndex);
 						break;
 				}
 

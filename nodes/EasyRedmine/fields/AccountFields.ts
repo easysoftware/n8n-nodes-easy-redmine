@@ -7,7 +7,6 @@ export const AccountFields: INodeProperties[] = [
 		displayName: 'Account ID',
 		name: 'id',
 		type: 'number',
-		noDataExpression: false,
 		displayOptions: {
 			show: {
 				operation: [
@@ -56,7 +55,6 @@ export const AccountFields: INodeProperties[] = [
 				displayName: 'Name',
 				name: 'firstname',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 				description: 'Account name',
 			},

@@ -7,7 +7,6 @@ export const OpportunityFields: INodeProperties[] = [
 		displayName: 'Opportunity ID',
 		name: 'id',
 		type: 'number',
-		noDataExpression: false,
 		displayOptions: {
 			show: {
 				operation: [
@@ -56,7 +55,6 @@ export const OpportunityFields: INodeProperties[] = [
 				displayName: 'Name',
 				name: 'name',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 				description: 'Opportunity name',
 			},
@@ -64,7 +62,6 @@ export const OpportunityFields: INodeProperties[] = [
 				displayName: 'Description',
 				name: 'description',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 				description: 'Opportunity description',
 			},

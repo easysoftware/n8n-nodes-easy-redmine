@@ -2,6 +2,7 @@ export enum EasyNodeOperationType {
 	getMany = 'get-many',
 	getOne = 'get-one',
 	addComment = 'add-comment',
+	create = 'create',
 	update = 'update',
 }
 

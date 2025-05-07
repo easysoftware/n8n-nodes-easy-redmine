@@ -36,10 +36,9 @@ export const PersonalAccountFields: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Personal Account ID',
+		displayName: 'Personal Contact ID',
 		name: 'id',
 		type: 'number',
-		noDataExpression: false,
 		displayOptions: {
 			show: {
 				operation: [
@@ -54,7 +53,7 @@ export const PersonalAccountFields: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'EasyRedmine Personal Accounts Query Name or ID',
+		displayName: 'EasyRedmine Personal Contacts Query Name or ID',
 		name: 'personal_account_query_id',
 		type: 'options',
 		description:

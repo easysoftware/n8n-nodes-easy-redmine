@@ -53,6 +53,7 @@ function createUpdateBodyForLead(
 	return {
 		easy_lead: {
 			description: options.description,
+			company_name: options.companyName,
 			custom_fields: customFields,
 		},
 	};

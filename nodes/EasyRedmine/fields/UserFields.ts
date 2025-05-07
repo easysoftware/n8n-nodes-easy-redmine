@@ -40,7 +40,6 @@ export const UserFields: INodeProperties[] = [
 		displayName: 'User ID',
 		name: 'id',
 		type: 'number',
-		noDataExpression: false,
 		displayOptions: {
 			show: {
 				operation: [EasyNodeOperationType.getOne, EasyNodeOperationType.update],
@@ -85,7 +84,6 @@ export const UserFields: INodeProperties[] = [
 				displayName: 'Login',
 				name: 'login',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 				description: 'User login',
 			},
@@ -93,7 +91,6 @@ export const UserFields: INodeProperties[] = [
 				displayName: 'First Name',
 				name: 'firstname',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 			},
 
@@ -101,7 +98,6 @@ export const UserFields: INodeProperties[] = [
 				displayName: 'Last Name',
 				name: 'lastname',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 			},
 
@@ -109,7 +105,6 @@ export const UserFields: INodeProperties[] = [
 				displayName: 'Email',
 				name: 'mail',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 				description: 'Email address',
 			},
@@ -117,7 +112,6 @@ export const UserFields: INodeProperties[] = [
 				displayName: 'Phone',
 				name: 'phone',
 				type: 'string',
-				noDataExpression: true,
 				default: '',
 				description: 'Phone number',
 			},

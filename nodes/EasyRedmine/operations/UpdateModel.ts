@@ -11,6 +11,7 @@ export interface IssueUpdateOptions {
 
 export interface LeadUpdateOptions {
 	description: string | undefined;
+	companyName: string | undefined;
 	customFields: { field: CustomField[] } | undefined;
 }
 

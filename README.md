@@ -67,7 +67,7 @@ Account entity is used to manage company contacts. It has identifier `easy_conta
   - Name (known as firstname in entity schema)
   - Custom fields
 
-## Leads
+## Issues
 
 Issues are mostly Redmine issues. The identifier is `issue`.
 
@@ -76,8 +76,46 @@ Issues are mostly Redmine issues. The identifier is `issue`.
 - **Get one** - returns a detailed view of a single entity. The entitiy is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the entity.
+- **Create** - creates a new issue.
+  - Subject (required)
+  - Project ID (required)
+  - Description
+  - Tracker ID
+  - Status ID
+  - Custom fields
 - **Update** - updates some fields of the entity.
   - Subject
+  - Description
+  - Tracker ID
+  - Status ID
+  - Custom fields
+
+## Leads
+
+Leads are CRM entities that refer to potential custom.
+The identifier is `easy_lead`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single lead. The entitiy is specified by its ID.
+- **Get many** - returns a list of leads. You should use easy query id to specify the filter.
+- **Add comment** - adds a comment to the lead.
+- **Update** - updates some fields of the leads.
+  - Subject
+  - Description
+  - Custom fields
+
+## Opportunities
+
+Opportunities are CRM entities that represent a potential sale. The entity name is `easy_crm_case`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single opportunity. The entitiy is specified by its ID.
+- **Get many** - returns a list of entities. You should use easy query id to specify the filter.
+- **Add comment** - adds a comment to the opportunity.
+- **Update** - updates some fields of the opportunity.
+  - Name
   - Description
   - Custom fields
 

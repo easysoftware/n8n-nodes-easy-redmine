@@ -2,12 +2,28 @@ import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
 
+const CommonLeadOptions: INodeProperties[] = [
+	{
+		displayName: 'Company Name',
+		name: 'companyName',
+		type: 'string',
+		default: '',
+		description: 'Lead company name',
+	},
+	{
+		displayName: 'Description',
+		name: 'description',
+		type: 'string',
+		default: '',
+		description: 'Lead description',
+	},
+];
+
 export const LeadFields: INodeProperties[] = [
 	{
 		displayName: 'Lead ID',
 		name: 'id',
 		type: 'number',
-		noDataExpression: false,
 		displayOptions: {
 			show: {
 				operation: [
@@ -40,6 +56,21 @@ export const LeadFields: INodeProperties[] = [
 	},
 
 	{
+		displayName: 'Create Options',
+		name: 'create_options_lead',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.leads],
+			},
+		},
+		options: [...CommonLeadOptions, CustomFieldsOption],
+	},
+
+	{
 		displayName: 'Update Fields',
 		name: 'update_options_lead',
 		type: 'collection',
@@ -51,16 +82,6 @@ export const LeadFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.leads],
 			},
 		},
-		options: [
-			{
-				displayName: 'Description',
-				name: 'description',
-				type: 'string',
-				noDataExpression: true,
-				default: '',
-				description: 'Lead description',
-			},
-			CustomFieldsOption
-		],
+		options: [...CommonLeadOptions, CustomFieldsOption],
 	},
 ];
