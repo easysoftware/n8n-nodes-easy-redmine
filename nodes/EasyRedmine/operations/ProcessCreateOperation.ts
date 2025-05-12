@@ -16,7 +16,14 @@ interface LeadCreateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
-export type OptionsWithCustomFields = IssueCreateOptions | LeadCreateOptions;
+interface OpportunityCreateOptions {
+	customFields: { field: CustomField[] } | undefined;
+}
+
+export type OptionsWithCustomFields =
+	| IssueCreateOptions
+	| LeadCreateOptions
+	| OpportunityCreateOptions;
 
 function convertCustomFields(options: OptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -62,13 +69,41 @@ function createCreateBodyForLead(
 
 	const customFields = convertCustomFields(options);
 	return {
-		issue: {
-			// subject,
-			// project_id: projectId,
-			// tracker_id: options.trackerId,
-			// status_id: options.statusId,
+		easy_lead: {
 			company_name: options.companyName,
 			description: options.description,
+			custom_fields: customFields,
+		},
+	};
+}
+
+function creteCreateBodyForOpportunity(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'create_options_opportunity',
+		itemIndex,
+		{},
+	) as OpportunityCreateOptions;
+
+	const projectId = this.getNodeParameter('projectId', itemIndex) as string;
+	const name = this.getNodeParameter('name', itemIndex) as string;
+	const accountId = this.getNodeParameter('accountId', itemIndex) as string;
+
+	this.logger.info(`Create opportunity with subject: ${JSON.stringify(options)}`);
+
+	const customFields = convertCustomFields(options);
+	return {
+		easy_crm_case: {
+			// subject,
+			project_id: projectId,
+			name,
+			account_id: accountId,
+			// tracker_id: options.trackerId,
+			// status_id: options.statusId,
+			// company_name: options.companyName,
+			// description: options.description,
 			custom_fields: customFields,
 		},
 	};
@@ -89,6 +124,9 @@ export async function processCreateOperation(
 			break;
 		case EasyNodeResourceType.leads:
 			body = createCreateBodyForLead.call(this, itemIndex);
+			break;
+		case EasyNodeResourceType.opportunities:
+			body = creteCreateBodyForOpportunity.call(this, itemIndex);
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
