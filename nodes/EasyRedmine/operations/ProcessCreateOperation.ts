@@ -20,10 +20,16 @@ interface OpportunityCreateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+interface UserCreateOptions {
+	phone: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
+}
+
 export type OptionsWithCustomFields =
 	| IssueCreateOptions
 	| LeadCreateOptions
-	| OpportunityCreateOptions;
+	| OpportunityCreateOptions
+	| UserCreateOptions;
 
 function convertCustomFields(options: OptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -100,10 +106,36 @@ function creteCreateBodyForOpportunity(
 			project_id: projectId,
 			name,
 			account_id: accountId,
-			// tracker_id: options.trackerId,
-			// status_id: options.statusId,
-			// company_name: options.companyName,
-			// description: options.description,
+			custom_fields: customFields,
+		},
+	};
+}
+
+function createCreateBodyForUser(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'create_options_user',
+		itemIndex,
+		{},
+	) as UserCreateOptions;
+
+	const login = this.getNodeParameter('login', itemIndex) as string;
+	const firstname = this.getNodeParameter('firstname', itemIndex) as string;
+	const lastname = this.getNodeParameter('lastname', itemIndex) as string;
+	const email = this.getNodeParameter('email', itemIndex) as string;
+
+	this.logger.info(`Create user with : ${JSON.stringify(options)}`);
+
+	const customFields = convertCustomFields(options);
+	return {
+		user: {
+			login,
+			firstname: firstname,
+			lastname: lastname,
+			mail: email,
+			phone: options.phone,
 			custom_fields: customFields,
 		},
 	};
@@ -127,6 +159,9 @@ export async function processCreateOperation(
 			break;
 		case EasyNodeResourceType.opportunities:
 			body = creteCreateBodyForOpportunity.call(this, itemIndex);
+			break;
+		case EasyNodeResourceType.users:
+			body = createCreateBodyForUser.call(this, itemIndex);
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);

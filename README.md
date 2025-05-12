@@ -114,9 +114,50 @@ Opportunities are CRM entities that represent a potential sale. The entity name 
 - **Get one** - returns a detailed view of a single opportunity. The entitiy is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the opportunity.
+- **Create** - creates a new opportunity.
+  - Name (required)
+  - Project ID (required)
+  - Account ID (required)
+  - Custom fields
 - **Update** - updates some fields of the opportunity.
   - Name
   - Description
   - Custom fields
 
+## Personal contacts
 
+Personal contacts are CRM entities that represent a person. The entity name is `easy_personal_contacts`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single personal contact. The entitiy is specified by its ID.
+- **Get many** - returns a list of entities. You should use easy query id to specify the filter.
+- **Update** - updates some fields of the personal contact.
+  - Name
+  - Description
+  - Custom fields
+
+
+## Users
+
+Users are Easy Redmine users. The entity name is `user`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single user. The entitiy is specified by its ID.
+- **Get many** - returns a list of entities. You should use easy query id to specify the filter.
+- **Create** - creates a new user
+  - Login (required)
+  - First name (required)
+  - Last name (required)
+  - Email (required)
+  - Phone
+  - Custom fields
+- **Update** - updates some fields of the user.
+  - ID (required)
+  - Login
+  - First name
+  - Last name
+  - Email
+  - Phone
+  - Custom Fields
