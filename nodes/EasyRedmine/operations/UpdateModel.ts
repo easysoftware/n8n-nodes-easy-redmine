@@ -26,6 +26,16 @@ export interface AccountUpdateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+export interface PersonalContactUpdateOptions {
+	partnerId: number | undefined;
+	accountId: number | undefined;
+	firstname: string | undefined;
+	lastname: string | undefined;
+	email: string | undefined;
+	jobTitle: string | undefined;
+	customFields: { field: CustomField[] } | undefined;
+}
+
 export interface UserUpdateOptions {
 	login: string | undefined;
 	firstname: string | undefined;
@@ -35,9 +45,10 @@ export interface UserUpdateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
-export type OptionsWithCustomFields =
+export type UpdateOptionsWithCustomFields =
 	| AccountUpdateOptions
 	| IssueUpdateOptions
 	| LeadUpdateOptions
 	| OpportunityUpdateOptions
+	| PersonalContactUpdateOptions
 	| UserUpdateOptions;

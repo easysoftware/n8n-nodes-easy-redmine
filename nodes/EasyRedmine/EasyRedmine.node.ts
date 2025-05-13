@@ -13,14 +13,14 @@ import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
 import { processGetManyOperation } from './operations/ProcessGetMany';
 import { processGetOneOperation } from './operations/ProcessGetOne';
 import { processAddCommentOperation } from './operations/ProcessAddCommentOperation';
-import { processUpdateOperation } from './operations/ProcessUpdateOperation';
+import { updateOperation } from './operations/UpdateOperation';
 import { IssueFields } from './fields/IssueFields';
 import { LeadFields } from './fields/LeadFields';
 import { OpportunityFields } from './fields/OpportunityFields';
 import { AccountFields } from './fields/AccountFields';
-import { PersonalAccountFields } from './fields/PersonalAccountFields';
+import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
-import { processCreateOperation } from './operations/ProcessCreateOperation';
+import { createOperation } from './operations/CreateOperation';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -84,7 +84,7 @@ export class EasyRedmine implements INodeType {
 					},
 					{
 						name: 'Personal Contact',
-						value: EasyNodeResourceType.personalAccounts,
+						value: EasyNodeResourceType.personalContacts,
 					},
 					{
 						name: 'User',
@@ -147,7 +147,7 @@ export class EasyRedmine implements INodeType {
 			...LeadFields,
 			...OpportunityFields,
 			...AccountFields,
-			...PersonalAccountFields,
+			...PersonalContactFields,
 			...UserFields,
 
 			{
@@ -227,10 +227,10 @@ export class EasyRedmine implements INodeType {
 						responseData = await processAddCommentOperation.call(this, resource, itemIndex);
 						break;
 					case EasyNodeOperationType.update:
-						responseData = await processUpdateOperation.call(this, resource, itemIndex);
+						responseData = await updateOperation.call(this, resource, itemIndex);
 						break;
 					case EasyNodeOperationType.create:
-						responseData = await processCreateOperation.call(this, resource, itemIndex);
+						responseData = await createOperation.call(this, resource, itemIndex);
 						break;
 				}
 

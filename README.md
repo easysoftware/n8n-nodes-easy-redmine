@@ -12,7 +12,8 @@ To use our community node, you need to have the following requirements:
 
 ### 🛠️ Installation in n8n
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) to install the Easy Redmine node in n8n.
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) to install the Easy
+Redmine node in n8n.
 
 ### 🔑 Setup credentials
 
@@ -26,7 +27,6 @@ The domain should be, for example, `https://instance.easyproject.com`.
 To find the API key, go to your Easy Redmine instance, click on your profile in the top right corner.
 
 ![Go to profile](images/cred-guide-1.png)
-
 
 Your profile window will open. Click on the "Edit" button.
 
@@ -133,10 +133,13 @@ Personal contacts are CRM entities that represent a person. The entity name is `
 - **Get one** - returns a detailed view of a single personal contact. The entitiy is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Update** - updates some fields of the personal contact.
-  - Name
-  - Description
+  - Account ID (required or partner ID)
+  - Partner ID (required or account ID)
+  - First name
+  - Last name
+  - Email
+  - Job title
   - Custom fields
-
 
 ## Users
 

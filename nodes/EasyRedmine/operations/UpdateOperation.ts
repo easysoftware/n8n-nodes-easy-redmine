@@ -6,22 +6,19 @@ import {
 	IssueUpdateOptions,
 	LeadUpdateOptions,
 	OpportunityUpdateOptions,
-	OptionsWithCustomFields,
+	UpdateOptionsWithCustomFields, PersonalContactUpdateOptions,
 	UserUpdateOptions,
 } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 
-function convertCustomFields(options: OptionsWithCustomFields): CustomField[] | undefined {
+function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
 		id: customField.id,
 		value: customField.value,
 	}));
 }
 
-function createUpdateBodyForIssue(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
+function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
 		'update_options_issue',
 		itemIndex,
@@ -40,10 +37,7 @@ function createUpdateBodyForIssue(
 	};
 }
 
-function createUpdateBodyForLead(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
+function updateBodyForLead(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('update_options_lead', itemIndex, {}) as LeadUpdateOptions;
 
 	this.logger.info(`Update lead with subject: ${JSON.stringify(options)}`);
@@ -59,7 +53,7 @@ function createUpdateBodyForLead(
 	};
 }
 
-function createUpdateBodyForOpportunity(
+function updateBodyForOpportunity(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
@@ -80,10 +74,7 @@ function createUpdateBodyForOpportunity(
 	};
 }
 
-function createUpdateBodyForAccount(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
+function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
 		'update_options_accounts',
 		itemIndex,
@@ -100,20 +91,32 @@ function createUpdateBodyForAccount(
 	};
 }
 
-function createUpdateBodyForPersonalAccount(
+function updateBodyForPersonalContact(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
-	// update_options_personal_account
+	const options = this.getNodeParameter(
+		'personalContactUpdateOptions',
+		itemIndex,
+		{},
+	) as PersonalContactUpdateOptions;
+
+	const customFields = convertCustomFields(options);
+
 	return {
-		easy_personal_contact: {},
+		easy_personal_contact: {
+			account_id: options.accountId,
+			easy_partner_id: options.partnerId,
+			firstname: options.firstname,
+			lastname: options.lastname,
+			email: options.email,
+			job_title: options.jobTitle,
+			custom_fields: customFields,
+		},
 	};
 }
 
-function createUpdateBodyForUser(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
+function updateBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('update_options_user', itemIndex, {}) as UserUpdateOptions;
 
 	const customFields = convertCustomFields(options);
@@ -130,7 +133,7 @@ function createUpdateBodyForUser(
 	};
 }
 
-export async function processUpdateOperation(
+export async function updateOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
 	itemIndex: number,
@@ -141,22 +144,22 @@ export async function processUpdateOperation(
 	let body: { [key: string]: any };
 	switch (resource) {
 		case EasyNodeResourceType.issues:
-			body = createUpdateBodyForIssue.call(this, itemIndex);
+			body = updateBodyForIssue.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.leads:
-			body = createUpdateBodyForLead.call(this, itemIndex);
+			body = updateBodyForLead.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.opportunities:
-			body = createUpdateBodyForOpportunity.call(this, itemIndex);
+			body = updateBodyForOpportunity.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.accounts:
-			body = createUpdateBodyForAccount.call(this, itemIndex);
+			body = updateBodyForAccount.call(this, itemIndex);
 			break;
-		case EasyNodeResourceType.personalAccounts:
-			body = createUpdateBodyForPersonalAccount.call(this, itemIndex);
+		case EasyNodeResourceType.personalContacts:
+			body = updateBodyForPersonalContact.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:
-			body = createUpdateBodyForUser.call(this, itemIndex);
+			body = updateBodyForUser.call(this, itemIndex);
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);

@@ -1,7 +1,47 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
+import { CustomFieldsOption } from './CustomFields';
 
-export const PersonalAccountFields: INodeProperties[] = [
+export const PersonalContactOptionalFields: INodeProperties[] = [
+	{
+		displayName: 'Account ID',
+		name: 'accountId',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'Partner ID',
+		name: 'partnerId',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'First Name',
+		name: 'firstname',
+		type: 'string',
+		default: '',
+	},
+	{
+		displayName: 'Last Name',
+		name: 'lastname',
+		type: 'string',
+		default: '',
+	},
+	{
+		displayName: 'Email',
+		name: 'mail',
+		type: 'string',
+		default: '',
+	},
+	{
+		displayName: 'Job Title',
+		name: 'jobTitle',
+		type: 'string',
+		default: '',
+	},
+];
+
+export const PersonalContactFields: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
@@ -9,7 +49,7 @@ export const PersonalAccountFields: INodeProperties[] = [
 		noDataExpression: true,
 		displayOptions: {
 			show: {
-				resource: [EasyNodeResourceType.personalAccounts],
+				resource: [EasyNodeResourceType.personalContacts],
 			},
 		},
 		default: 'get-many',
@@ -25,6 +65,12 @@ export const PersonalAccountFields: INodeProperties[] = [
 				description: 'Get multiple entities',
 				value: EasyNodeOperationType.getMany,
 				action: 'Get many',
+			},
+			{
+				name: 'Create',
+				description: 'Create personal contact',
+				value: EasyNodeOperationType.create,
+				action: 'Create',
 			},
 			{
 				name: 'Update',
@@ -46,7 +92,7 @@ export const PersonalAccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: [EasyNodeResourceType.personalAccounts],
+				resource: [EasyNodeResourceType.personalContacts],
 			},
 		},
 		default: '',
@@ -54,13 +100,13 @@ export const PersonalAccountFields: INodeProperties[] = [
 
 	{
 		displayName: 'EasyRedmine Personal Contacts Query Name or ID',
-		name: 'personal_account_query_id',
+		name: 'personalContactQueryId',
 		type: 'options',
 		description:
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
-				resource: [EasyNodeResourceType.personalAccounts],
+				resource: [EasyNodeResourceType.personalContacts],
 				operation: [EasyNodeOperationType.getMany],
 			},
 		},
@@ -68,5 +114,20 @@ export const PersonalAccountFields: INodeProperties[] = [
 			loadOptionsMethod: 'getEasyPersonalAccountsQueries',
 		},
 		default: '',
+	},
+
+	{
+		displayName: 'Update Fields',
+		name: 'personalContactUpdateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.personalContacts],
+			},
+		},
+		options: [...PersonalContactOptionalFields, CustomFieldsOption],
 	},
 ];

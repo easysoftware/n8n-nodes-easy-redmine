@@ -2,36 +2,15 @@ import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
+import {
+	CreateOptionsWithCustomFields,
+	IssueCreateOptions,
+	LeadCreateOptions,
+	OpportunityCreateOptions, PersonalContactCreateOptions, UserCreateOptions,
+} from './CreateModel';
 
-interface IssueCreateOptions {
-	statusId: number | undefined;
-	trackerId: number | undefined;
-	description: string | undefined;
-	customFields: { field: CustomField[] } | undefined;
-}
 
-interface LeadCreateOptions {
-	description: string | undefined;
-	companyName: string | undefined;
-	customFields: { field: CustomField[] } | undefined;
-}
-
-interface OpportunityCreateOptions {
-	customFields: { field: CustomField[] } | undefined;
-}
-
-interface UserCreateOptions {
-	phone: string | undefined;
-	customFields: { field: CustomField[] } | undefined;
-}
-
-export type OptionsWithCustomFields =
-	| IssueCreateOptions
-	| LeadCreateOptions
-	| OpportunityCreateOptions
-	| UserCreateOptions;
-
-function convertCustomFields(options: OptionsWithCustomFields): CustomField[] | undefined {
+function convertCustomFields(options: CreateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
 		id: customField.id,
 		value: customField.value,
@@ -111,6 +90,26 @@ function creteCreateBodyForOpportunity(
 	};
 }
 
+function createBodyForPersonalContact(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'personalContactCreateOptions',
+		itemIndex,
+		{},
+	) as PersonalContactCreateOptions;
+
+	this.logger.info(`Create personal contact with : ${JSON.stringify(options)}`);
+
+	const customFields = convertCustomFields(options);
+	return {
+		easy_personal_contact: {
+			custom_fields: customFields,
+		},
+	};
+}
+
 function createCreateBodyForUser(
 	this: IExecuteFunctions,
 	itemIndex: number,
@@ -141,7 +140,7 @@ function createCreateBodyForUser(
 	};
 }
 
-export async function processCreateOperation(
+export async function createOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
 	itemIndex: number,
@@ -159,6 +158,9 @@ export async function processCreateOperation(
 			break;
 		case EasyNodeResourceType.opportunities:
 			body = creteCreateBodyForOpportunity.call(this, itemIndex);
+			break;
+		case EasyNodeResourceType.personalContacts:
+			body = createBodyForPersonalContact.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:
 			body = createCreateBodyForUser.call(this, itemIndex);
