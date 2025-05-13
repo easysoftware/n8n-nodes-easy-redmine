@@ -132,9 +132,17 @@ Personal contacts are CRM entities that represent a person. The entity name is `
 
 - **Get one** - returns a detailed view of a single personal contact. The entitiy is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
-- **Update** - updates some fields of the personal contact.
+- **Create** - creates a new personal contact.
   - Account ID (required or partner ID)
   - Partner ID (required or account ID)
+  - First name (required)
+  - Last name (required)
+  - Email (required)
+  - Job title
+  - Custom fields
+- **Update** - updates some fields of the personal contact.
+  - Account ID
+  - Partner ID
   - First name
   - Last name
   - Email
