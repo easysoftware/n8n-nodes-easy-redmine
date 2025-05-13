@@ -1,7 +1,7 @@
 import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 
-export async function processAddCommentOperation(
+export async function addCommentOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
 	itemIndex: number,
@@ -32,6 +32,9 @@ export async function processAddCommentOperation(
 			break;
 		case EasyNodeResourceType.accounts:
 			body['easy_contact'] = entity;
+			break;
+		case EasyNodeResourceType.personalContacts:
+			body['easy_personal_contact'] = entity;
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);

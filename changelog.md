@@ -1,6 +1,8 @@
 # 0.2.3 (unreleased)
 
-
+- Personal contact
+  - Implemented `create` and `add comment` operations
+  - Fixes `Update` operation
 
 # 0.2.2 (7.5.2025)
 

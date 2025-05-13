@@ -88,6 +88,12 @@ export const PersonalContactFields: INodeProperties[] = [
 				action: 'Get many',
 			},
 			{
+				name: 'Add Comment',
+				description: 'Add comment to personal contact',
+				value: EasyNodeOperationType.addComment,
+				action: 'Add comment',
+			},
+			{
 				name: 'Create',
 				description: 'Create personal contact',
 				value: EasyNodeOperationType.create,

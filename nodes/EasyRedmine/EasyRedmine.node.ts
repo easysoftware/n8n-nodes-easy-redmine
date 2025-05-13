@@ -12,7 +12,7 @@ import { getEasyQueries } from './operations/GetEasyQueries';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
 import { processGetManyOperation } from './operations/ProcessGetMany';
 import { processGetOneOperation } from './operations/ProcessGetOne';
-import { processAddCommentOperation } from './operations/ProcessAddCommentOperation';
+import { addCommentOperation } from './operations/AddCommentOperation';
 import { updateOperation } from './operations/UpdateOperation';
 import { IssueFields } from './fields/IssueFields';
 import { LeadFields } from './fields/LeadFields';
@@ -224,7 +224,7 @@ export class EasyRedmine implements INodeType {
 						responseData = await processGetOneOperation.call(this, resource, itemIndex);
 						break;
 					case EasyNodeOperationType.addComment:
-						responseData = await processAddCommentOperation.call(this, resource, itemIndex);
+						responseData = await addCommentOperation.call(this, resource, itemIndex);
 						break;
 					case EasyNodeOperationType.update:
 						responseData = await updateOperation.call(this, resource, itemIndex);
