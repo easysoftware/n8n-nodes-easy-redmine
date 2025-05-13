@@ -107,8 +107,8 @@ function updateBodyForPersonalContact(
 		easy_personal_contact: {
 			account_id: options.accountId,
 			easy_partner_id: options.partnerId,
-			firstname: options.firstname,
-			lastname: options.lastname,
+			first_name: options.firstname,
+			last_name: options.lastname,
 			email: options.email,
 			job_title: options.jobTitle,
 			custom_fields: customFields,

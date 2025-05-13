@@ -6,9 +6,10 @@ import {
 	CreateOptionsWithCustomFields,
 	IssueCreateOptions,
 	LeadCreateOptions,
-	OpportunityCreateOptions, PersonalContactCreateOptions, UserCreateOptions,
+	OpportunityCreateOptions,
+	PersonalContactCreateOptions,
+	UserCreateOptions,
 } from './CreateModel';
-
 
 function convertCustomFields(options: CreateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -17,10 +18,7 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 	}));
 }
 
-function createCreateBodyForIssue(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
+function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
 		'create_options_issue',
 		itemIndex,
@@ -44,10 +42,7 @@ function createCreateBodyForIssue(
 	};
 }
 
-function createCreateBodyForLead(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
+function createBodyForLead(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('create_options_lead', itemIndex, {}) as LeadCreateOptions;
 
 	this.logger.info(`Create lead with subject: ${JSON.stringify(options)}`);
@@ -62,7 +57,7 @@ function createCreateBodyForLead(
 	};
 }
 
-function creteCreateBodyForOpportunity(
+function createBodyForOpportunity(
 	this: IExecuteFunctions,
 	itemIndex: number,
 ): { [key: string]: any } {
@@ -100,25 +95,31 @@ function createBodyForPersonalContact(
 		{},
 	) as PersonalContactCreateOptions;
 
+	const firstname = this.getNodeParameter('firstname', itemIndex) as string;
+	const lastname = this.getNodeParameter('lastname', itemIndex) as string;
+	const email = this.getNodeParameter('email', itemIndex) as string;
+
 	this.logger.info(`Create personal contact with : ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
-	return {
+	const x = {
 		easy_personal_contact: {
+			account_id: options.accountId,
+			easy_partner_id: options.partnerId,
+			first_name: firstname,
+			last_name: lastname,
+			email,
+			job_title: options.jobTitle,
 			custom_fields: customFields,
 		},
 	};
+	this.logger.info(`Create personal contact with : ${JSON.stringify(x)}`);
+
+	return x;
 }
 
-function createCreateBodyForUser(
-	this: IExecuteFunctions,
-	itemIndex: number,
-): { [key: string]: any } {
-	const options = this.getNodeParameter(
-		'create_options_user',
-		itemIndex,
-		{},
-	) as UserCreateOptions;
+function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
+	const options = this.getNodeParameter('create_options_user', itemIndex, {}) as UserCreateOptions;
 
 	const login = this.getNodeParameter('login', itemIndex) as string;
 	const firstname = this.getNodeParameter('firstname', itemIndex) as string;
@@ -151,19 +152,19 @@ export async function createOperation(
 	let body: { [key: string]: any };
 	switch (resource) {
 		case EasyNodeResourceType.issues:
-			body = createCreateBodyForIssue.call(this, itemIndex);
+			body = createBodyForIssue.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.leads:
-			body = createCreateBodyForLead.call(this, itemIndex);
+			body = createBodyForLead.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.opportunities:
-			body = creteCreateBodyForOpportunity.call(this, itemIndex);
+			body = createBodyForOpportunity.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.personalContacts:
 			body = createBodyForPersonalContact.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:
-			body = createCreateBodyForUser.call(this, itemIndex);
+			body = createBodyForUser.call(this, itemIndex);
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);
@@ -174,6 +175,10 @@ export async function createOperation(
 		uri: `${domain}/${resource}.json`,
 		body,
 		json: true,
+		headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+		},
 	} satisfies IRequestOptions;
 
 	this.logger.info(`Create ${resource} with ${JSON.stringify(options)}`);

@@ -23,6 +23,9 @@ export interface UserCreateOptions {
 }
 
 export interface PersonalContactCreateOptions {
+	accountId: number | undefined;
+	partnerId: number | undefined;
+	jobTitle: string | undefined;
 	customFields: { field: CustomField[] } | undefined;
 }
 

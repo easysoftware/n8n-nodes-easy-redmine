@@ -2,7 +2,28 @@ import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
 
-export const PersonalContactOptionalFields: INodeProperties[] = [
+const PersonalContactCreateOptionalFields: INodeProperties[] = [
+	{
+		displayName: 'Account ID',
+		name: 'accountId',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'Partner ID',
+		name: 'partnerId',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'Job Title',
+		name: 'jobTitle',
+		type: 'string',
+		default: '',
+	},
+];
+
+const PersonalContactUpdateOptionalFields: INodeProperties[] = [
 	{
 		displayName: 'Account ID',
 		name: 'accountId',
@@ -56,13 +77,13 @@ export const PersonalContactFields: INodeProperties[] = [
 		options: [
 			{
 				name: 'Get One',
-				description: 'Get a single entity',
+				description: 'Get a single personal contact',
 				value: EasyNodeOperationType.getOne,
 				action: 'Get one',
 			},
 			{
 				name: 'Get Many',
-				description: 'Get multiple entities',
+				description: 'Get multiple personal contacts',
 				value: EasyNodeOperationType.getMany,
 				action: 'Get many',
 			},
@@ -74,7 +95,7 @@ export const PersonalContactFields: INodeProperties[] = [
 			},
 			{
 				name: 'Update',
-				description: 'Update entity',
+				description: 'Update personal contact',
 				value: EasyNodeOperationType.update,
 				action: 'Update',
 			},
@@ -117,6 +138,61 @@ export const PersonalContactFields: INodeProperties[] = [
 	},
 
 	{
+		displayName: 'First Name',
+		name: 'firstname',
+		type: 'string',
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.personalContacts],
+				operation: [EasyNodeOperationType.create],
+			},
+		},
+		default: '',
+	},
+
+	{
+		displayName: 'Last Name',
+		name: 'lastname',
+		type: 'string',
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.personalContacts],
+				operation: [EasyNodeOperationType.create],
+			},
+		},
+		default: '',
+	},
+
+	{
+		displayName: 'Email',
+		name: 'email',
+		type: 'string',
+		placeholder: 'name@email.com',
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.personalContacts],
+				operation: [EasyNodeOperationType.create],
+			},
+		},
+		default: '',
+	},
+
+	{
+		displayName: 'Create Fields',
+		name: 'personalContactCreateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.personalContacts],
+			},
+		},
+		options: [...PersonalContactCreateOptionalFields, CustomFieldsOption],
+	},
+
+	{
 		displayName: 'Update Fields',
 		name: 'personalContactUpdateOptions',
 		type: 'collection',
@@ -128,6 +204,6 @@ export const PersonalContactFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.personalContacts],
 			},
 		},
-		options: [...PersonalContactOptionalFields, CustomFieldsOption],
+		options: [...PersonalContactUpdateOptionalFields, CustomFieldsOption],
 	},
 ];
