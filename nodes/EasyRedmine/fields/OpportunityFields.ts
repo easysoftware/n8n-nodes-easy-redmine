@@ -39,6 +39,58 @@ export const OpportunityFields: INodeProperties[] = [
 	},
 
 	{
+		displayName: 'Name',
+		name: 'name',
+		type: 'string',
+		default: '',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.opportunities],
+			},
+		},
+	},
+	{
+		displayName: 'Account ID',
+		name: 'accountId',
+		type: 'number',
+		default: '',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.opportunities],
+			},
+		},
+	},
+	{
+		displayName: 'Project ID',
+		name: 'projectId',
+		type: 'number',
+		default: '',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.opportunities],
+			},
+		},
+	},
+
+	{
+		displayName: 'Create Options',
+		name: 'create_options_opportunity',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.opportunities],
+			},
+		},
+		options: [CustomFieldsOption],
+	},
+
+	{
 		displayName: 'Update Fields',
 		name: 'update_options_opportunity',
 		type: 'collection',

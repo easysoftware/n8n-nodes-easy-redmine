@@ -28,6 +28,12 @@ export const UserFields: INodeProperties[] = [
 				action: 'Get many',
 			},
 			{
+				name: 'Create',
+				description: 'Create user',
+				value: EasyNodeOperationType.create,
+				action: 'Create',
+			},
+			{
 				name: 'Update',
 				description: 'Update user',
 				value: EasyNodeOperationType.update,
@@ -65,6 +71,79 @@ export const UserFields: INodeProperties[] = [
 			loadOptionsMethod: 'getEasyUsersQueries',
 		},
 		default: '',
+	},
+
+	{
+		displayName: 'Login',
+		name: 'login',
+		type: 'string',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		default: '',
+	},
+	{
+		displayName: 'First Name',
+		name: 'firstname',
+		type: 'string',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		default: '',
+	},
+	{
+		displayName: 'Last Name',
+		name: 'lastname',
+		type: 'string',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		default: '',
+	},
+	{
+		displayName: 'Email',
+		name: 'email',
+		type: 'string',
+		placeholder: 'name@email.com',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		default: '',
+	},
+	{
+		displayName: 'Create Options',
+		name: 'create_options_user',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		options: [
+			{
+				displayName: 'Phone',
+				name: 'phone',
+				type: 'string',
+				default: '',
+				description: 'Phone number',
+			},
+			CustomFieldsOption,
+		],
 	},
 
 	{
