@@ -22,7 +22,7 @@ export const AccountFields: INodeProperties[] = [
 
 	{
 		displayName: 'EasyRedmine Accounts Query Name or ID',
-		name: 'account_query_id',
+		name: 'accountQueryId',
 		type: 'options',
 		description:
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
@@ -40,7 +40,7 @@ export const AccountFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_accounts',
+		name: 'accountsUpdateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

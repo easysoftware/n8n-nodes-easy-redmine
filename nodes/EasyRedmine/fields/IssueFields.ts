@@ -4,6 +4,13 @@ import { CustomFieldsOption } from './CustomFields';
 
 const CommonIssueFields: INodeProperties[] = [
 	{
+		displayName: 'Assigned To',
+		description: 'ID of the user to assign the issue to',
+		name: 'assignedToId',
+		type: 'number',
+		default: '',
+	},
+	{
 		displayName: 'Description',
 		name: 'description',
 		type: 'string',
@@ -11,10 +18,59 @@ const CommonIssueFields: INodeProperties[] = [
 		description: 'Issue description',
 	},
 	{
-		displayName: 'Tracker',
-		name: 'trackerId',
-		type: 'string',
-		description: 'ID of the tracker',
+		displayName: 'Done Ratio (0-100)',
+		name: 'doneRatio',
+		type: 'number',
+		default: '',
+		description: 'Percentage of completion of the issue',
+	},
+	{
+		displayName: 'Due Date',
+		name: 'dueDate',
+		type: 'dateTime',
+		default: '',
+		description: 'Due date of the issue',
+	},
+	{
+		displayName: 'Estimated Hours',
+		name: 'estimatedHours',
+		type: 'number',
+		default: '',
+		description: 'Estimated hours to complete the issue',
+	},
+	{
+		displayName: 'Private Issue',
+		name: 'isPrivate',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to make the issue private',
+	},
+	{
+		displayName: 'Parent Issue ID',
+		name: 'parentIssueId',
+		type: 'number',
+		default: '',
+		description: 'ID of the parent issue',
+	},
+	{
+		displayName: 'Priority',
+		name: 'priorityId',
+		type: 'number',
+		description: 'ID of the priority',
+		default: '',
+	},
+	{
+		displayName: 'Project ID',
+		name: 'projectId',
+		type: 'number',
+		description: 'ID of the project',
+		default: '',
+	},
+	{
+		displayName: 'Start Date',
+		name: 'startDate',
+		type: 'dateTime',
+		description: 'Start date of the issue',
 		default: '',
 	},
 	{
@@ -24,6 +80,13 @@ const CommonIssueFields: INodeProperties[] = [
 		description: 'ID of the status',
 		default: '',
 	},
+	{
+		displayName: 'Tracker',
+		name: 'trackerId',
+		type: 'string',
+		description: 'ID of the tracker',
+		default: '',
+	}
 ];
 
 export const IssueFields: INodeProperties[] = [
@@ -46,7 +109,7 @@ export const IssueFields: INodeProperties[] = [
 
 	{
 		displayName: 'EasyRedmine Issues Query Name or ID',
-		name: 'issue_query_id',
+		name: 'issueQueryId',
 		type: 'options',
 		description:
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
@@ -91,7 +154,7 @@ export const IssueFields: INodeProperties[] = [
 
 	{
 		displayName: 'Create Fields',
-		name: 'create_options_issue',
+		name: 'issueCreateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
@@ -106,7 +169,7 @@ export const IssueFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_issue',
+		name: 'issueUpdateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

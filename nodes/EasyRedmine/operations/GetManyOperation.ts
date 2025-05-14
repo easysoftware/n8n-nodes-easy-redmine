@@ -15,22 +15,22 @@ export async function processGetManyOperation(
 	let query_id_parameter: string;
 	switch (resource) {
 		case EasyNodeResourceType.issues:
-			query_id_parameter = 'issue_query_id';
+			query_id_parameter = 'issueQueryId';
 			break;
 		case EasyNodeResourceType.leads:
-			query_id_parameter = 'lead_query_id';
+			query_id_parameter = 'leadQueryId';
 			break;
 		case EasyNodeResourceType.opportunities:
-			query_id_parameter = 'opportunity_query_id';
+			query_id_parameter = 'opportunityQueryId';
 			break;
 		case EasyNodeResourceType.accounts:
-			query_id_parameter = 'account_query_id';
+			query_id_parameter = 'accountQueryId';
 			break;
 		case EasyNodeResourceType.personalContacts:
 			query_id_parameter = 'personalContactQueryId';
 			break;
 		case EasyNodeResourceType.users:
-			query_id_parameter = 'user_query_id';
+			query_id_parameter = 'userQueryId';
 			break;
 		default:
 			throw new Error(`Unsupported resource type: ${resource}`);

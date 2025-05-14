@@ -1,13 +1,13 @@
+import { BaseIssueOptions } from './BaseModel';
+
 export interface CustomField {
 	id: number;
 	value: string;
 }
 
-export interface IssueUpdateOptions {
+export type IssueUpdateOptions = BaseIssueOptions & {
 	subject: string | undefined;
-	description: string | undefined;
-	customFields: { field: CustomField[] } | undefined;
-}
+};
 
 export interface LeadUpdateOptions {
 	description: string | undefined;

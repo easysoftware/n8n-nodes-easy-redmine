@@ -1,8 +1,18 @@
 # 0.2.3 (unreleased)
 
+- Leads
+  - Implemented `create` operation
 - Personal contact
   - Implemented `create` and `add comment` operations
   - Fixes `Update` operation
+- Issues
+  - Implemented several new fields
+- User
+  - Implemented `create` operation
+  - Added following fields to `update`:
+    - Password
+    - Must Change Password
+    - Status
 
 # 0.2.2 (7.5.2025)
 

@@ -10,8 +10,8 @@ import {
 } from 'n8n-workflow';
 import { getEasyQueries } from './operations/GetEasyQueries';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
-import { processGetManyOperation } from './operations/ProcessGetMany';
-import { processGetOneOperation } from './operations/ProcessGetOne';
+import { processGetManyOperation } from './operations/GetManyOperation';
+import { processGetOneOperation } from './operations/GetOneOperation';
 import { addCommentOperation } from './operations/AddCommentOperation';
 import { updateOperation } from './operations/UpdateOperation';
 import { IssueFields } from './fields/IssueFields';

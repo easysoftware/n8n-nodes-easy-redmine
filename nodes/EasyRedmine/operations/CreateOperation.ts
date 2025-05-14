@@ -20,7 +20,7 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 
 function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'create_options_issue',
+		'issueCreateOptions',
 		itemIndex,
 		{},
 	) as IssueCreateOptions;
@@ -30,20 +30,29 @@ function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 	const subject = this.getNodeParameter('subject', itemIndex) as string;
 	const projectId = this.getNodeParameter('projectId', itemIndex) as string;
 	const customFields = convertCustomFields(options);
+
 	return {
 		issue: {
 			subject,
-			project_id: projectId,
-			tracker_id: options.trackerId,
-			status_id: options.statusId,
 			description: options.description,
+			project_id: projectId,
+			parent_issue_id: options.parentIssueId,
+			assigned_to_id: options.assignedToId,
+			estimated_hours: options.estimatedHours,
+			done_ratio: options.doneRatio,
+			start_date: options.startDate,
+			due_date: options.dueDate,
+			is_private: options.isPrivate,
+			priority_id: options.priorityId,
+			status_id: options.statusId,
+			tracker_id: options.trackerId,
 			custom_fields: customFields,
 		},
 	};
 }
 
 function createBodyForLead(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter('create_options_lead', itemIndex, {}) as LeadCreateOptions;
+	const options = this.getNodeParameter('leadCreateOptions', itemIndex, {}) as LeadCreateOptions;
 
 	this.logger.info(`Create lead with subject: ${JSON.stringify(options)}`);
 
@@ -62,7 +71,7 @@ function createBodyForOpportunity(
 	itemIndex: number,
 ): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'create_options_opportunity',
+		'opportunityCreateOptions',
 		itemIndex,
 		{},
 	) as OpportunityCreateOptions;
@@ -119,7 +128,7 @@ function createBodyForPersonalContact(
 }
 
 function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter('create_options_user', itemIndex, {}) as UserCreateOptions;
+	const options = this.getNodeParameter('userCreateOptions', itemIndex, {}) as UserCreateOptions;
 
 	const login = this.getNodeParameter('login', itemIndex) as string;
 	const firstname = this.getNodeParameter('firstname', itemIndex) as string;

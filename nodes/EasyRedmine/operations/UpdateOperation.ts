@@ -20,7 +20,7 @@ function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomFiel
 
 function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'update_options_issue',
+		'issueUpdateOptions',
 		itemIndex,
 		{},
 	) as IssueUpdateOptions;
@@ -32,13 +32,24 @@ function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 		issue: {
 			subject: options.subject,
 			description: options.description,
+			projectId: options.projectId,
+			parent_issue_id: options.parentIssueId,
+			assigned_to_id: options.assignedToId,
+			estimated_hours: options.estimatedHours,
+			done_ratio: options.doneRatio,
+			start_date: options.startDate,
+			due_date: options.dueDate,
+			is_private: options.isPrivate,
+			priority_id: options.priorityId,
+			status_id: options.statusId,
+			tracker_id: options.trackerId,
 			custom_fields: customFields,
 		},
 	};
 }
 
 function updateBodyForLead(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter('update_options_lead', itemIndex, {}) as LeadUpdateOptions;
+	const options = this.getNodeParameter('leadUpdateOptions', itemIndex, {}) as LeadUpdateOptions;
 
 	this.logger.info(`Update lead with subject: ${JSON.stringify(options)}`);
 
@@ -58,7 +69,7 @@ function updateBodyForOpportunity(
 	itemIndex: number,
 ): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'update_options_opportunity',
+		'opportunityUpdateOptions',
 		itemIndex,
 		{},
 	) as OpportunityUpdateOptions;
@@ -76,7 +87,7 @@ function updateBodyForOpportunity(
 
 function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'update_options_accounts',
+		'accountsUpdateOptions',
 		itemIndex,
 		{},
 	) as AccountUpdateOptions;
@@ -117,7 +128,7 @@ function updateBodyForPersonalContact(
 }
 
 function updateBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter('update_options_user', itemIndex, {}) as UserUpdateOptions;
+	const options = this.getNodeParameter('userUpdateOptions', itemIndex, {}) as UserUpdateOptions;
 
 	const customFields = convertCustomFields(options);
 
@@ -128,6 +139,9 @@ function updateBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: 
 			lastname: options.lastname,
 			mail: options.mail,
 			phone: options.phone,
+			// status: options.status,
+			// admin: options.admin,
+			// password: options.password,
 			custom_fields: customFields,
 		},
 	};

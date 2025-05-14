@@ -79,16 +79,33 @@ Issues are mostly Redmine issues. The identifier is `issue`.
 - **Create** - creates a new issue.
   - Subject (required)
   - Project ID (required)
-  - Description
-  - Tracker ID
-  - Status ID
+  - Assigned To ID
   - Custom fields
+  - Description
+  - Done Ratio
+  - Due Date
+  - Estimated Hours
+  - Is Private
+  - Parent Issue ID
+  - Priority ID
+  - Start Date
+  - Status ID
+  - Tracker ID
 - **Update** - updates some fields of the entity.
-  - Subject
+  - Assigned To ID
+  - Custom fields
   - Description
+  - Done Ratio
+  - Due Date
+  - Estimated Hours
+  - Is Private
+  - Parent Issue ID
+  - Priority ID
+  - Project ID
+  - Start Date
+  - Subject
   - Tracker ID
   - Status ID
-  - Custom fields
 
 ## Leads
 

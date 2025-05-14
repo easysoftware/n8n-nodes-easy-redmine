@@ -1,11 +1,7 @@
 import { CustomField } from './UpdateModel';
+import { BaseIssueOptions } from './BaseModel';
 
-export interface IssueCreateOptions {
-	statusId: number | undefined;
-	trackerId: number | undefined;
-	description: string | undefined;
-	customFields: { field: CustomField[] } | undefined;
-}
+export type IssueCreateOptions = BaseIssueOptions;
 
 export interface LeadCreateOptions {
 	description: string | undefined;

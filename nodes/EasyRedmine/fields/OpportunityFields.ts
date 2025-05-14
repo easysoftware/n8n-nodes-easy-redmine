@@ -22,7 +22,7 @@ export const OpportunityFields: INodeProperties[] = [
 
 	{
 		displayName: 'EasyRedmine Opportunities Query Name or ID',
-		name: 'opportunity_query_id',
+		name: 'opportunityQueryId',
 		type: 'options',
 		description:
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
@@ -77,7 +77,7 @@ export const OpportunityFields: INodeProperties[] = [
 
 	{
 		displayName: 'Create Options',
-		name: 'create_options_opportunity',
+		name: 'opportunityCreateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
@@ -92,7 +92,7 @@ export const OpportunityFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_opportunity',
+		name: 'opportunityUpdateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

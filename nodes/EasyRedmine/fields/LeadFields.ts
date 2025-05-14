@@ -39,7 +39,7 @@ export const LeadFields: INodeProperties[] = [
 
 	{
 		displayName: 'EasyRedmine Leads Query Name or ID',
-		name: 'lead_query_id',
+		name: 'leadQueryId',
 		type: 'options',
 		description:
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
@@ -57,7 +57,7 @@ export const LeadFields: INodeProperties[] = [
 
 	{
 		displayName: 'Create Options',
-		name: 'create_options_lead',
+		name: 'leadCreateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
@@ -72,7 +72,7 @@ export const LeadFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'update_options_lead',
+		name: 'leadUpdateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
