@@ -1,4 +1,8 @@
-# 0.2.3 (unreleased)
+# 0.2.4 (Unreleased)
+
+- Changed deprecated `this.helpers.requestWithAuthentication` to `this.helpers.httpRequestWithAuthentication`
+
+# 0.2.3 (15.5.2025)
 
 - Leads
   - Implemented `create` operation

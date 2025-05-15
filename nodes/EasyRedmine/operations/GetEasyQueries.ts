@@ -1,4 +1,8 @@
-import { ILoadOptionsFunctions, INodePropertyOptions, IRequestOptions } from 'n8n-workflow';
+import {
+	IHttpRequestOptions,
+	ILoadOptionsFunctions,
+	INodePropertyOptions,
+} from 'n8n-workflow';
 
 export type EasyQueryType =
 	| 'EasyIssueQuery'
@@ -22,17 +26,17 @@ export async function getEasyQueries(this: ILoadOptionsFunctions, type: EasyQuer
 	const allItems: INodePropertyOptions[] = [];
 	while (fetchedItems >= pageSize) {
 		this.logger.debug(`Loading page ${page} for ${type}`);
-		const options: IRequestOptions = {
+		const options: IHttpRequestOptions = {
 			method: 'GET',
 			qs: {
 				type: type,
 				offset: offset,
 				limit: pageSize,
 			},
-			uri: `${creds['domain']}/easy_queries.json`,
+			url: `${creds['domain']}/easy_queries.json`,
 			json: true,
 		};
-		const result = await this.helpers.requestWithAuthentication.call(
+		const result = await this.helpers.httpRequestWithAuthentication.call(
 			this,
 			'easyRedmineApi', // Credential name
 			options,

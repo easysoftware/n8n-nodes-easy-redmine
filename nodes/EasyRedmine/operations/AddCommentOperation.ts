@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 
 export async function addCommentOperation(
@@ -40,14 +40,14 @@ export async function addCommentOperation(
 			throw new Error('Unsupported resource type: ' + resource);
 	}
 
-	const options = {
+	const options: IHttpRequestOptions = {
 		method: 'PUT',
-		uri: `${domain}/${resource}/${id}.json`,
+		url: `${domain}/${resource}/${id}.json`,
 		body,
 		json: true,
-	} satisfies IRequestOptions;
+	};
 
 	this.logger.info(`Add comment ${resource} with ${JSON.stringify(options)}`);
 
-	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
+	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

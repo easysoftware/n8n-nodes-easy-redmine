@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import {
 	AccountUpdateOptions,
@@ -6,7 +6,8 @@ import {
 	IssueUpdateOptions,
 	LeadUpdateOptions,
 	OpportunityUpdateOptions,
-	UpdateOptionsWithCustomFields, PersonalContactUpdateOptions,
+	UpdateOptionsWithCustomFields,
+	PersonalContactUpdateOptions,
 	UserUpdateOptions,
 } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
@@ -19,11 +20,7 @@ function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomFiel
 }
 
 function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter(
-		'issueUpdateOptions',
-		itemIndex,
-		{},
-	) as IssueUpdateOptions;
+	const options = this.getNodeParameter('issueUpdateOptions', itemIndex, {}) as IssueUpdateOptions;
 
 	this.logger.info(`Update issue with subject: ${JSON.stringify(options)}`);
 
@@ -180,14 +177,14 @@ export async function updateOperation(
 	}
 
 	const id = this.getNodeParameter('id', itemIndex) as string;
-	const options = {
+	const options: IHttpRequestOptions = {
 		method: 'PUT',
-		uri: `${domain}/${resource}/${id}.json`,
+		url: `${domain}/${resource}/${id}.json`,
 		body,
 		json: true,
-	} satisfies IRequestOptions;
+	};
 
 	this.logger.info(`Update ${resource} with ${JSON.stringify(options)}`);
 
-	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
+	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

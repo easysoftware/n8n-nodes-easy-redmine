@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { IDataObject } from 'n8n-workflow/dist/Interfaces';
 
@@ -46,14 +46,14 @@ export async function processGetManyOperation(
 		domain = domain.slice(0, -1);
 	}
 
-	const options = {
+	const options: IHttpRequestOptions = {
 		method: 'GET',
-		uri: `${domain}/${resource}.json`,
+		url: `${domain}/${resource}.json`,
 		qs,
 		json: true,
-	} satisfies IRequestOptions;
+	};
 
 	this.logger.info(`Get many ${resource} with ${JSON.stringify(options)}`);
 
-	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
+	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

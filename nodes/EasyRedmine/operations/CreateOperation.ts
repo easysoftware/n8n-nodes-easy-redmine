@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
@@ -19,11 +19,7 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 }
 
 function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter(
-		'issueCreateOptions',
-		itemIndex,
-		{},
-	) as IssueCreateOptions;
+	const options = this.getNodeParameter('issueCreateOptions', itemIndex, {}) as IssueCreateOptions;
 
 	this.logger.info(`Create issue with subject: ${JSON.stringify(options)}`);
 
@@ -179,18 +175,18 @@ export async function createOperation(
 			throw new Error('Unsupported resource type: ' + resource);
 	}
 
-	const options = {
+	const options: IHttpRequestOptions = {
 		method: 'POST',
-		uri: `${domain}/${resource}.json`,
+		url: `${domain}/${resource}.json`,
 		body,
 		json: true,
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',
 		},
-	} satisfies IRequestOptions;
+	};
 
 	this.logger.info(`Create ${resource} with ${JSON.stringify(options)}`);
 
-	return await this.helpers.requestWithAuthentication.call(this, 'easyRedmineApi', options);
+	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }
