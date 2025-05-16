@@ -54,7 +54,6 @@ export class EasyRedmine implements INodeType {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'X-Redmine-API-Key': '={{$credentials.token}}',
 			},
 		},
 
@@ -149,6 +148,49 @@ export class EasyRedmine implements INodeType {
 			...AccountFields,
 			...PersonalContactFields,
 			...UserFields,
+
+			{
+				displayName: 'Return All',
+				name: 'returnAll',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to return all results or only up to a given limit',
+				displayOptions: {
+					show: {
+						operation: [EasyNodeOperationType.getMany],
+					},
+				},
+			},
+			{
+				displayName: 'Offset',
+				name: 'offset',
+				type: 'number',
+				default: 0,
+				description: 'Result offset',
+				displayOptions: {
+					show: {
+						operation: [EasyNodeOperationType.getMany],
+						returnAll: [false],
+					},
+				},
+			},
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+					maxValue: 100,
+				},
+				default: 50,
+				description: 'Max number of results to return',
+				displayOptions: {
+					show: {
+						operation: [EasyNodeOperationType.getMany],
+						returnAll: [false],
+					},
+				},
+			},
 
 			{
 				displayName: 'Comment',

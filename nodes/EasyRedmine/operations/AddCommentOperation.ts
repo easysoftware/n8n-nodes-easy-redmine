@@ -44,7 +44,7 @@ export async function addCommentOperation(
 		json: true,
 	};
 
-	this.logger.info(`Add comment ${resource} with ${JSON.stringify(options)}`);
+	this.logger.debug(`Add comment ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }
