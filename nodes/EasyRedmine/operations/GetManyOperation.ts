@@ -1,6 +1,7 @@
 import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { IDataObject } from 'n8n-workflow/dist/Interfaces';
+import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 export async function processGetManyOperation(
 	this: IExecuteFunctions,
@@ -41,10 +42,7 @@ export async function processGetManyOperation(
 		qs.query_id = queryId;
 	}
 
-	let domain = credentials.domain as string;
-	if (domain.endsWith('/')) {
-		domain = domain.slice(0, -1);
-	}
+	const domain = sanitizeDomain(credentials.domain as string);
 
 	const options: IHttpRequestOptions = {
 		method: 'GET',

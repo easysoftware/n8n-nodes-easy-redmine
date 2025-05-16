@@ -3,6 +3,7 @@ import {
 	ILoadOptionsFunctions,
 	INodePropertyOptions,
 } from 'n8n-workflow';
+import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 export type EasyQueryType =
 	| 'EasyIssueQuery'
@@ -21,11 +22,14 @@ export async function getEasyQueries(this: ILoadOptionsFunctions, type: EasyQuer
 	let offset = 0;
 	let pageSize = 100;
 	let fetchedItems = pageSize;
-	const creds = await this.getCredentials('easyRedmineApi');
+	const credentials = await this.getCredentials('easyRedmineApi');
 	let page = 1;
 	const allItems: INodePropertyOptions[] = [];
+	const domain = sanitizeDomain(credentials.domain as string);
+
 	while (fetchedItems >= pageSize) {
 		this.logger.debug(`Loading page ${page} for ${type}`);
+
 		const options: IHttpRequestOptions = {
 			method: 'GET',
 			qs: {
@@ -33,7 +37,7 @@ export async function getEasyQueries(this: ILoadOptionsFunctions, type: EasyQuer
 				offset: offset,
 				limit: pageSize,
 			},
-			url: `${creds['domain']}/easy_queries.json`,
+			url: `${domain}/easy_queries.json`,
 			json: true,
 		};
 		const result = await this.helpers.httpRequestWithAuthentication.call(

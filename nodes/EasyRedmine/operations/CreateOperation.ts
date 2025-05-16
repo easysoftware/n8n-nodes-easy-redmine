@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';

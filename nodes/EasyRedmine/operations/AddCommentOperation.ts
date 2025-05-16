@@ -1,5 +1,6 @@
-import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
+import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 export async function addCommentOperation(
 	this: IExecuteFunctions,
@@ -7,11 +8,7 @@ export async function addCommentOperation(
 	itemIndex: number,
 ) {
 	const credentials = await this.getCredentials('easyRedmineApi');
-
-	let domain = credentials.domain as string;
-	if (domain.endsWith('/')) {
-		domain = domain.slice(0, -1);
-	}
+	const domain = sanitizeDomain(credentials.domain as string);
 
 	const id = this.getNodeParameter('id', itemIndex) as string;
 	const comment = this.getNodeParameter('comment', itemIndex) as string;
