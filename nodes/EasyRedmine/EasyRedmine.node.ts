@@ -175,7 +175,7 @@ export class EasyRedmine implements INodeType {
 				},
 			},
 			{
-				displayName: 'Limit',
+				displayName: 'Limit (1-100)',
 				name: 'limit',
 				type: 'number',
 				typeOptions: {

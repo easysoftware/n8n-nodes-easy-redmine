@@ -1,6 +1,8 @@
 # 0.2.4 (Unreleased)
 
-- Changed deprecated `this.helpers.requestWithAuthentication` to `this.helpers.httpRequestWithAuthentication`
+- Changed deprecated `this.helpers.requestWithAuthentication` to `this.helpers.httpRequestWithAuthentication`.
+- Added `Get All`, `Offset` and `Limit` to `Get Many` operation.
+- Fixes lint issues, cleaning code.
 
 # 0.2.3 (15.5.2025)
 
