@@ -24,8 +24,7 @@ export const OpportunityFields: INodeProperties[] = [
 		displayName: 'EasyRedmine Opportunities Query Name or ID',
 		name: 'opportunityQueryId',
 		type: 'options',
-		description:
-			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.opportunities],

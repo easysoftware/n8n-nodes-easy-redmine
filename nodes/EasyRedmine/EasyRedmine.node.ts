@@ -180,7 +180,6 @@ export class EasyRedmine implements INodeType {
 				type: 'number',
 				typeOptions: {
 					minValue: 1,
-					maxValue: 100,
 				},
 				default: 50,
 				description: 'Max number of results to return',

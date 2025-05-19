@@ -65,19 +65,19 @@ export async function processGetManyOperation(
 			},
 			json: true,
 		};
-		this.logger.info(`Get many ${resource} with offset ${offset}. ${JSON.stringify(options)}`);
 
 		const subResult = await this.helpers.httpRequestWithAuthentication.call(
 			this,
 			'easyRedmineApi',
 			options,
 		);
+
 		resultItems.push(...subResult[resource]);
 		fetchedItemsCount = subResult[resource].length;
 		offset += fetchedItemsCount;
 	} while (fetchedItemsCount >= limit && returnAll);
 
-	this.logger.debug(`Fetched ${resultItems.length} items`);
+	this.logger.info(`Fetched all ${resource} ${resultItems.length} items`);
 
 	const result: any = {};
 	result[resource] = resultItems;
