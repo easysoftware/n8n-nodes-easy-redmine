@@ -22,7 +22,7 @@ function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomFiel
 function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('issueUpdateOptions', itemIndex, {}) as IssueUpdateOptions;
 
-	this.logger.info(`Update issue with subject: ${JSON.stringify(options)}`);
+	this.logger.debug(`Update issue with subject: ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
 	return {
@@ -48,7 +48,7 @@ function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 function updateBodyForLead(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('leadUpdateOptions', itemIndex, {}) as LeadUpdateOptions;
 
-	this.logger.info(`Update lead with subject: ${JSON.stringify(options)}`);
+	this.logger.debug(`Update lead with subject: ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
 
@@ -184,7 +184,7 @@ export async function updateOperation(
 		json: true,
 	};
 
-	this.logger.info(`Update ${resource} with ${JSON.stringify(options)}`);
+	this.logger.debug(`Update ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }

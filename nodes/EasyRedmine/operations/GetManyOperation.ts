@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IHttpRequestOptions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { IDataObject } from 'n8n-workflow/dist/Interfaces';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
@@ -9,9 +9,6 @@ export async function processGetManyOperation(
 	itemIndex: number,
 ) {
 	const credentials = await this.getCredentials('easyRedmineApi');
-	const qs: IDataObject = {
-		limit: 100,
-	};
 
 	let query_id_parameter: string;
 	switch (resource) {
@@ -38,20 +35,51 @@ export async function processGetManyOperation(
 	}
 
 	const queryId = this.getNodeParameter(query_id_parameter, itemIndex);
+	const qs: IDataObject = {};
 	if (queryId) {
 		qs.query_id = queryId;
 	}
 
 	const domain = sanitizeDomain(credentials.domain as string);
 
-	const options: IHttpRequestOptions = {
-		method: 'GET',
-		url: `${domain}/${resource}.json`,
-		qs,
-		json: true,
-	};
+	const returnAll = this.getNodeParameter('returnAll', itemIndex, false);
 
-	this.logger.info(`Get many ${resource} with ${JSON.stringify(options)}`);
+	const resultItems = [];
 
-	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
+	let offset = 0;
+	let limit = 100;
+	if (!returnAll) {
+		offset = this.getNodeParameter('offset', itemIndex, 0) as number;
+		limit = this.getNodeParameter('limit', itemIndex, 100) as number;
+	}
+
+	let fetchedItemsCount = 0;
+	do {
+		const options: IHttpRequestOptions = {
+			method: 'GET',
+			url: `${domain}/${resource}.json`,
+			qs: {
+				...qs,
+				offset,
+				limit,
+			},
+			json: true,
+		};
+
+		const subResult = await this.helpers.httpRequestWithAuthentication.call(
+			this,
+			'easyRedmineApi',
+			options,
+		);
+
+		resultItems.push(...subResult[resource]);
+		fetchedItemsCount = subResult[resource].length;
+		offset += fetchedItemsCount;
+	} while (fetchedItemsCount >= limit && returnAll);
+
+	this.logger.info(`Fetched all ${resource} ${resultItems.length} items`);
+
+	const result: any = {};
+	result[resource] = resultItems;
+	return result;
 }

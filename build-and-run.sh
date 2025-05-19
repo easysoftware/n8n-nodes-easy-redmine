@@ -2,6 +2,13 @@
 
 PWD=$(pwd)
 
+pnpm lint
+if [[ "$?" != "0" ]] ; then
+  echo "Lint failed"
+  cd $PWD
+  exit
+fi
+
 pnpm build
 if [[ "$?" != "0" ]] ; then
   echo "Build failed"

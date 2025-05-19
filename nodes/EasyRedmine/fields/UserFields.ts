@@ -59,8 +59,7 @@ export const UserFields: INodeProperties[] = [
 		displayName: 'EasyRedmine User Query Name or ID',
 		name: 'userQueryId',
 		type: 'options',
-		description:
-			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.users],
@@ -160,11 +159,11 @@ export const UserFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Login',
-				name: 'login',
+				displayName: 'Email',
+				name: 'mail',
 				type: 'string',
 				default: '',
-				description: 'User login',
+				description: 'Email address',
 			},
 			{
 				displayName: 'First Name',
@@ -172,21 +171,20 @@ export const UserFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 			},
-
 			{
 				displayName: 'Last Name',
 				name: 'lastname',
 				type: 'string',
 				default: '',
 			},
-
 			{
-				displayName: 'Email',
-				name: 'mail',
+				displayName: 'Login',
+				name: 'login',
 				type: 'string',
 				default: '',
-				description: 'Email address',
+				description: 'User login',
 			},
+
 			{
 				displayName: 'Phone',
 				name: 'phone',

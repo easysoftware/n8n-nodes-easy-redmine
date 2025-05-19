@@ -4,7 +4,7 @@ import { CustomFieldsOption } from './CustomFields';
 
 const CommonIssueFields: INodeProperties[] = [
 	{
-		displayName: 'Assigned To',
+		displayName: 'Assigned To ID',
 		description: 'ID of the user to assign the issue to',
 		name: 'assignedToId',
 		type: 'number',
@@ -53,7 +53,7 @@ const CommonIssueFields: INodeProperties[] = [
 		description: 'ID of the parent issue',
 	},
 	{
-		displayName: 'Priority',
+		displayName: 'Priority ID',
 		name: 'priorityId',
 		type: 'number',
 		description: 'ID of the priority',
@@ -74,14 +74,14 @@ const CommonIssueFields: INodeProperties[] = [
 		default: '',
 	},
 	{
-		displayName: 'Status',
+		displayName: 'Status ID',
 		name: 'statusId',
 		type: 'number',
 		description: 'ID of the status',
 		default: '',
 	},
 	{
-		displayName: 'Tracker',
+		displayName: 'Tracker ID',
 		name: 'trackerId',
 		type: 'string',
 		description: 'ID of the tracker',
@@ -111,8 +111,7 @@ export const IssueFields: INodeProperties[] = [
 		displayName: 'EasyRedmine Issues Query Name or ID',
 		name: 'issueQueryId',
 		type: 'options',
-		description:
-			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.issues],

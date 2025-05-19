@@ -21,7 +21,7 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('issueCreateOptions', itemIndex, {}) as IssueCreateOptions;
 
-	this.logger.info(`Create issue with subject: ${JSON.stringify(options)}`);
+	this.logger.debug(`Create issue with subject: ${JSON.stringify(options)}`);
 
 	const subject = this.getNodeParameter('subject', itemIndex) as string;
 	const projectId = this.getNodeParameter('projectId', itemIndex) as string;
@@ -50,7 +50,7 @@ function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 function createBodyForLead(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('leadCreateOptions', itemIndex, {}) as LeadCreateOptions;
 
-	this.logger.info(`Create lead with subject: ${JSON.stringify(options)}`);
+	this.logger.debug(`Create lead with subject: ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
 	return {
@@ -76,7 +76,7 @@ function createBodyForOpportunity(
 	const name = this.getNodeParameter('name', itemIndex) as string;
 	const accountId = this.getNodeParameter('accountId', itemIndex) as string;
 
-	this.logger.info(`Create opportunity with subject: ${JSON.stringify(options)}`);
+	this.logger.debug(`Create opportunity with subject: ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
 	return {
@@ -104,7 +104,7 @@ function createBodyForPersonalContact(
 	const lastname = this.getNodeParameter('lastname', itemIndex) as string;
 	const email = this.getNodeParameter('email', itemIndex) as string;
 
-	this.logger.info(`Create personal contact with : ${JSON.stringify(options)}`);
+	this.logger.debug(`Create personal contact with : ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
 	const x = {
@@ -118,7 +118,7 @@ function createBodyForPersonalContact(
 			custom_fields: customFields,
 		},
 	};
-	this.logger.info(`Create personal contact with : ${JSON.stringify(x)}`);
+	this.logger.debug(`Create personal contact with : ${JSON.stringify(x)}`);
 
 	return x;
 }
@@ -131,7 +131,7 @@ function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: 
 	const lastname = this.getNodeParameter('lastname', itemIndex) as string;
 	const email = this.getNodeParameter('email', itemIndex) as string;
 
-	this.logger.info(`Create user with : ${JSON.stringify(options)}`);
+	this.logger.debug(`Create user with : ${JSON.stringify(options)}`);
 
 	const customFields = convertCustomFields(options);
 	return {
@@ -179,14 +179,10 @@ export async function createOperation(
 		method: 'POST',
 		url: `${domain}/${resource}.json`,
 		body,
-		json: true,
-		headers: {
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-		},
+		json: true
 	};
 
-	this.logger.info(`Create ${resource} with ${JSON.stringify(options)}`);
+	this.logger.debug(`Create ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }
