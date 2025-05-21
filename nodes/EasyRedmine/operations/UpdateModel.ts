@@ -23,6 +23,8 @@ export interface OpportunityUpdateOptions {
 
 export interface AccountUpdateOptions {
 	firstname: string | undefined;
+	industryId: number | undefined;
+	typeId: number | undefined;
 	customFields: { field: CustomField[] } | undefined;
 }
 

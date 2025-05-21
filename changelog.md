@@ -1,3 +1,7 @@
+# 0.2.6 (21.5.2025)
+
+- Fixes account update operation
+
 # 0.2.5 (21.5.2025)
 
 - Implemented create account operation.

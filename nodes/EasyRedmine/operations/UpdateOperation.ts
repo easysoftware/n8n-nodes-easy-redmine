@@ -94,6 +94,8 @@ function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 	return {
 		easy_contact: {
 			firstname: options.firstname,
+			easy_contact_industry_id: options.industryId,
+			easy_contact_type_id: options.typeId,
 			custom_fields: customFields,
 		},
 	};
