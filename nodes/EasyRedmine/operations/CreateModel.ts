@@ -18,6 +18,13 @@ export interface UserCreateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+export interface AccountCreateOptions {
+	firstname: string | undefined;
+	industryId: number | undefined;
+	typeId: number | undefined;
+	customFields: { field: CustomField[] } | undefined;
+}
+
 export interface PersonalContactCreateOptions {
 	accountId: number | undefined;
 	partnerId: number | undefined;
@@ -26,6 +33,7 @@ export interface PersonalContactCreateOptions {
 }
 
 export type CreateOptionsWithCustomFields =
+	| AccountCreateOptions
 	| IssueCreateOptions
 	| LeadCreateOptions
 	| OpportunityCreateOptions

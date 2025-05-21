@@ -2,6 +2,29 @@ import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
 
+const CommonAccountOptions: INodeProperties[] = [
+	{
+		displayName: 'Industry ID',
+		name: 'industryId',
+		type: 'number',
+		default: ''
+	},
+	{
+		displayName: 'Name',
+		name: 'firstname',
+		type: 'string',
+		default: '',
+		description: 'Account name',
+	},
+	{
+		displayName: 'Type ID',
+		name: 'typeId',
+		type: 'number',
+		default: '',
+		description: 'Contact Type ID'
+	},
+];
+
 export const AccountFields: INodeProperties[] = [
 	{
 		displayName: 'Account ID',
@@ -24,7 +47,8 @@ export const AccountFields: INodeProperties[] = [
 		displayName: 'EasyRedmine Accounts Query Name or ID',
 		name: 'accountQueryId',
 		type: 'options',
-		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description:
+			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.accounts],
@@ -35,6 +59,21 @@ export const AccountFields: INodeProperties[] = [
 			loadOptionsMethod: 'getEasyAccountsQueries',
 		},
 		default: '',
+	},
+
+	{
+		displayName: 'Create Fields',
+		name: 'accountsCreateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [...CommonAccountOptions, CustomFieldsOption],
 	},
 
 	{
@@ -49,15 +88,6 @@ export const AccountFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.accounts],
 			},
 		},
-		options: [
-			{
-				displayName: 'Name',
-				name: 'firstname',
-				type: 'string',
-				default: '',
-				description: 'Account name',
-			},
-			CustomFieldsOption,
-		],
+		options: [...CommonAccountOptions, CustomFieldsOption],
 	},
 ];

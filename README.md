@@ -63,9 +63,16 @@ Account entity is used to manage company contacts. It has identifier `easy_conta
 - **Get one** - returns a detailed view of a single entity. The entitiy is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the entity.
-- **Update** - updates some fields of the entity.
-  - Name (known as firstname in entity schema)
+- **Create** - creates a new account.
   - Custom fields
+  - Industry ID
+  - Name (known as `firstname` in the entity schema)
+  - Type ID
+- **Update** - updates some fields of the entity.
+  - Custom fields
+  - Industry ID
+  - Name (known as `firstname` in the entity schema)
+  - Type ID
 
 ## Issues
 

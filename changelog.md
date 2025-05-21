@@ -1,3 +1,7 @@
+# 0.2.5 (21.5.2025)
+
+- Implemented create account operation.
+
 # 0.2.4 (19.5.2025)
 
 - Changed deprecated `this.helpers.requestWithAuthentication` to `this.helpers.httpRequestWithAuthentication`.
