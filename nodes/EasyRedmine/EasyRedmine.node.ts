@@ -21,6 +21,7 @@ import { AccountFields } from './fields/AccountFields';
 import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
+import { TimeEntryFields } from './fields/TimeEntryFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -86,6 +87,10 @@ export class EasyRedmine implements INodeType {
 						value: EasyNodeResourceType.personalContacts,
 					},
 					{
+						name: 'Time Entry',
+						value: EasyNodeResourceType.timeEEntries,
+					},
+					{
 						name: 'User',
 						value: EasyNodeResourceType.users,
 					},
@@ -104,6 +109,7 @@ export class EasyRedmine implements INodeType {
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
 							EasyNodeResourceType.accounts,
+							EasyNodeResourceType.timeEEntries
 						],
 					},
 				},
@@ -147,6 +153,7 @@ export class EasyRedmine implements INodeType {
 			...OpportunityFields,
 			...AccountFields,
 			...PersonalContactFields,
+			...TimeEntryFields,
 			...UserFields,
 
 			{
