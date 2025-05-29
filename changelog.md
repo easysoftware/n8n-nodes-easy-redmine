@@ -1,3 +1,7 @@
+- 0.3.0 (unreleased)
+- 
+- Fixes documentation
+
 # 0.2.6 (21.5.2025)
 
 - Fixes account update operation

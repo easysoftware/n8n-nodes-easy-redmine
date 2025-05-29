@@ -124,8 +124,12 @@ The identifier is `easy_lead`.
 - **Get one** - returns a detailed view of a single lead. The entitiy is specified by its ID.
 - **Get many** - returns a list of leads. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the lead.
+- **Create** - creates a new lead.
+  - Company Name
+  - Description
+  - Custom fields
 - **Update** - updates some fields of the leads.
-  - Subject
+  - Company Name
   - Description
   - Custom fields
 
