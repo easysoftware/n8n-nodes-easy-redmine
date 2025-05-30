@@ -244,6 +244,11 @@ export class EasyRedmine implements INodeType {
 				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
 			},
 
+			getTimeEntryQueries: async function (this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyTimeEntryQuery');
+			},
+
 			getEasyUsersQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {

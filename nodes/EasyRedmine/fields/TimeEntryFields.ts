@@ -17,4 +17,21 @@ export const TimeEntryFields: INodeProperties[] = [
 		},
 		default: '',
 	},
+
+	{
+		displayName: 'EasyRedmine Time Entries Query Name or ID',
+		name: 'timeEntryQueryId',
+		type: 'options',
+		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.timeEEntries],
+				operation: [EasyNodeOperationType.getMany],
+			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'getTimeEntryQueries',
+		},
+		default: '',
+	},
 ];
