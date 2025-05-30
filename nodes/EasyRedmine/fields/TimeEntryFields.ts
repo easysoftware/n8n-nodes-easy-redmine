@@ -48,6 +48,47 @@ const CommonTimeEntryOptions: INodeProperties[] = [
 
 export const TimeEntryFields: INodeProperties[] = [
 	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: {
+			show: {
+				resource: [
+					EasyNodeResourceType.timeEEntries
+				],
+			},
+		},
+		default: 'get-many',
+		options: [
+			{
+				name: 'Get One',
+				description: 'Get a single entity',
+				value: EasyNodeOperationType.getOne,
+				action: 'Get one',
+			},
+			{
+				name: 'Get Many',
+				description: 'Get multiple entities',
+				value: EasyNodeOperationType.getMany,
+				action: 'Get many',
+			},
+			{
+				name: 'Create',
+				description: 'Create entity',
+				value: EasyNodeOperationType.create,
+				action: 'Create',
+			},
+			{
+				name: 'Update',
+				description: 'Update entity',
+				value: EasyNodeOperationType.update,
+				action: 'Update',
+			},
+		],
+	},
+
+	{
 		displayName: 'Time Entry ID',
 		name: 'id',
 		type: 'number',

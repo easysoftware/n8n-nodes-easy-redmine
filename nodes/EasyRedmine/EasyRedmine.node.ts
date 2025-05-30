@@ -109,7 +109,6 @@ export class EasyRedmine implements INodeType {
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
 							EasyNodeResourceType.accounts,
-							EasyNodeResourceType.timeEEntries
 						],
 					},
 				},
