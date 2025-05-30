@@ -12,6 +12,6 @@ export enum EasyNodeResourceType {
 	opportunities = 'easy_crm_cases',
 	accounts = 'easy_contacts',
 	personalContacts = 'easy_personal_contacts',
-	timeEEntries = 'time_entries',
+	timeEntries = 'time_entries',
 	users = 'users',
 }

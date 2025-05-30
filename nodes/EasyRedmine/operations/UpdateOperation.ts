@@ -197,7 +197,7 @@ export async function updateOperation(
 		case EasyNodeResourceType.personalContacts:
 			body = updateBodyForPersonalContact.call(this, itemIndex);
 			break;
-		case EasyNodeResourceType.timeEEntries:
+		case EasyNodeResourceType.timeEntries:
 			body = updateBodyForTimeEntry.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:

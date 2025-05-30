@@ -30,7 +30,7 @@ export async function processGetManyOperation(
 		case EasyNodeResourceType.users:
 			query_id_parameter = 'userQueryId';
 			break;
-			case EasyNodeResourceType.timeEEntries:
+		case EasyNodeResourceType.timeEntries:
 			query_id_parameter = 'timeEntryQueryId';
 			break;
 		default:

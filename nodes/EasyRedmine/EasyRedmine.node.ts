@@ -88,7 +88,7 @@ export class EasyRedmine implements INodeType {
 					},
 					{
 						name: 'Time Entry',
-						value: EasyNodeResourceType.timeEEntries,
+						value: EasyNodeResourceType.timeEntries,
 					},
 					{
 						name: 'User',

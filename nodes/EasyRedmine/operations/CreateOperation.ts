@@ -225,7 +225,7 @@ export async function createOperation(
 		case EasyNodeResourceType.personalContacts:
 			body = createBodyForPersonalContact.call(this, itemIndex);
 			break;
-		case EasyNodeResourceType.timeEEntries:
+		case EasyNodeResourceType.timeEntries:
 			body = createBodyForTimeEntry.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:

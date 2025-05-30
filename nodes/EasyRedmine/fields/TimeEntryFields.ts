@@ -55,7 +55,7 @@ export const TimeEntryFields: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: [
-					EasyNodeResourceType.timeEEntries
+					EasyNodeResourceType.timeEntries
 				],
 			},
 		},
@@ -95,7 +95,7 @@ export const TimeEntryFields: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				operation: [EasyNodeOperationType.getOne, EasyNodeOperationType.update],
-				resource: [EasyNodeResourceType.timeEEntries],
+				resource: [EasyNodeResourceType.timeEntries],
 			},
 		},
 		default: '',
@@ -109,7 +109,7 @@ export const TimeEntryFields: INodeProperties[] = [
 			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
-				resource: [EasyNodeResourceType.timeEEntries],
+				resource: [EasyNodeResourceType.timeEntries],
 				operation: [EasyNodeOperationType.getMany],
 			},
 		},
@@ -124,10 +124,11 @@ export const TimeEntryFields: INodeProperties[] = [
 		name: 'hours',
 		type: 'number',
 		default: '',
+		required: true,
 		description: 'Spent hours',
 		displayOptions: {
 			show: {
-				resource: [EasyNodeResourceType.timeEEntries],
+				resource: [EasyNodeResourceType.timeEntries],
 				operation: [EasyNodeOperationType.create],
 			},
 		},
@@ -142,7 +143,7 @@ export const TimeEntryFields: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				operation: [EasyNodeOperationType.create],
-				resource: [EasyNodeResourceType.timeEEntries],
+				resource: [EasyNodeResourceType.timeEntries],
 			},
 		},
 		options: [...CommonTimeEntryOptions, CustomFieldsOption],
@@ -157,7 +158,7 @@ export const TimeEntryFields: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				operation: [EasyNodeOperationType.update],
-				resource: [EasyNodeResourceType.timeEEntries],
+				resource: [EasyNodeResourceType.timeEntries],
 			},
 		},
 		options: [
