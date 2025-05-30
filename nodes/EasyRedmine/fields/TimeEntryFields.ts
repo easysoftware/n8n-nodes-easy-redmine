@@ -4,13 +4,6 @@ import { CustomFieldsOption } from './CustomFields';
 
 const CommonTimeEntryOptions: INodeProperties[] = [
 	{
-		displayName: 'Hours',
-		name: 'hours',
-		type: 'number',
-		default: '',
-		description: 'Spent hours',
-	},
-	{
 		displayName: 'Comment',
 		name: 'comment',
 		type: 'string',
@@ -86,6 +79,20 @@ export const TimeEntryFields: INodeProperties[] = [
 	},
 
 	{
+		displayName: 'Hours',
+		name: 'hours',
+		type: 'number',
+		default: '',
+		description: 'Spent hours',
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.timeEEntries],
+				operation: [EasyNodeOperationType.create],
+			},
+		},
+	},
+
+	{
 		displayName: 'Create Fields',
 		name: 'timeEntryCreateOptions',
 		type: 'collection',
@@ -112,6 +119,16 @@ export const TimeEntryFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.timeEEntries],
 			},
 		},
-		options: [...CommonTimeEntryOptions, CustomFieldsOption],
+		options: [
+			{
+				displayName: 'Hours',
+				name: 'hours',
+				type: 'number',
+				default: '',
+				description: 'Spent hours',
+			},
+			...CommonTimeEntryOptions,
+			CustomFieldsOption,
+		],
 	},
 ];

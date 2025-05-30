@@ -9,6 +9,7 @@ import {
 	LeadCreateOptions,
 	OpportunityCreateOptions,
 	PersonalContactCreateOptions,
+	TimeEntryCreateOptions,
 	UserCreateOptions,
 } from './CreateModel';
 
@@ -124,6 +125,34 @@ function createBodyForPersonalContact(
 	return x;
 }
 
+function createBodyForTimeEntry(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'timeEntryCreateOptions',
+		itemIndex,
+		{},
+	) as TimeEntryCreateOptions;
+
+	const hours = this.getNodeParameter('hours', itemIndex) as number;
+
+	const customFields = convertCustomFields(options);
+	const body = {
+		time_entry: {
+			hours,
+			activity_id: options.activityId,
+			comments: options.comment,
+			custom_fields: customFields,
+			project_id: options.projectId,
+			spent_on: options.spentOn,
+			user_id: options.userId,
+		},
+	};
+	this.logger.debug(`Create time entry with : ${JSON.stringify(body)}`);
+	return body;
+}
+
 function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('userCreateOptions', itemIndex, {}) as UserCreateOptions;
 
@@ -132,10 +161,8 @@ function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: 
 	const lastname = this.getNodeParameter('lastname', itemIndex) as string;
 	const email = this.getNodeParameter('email', itemIndex) as string;
 
-	this.logger.debug(`Create user with : ${JSON.stringify(options)}`);
-
 	const customFields = convertCustomFields(options);
-	return {
+	const body = {
 		user: {
 			login,
 			firstname: firstname,
@@ -145,6 +172,8 @@ function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: 
 			custom_fields: customFields,
 		},
 	};
+	this.logger.debug(`Create user with : ${JSON.stringify(body)}`);
+	return body;
 }
 
 function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
@@ -181,6 +210,9 @@ export async function createOperation(
 
 	let body: { [key: string]: any };
 	switch (resource) {
+		case EasyNodeResourceType.accounts:
+			body = createBodyForAccount.call(this, itemIndex);
+			break;
 		case EasyNodeResourceType.issues:
 			body = createBodyForIssue.call(this, itemIndex);
 			break;
@@ -193,11 +225,11 @@ export async function createOperation(
 		case EasyNodeResourceType.personalContacts:
 			body = createBodyForPersonalContact.call(this, itemIndex);
 			break;
+		case EasyNodeResourceType.timeEEntries:
+			body = createBodyForTimeEntry.call(this, itemIndex);
+			break;
 		case EasyNodeResourceType.users:
 			body = createBodyForUser.call(this, itemIndex);
-			break;
-		case EasyNodeResourceType.accounts:
-			body = createBodyForAccount.call(this, itemIndex);
 			break;
 		default:
 			throw new Error('Unsupported resource type: ' + resource);

@@ -177,6 +177,31 @@ Personal contacts are CRM entities that represent a person. The entity name is `
   - Job title
   - Custom fields
 
+## Time entries
+
+Time entries are used to track time spent on issues. The entity name is `time_entry`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single time entry. The entitiy is specified by its ID.
+- **Get many** - returns a list of time entries. You should use easy query id to specify the filter.
+- **Create** - creates a new time entry.
+  - Hours (required)
+  - Activity ID
+  - Comment
+  - Project ID
+  - Spent On
+  - User ID
+  - Custom Fields
+- **Update** - updates some fields of the time entry.
+  - Activity ID
+  - Comment
+  - Hours
+  - Project ID
+  - Spent On
+  - User ID
+  - Custom Fields
+
 ## Users
 
 Users are Easy Redmine users. The entity name is `user`.
