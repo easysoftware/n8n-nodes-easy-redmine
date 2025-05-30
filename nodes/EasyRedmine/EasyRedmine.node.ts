@@ -21,6 +21,7 @@ import { AccountFields } from './fields/AccountFields';
 import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
+import { TimeEntryFields } from './fields/TimeEntryFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -86,6 +87,10 @@ export class EasyRedmine implements INodeType {
 						value: EasyNodeResourceType.personalContacts,
 					},
 					{
+						name: 'Time Entry',
+						value: EasyNodeResourceType.timeEntries,
+					},
+					{
 						name: 'User',
 						value: EasyNodeResourceType.users,
 					},
@@ -147,6 +152,7 @@ export class EasyRedmine implements INodeType {
 			...OpportunityFields,
 			...AccountFields,
 			...PersonalContactFields,
+			...TimeEntryFields,
 			...UserFields,
 
 			{
@@ -235,6 +241,11 @@ export class EasyRedmine implements INodeType {
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
+			},
+
+			getTimeEntryQueries: async function (this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyTimeEntryQuery');
 			},
 
 			getEasyUsersQueries: async function (

@@ -6,8 +6,9 @@ import {
 	IssueUpdateOptions,
 	LeadUpdateOptions,
 	OpportunityUpdateOptions,
-	UpdateOptionsWithCustomFields,
 	PersonalContactUpdateOptions,
+	TimeEntryUpdateOptions,
+	UpdateOptionsWithCustomFields,
 	UserUpdateOptions,
 } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
@@ -126,6 +127,31 @@ function updateBodyForPersonalContact(
 	};
 }
 
+function updateBodyForTimeEntry(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'timeEntryUpdateOptions',
+		itemIndex,
+		{},
+	) as TimeEntryUpdateOptions;
+
+	const customFields = convertCustomFields(options);
+
+	return {
+		time_entry: {
+			comments: options.comment,
+			hours: options.hours,
+			spent_on: options.spentOn,
+			project_id: options.projectId,
+			activity_id: options.activityId,
+			user_id: options.userId,
+			custom_fields: customFields,
+		},
+	};
+}
+
 function updateBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('userUpdateOptions', itemIndex, {}) as UserUpdateOptions;
 
@@ -170,6 +196,9 @@ export async function updateOperation(
 			break;
 		case EasyNodeResourceType.personalContacts:
 			body = updateBodyForPersonalContact.call(this, itemIndex);
+			break;
+		case EasyNodeResourceType.timeEntries:
+			body = updateBodyForTimeEntry.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.users:
 			body = updateBodyForUser.call(this, itemIndex);

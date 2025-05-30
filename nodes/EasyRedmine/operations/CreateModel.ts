@@ -13,6 +13,15 @@ export interface OpportunityCreateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+export interface TimeEntryCreateOptions {
+	activityId: number | undefined;
+	comment: string | undefined;
+	projectId: number | undefined;
+	spentOn: string | undefined;
+	userId: number | undefined;
+	customFields: { field: CustomField[] } | undefined;
+}
+
 export interface UserCreateOptions {
 	phone: string | undefined;
 	customFields: { field: CustomField[] } | undefined;
@@ -38,4 +47,5 @@ export type CreateOptionsWithCustomFields =
 	| LeadCreateOptions
 	| OpportunityCreateOptions
 	| PersonalContactCreateOptions
+	| TimeEntryCreateOptions
 	| UserCreateOptions;

@@ -11,6 +11,7 @@ export type EasyQueryType =
 	| 'EasyCrmCaseQuery'
 	| 'EasyContactQuery'
 	| 'EasyPersonalContactQuery'
+	| 'EasyTimeEntryQuery'
 	| 'EasyUserQuery';
 
 export async function getEasyQueries(this: ILoadOptionsFunctions, type: EasyQueryType) {

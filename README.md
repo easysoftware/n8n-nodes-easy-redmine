@@ -60,7 +60,7 @@ Account entity is used to manage company contacts. It has identifier `easy_conta
 
 **Operations**
 
-- **Get one** - returns a detailed view of a single entity. The entitiy is specified by its ID.
+- **Get one** - returns a detailed view of a single entity. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the entity.
 - **Create** - creates a new account.
@@ -80,7 +80,7 @@ Issues are mostly Redmine issues. The identifier is `issue`.
 
 **Operations**
 
-- **Get one** - returns a detailed view of a single entity. The entitiy is specified by its ID.
+- **Get one** - returns a detailed view of a single entity. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the entity.
 - **Create** - creates a new issue.
@@ -121,7 +121,7 @@ The identifier is `easy_lead`.
 
 **Operations**
 
-- **Get one** - returns a detailed view of a single lead. The entitiy is specified by its ID.
+- **Get one** - returns a detailed view of a single lead. The entity is specified by its ID.
 - **Get many** - returns a list of leads. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the lead.
 - **Create** - creates a new lead.
@@ -139,7 +139,7 @@ Opportunities are CRM entities that represent a potential sale. The entity name 
 
 **Operations**
 
-- **Get one** - returns a detailed view of a single opportunity. The entitiy is specified by its ID.
+- **Get one** - returns a detailed view of a single opportunity. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Add comment** - adds a comment to the opportunity.
 - **Create** - creates a new opportunity.
@@ -158,7 +158,7 @@ Personal contacts are CRM entities that represent a person. The entity name is `
 
 **Operations**
 
-- **Get one** - returns a detailed view of a single personal contact. The entitiy is specified by its ID.
+- **Get one** - returns a detailed view of a single personal contact. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Create** - creates a new personal contact.
   - Account ID (required or partner ID)
@@ -177,13 +177,38 @@ Personal contacts are CRM entities that represent a person. The entity name is `
   - Job title
   - Custom fields
 
+## Time entries
+
+Time entries are used to track time spent on issues. The entity name is `time_entry`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single time entry. The entity is specified by its ID.
+- **Get many** - returns a list of time entries. You should use easy query id to specify the filter.
+- **Create** - creates a new time entry.
+  - Hours (required)
+  - Activity ID
+  - Comment
+  - Project ID
+  - Spent On
+  - User ID
+  - Custom Fields
+- **Update** - updates some fields of the time entry.
+  - Activity ID
+  - Comment
+  - Hours
+  - Project ID
+  - Spent On
+  - User ID
+  - Custom Fields
+
 ## Users
 
 Users are Easy Redmine users. The entity name is `user`.
 
 **Operations**
 
-- **Get one** - returns a detailed view of a single user. The entitiy is specified by its ID.
+- **Get one** - returns a detailed view of a single user. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
 - **Create** - creates a new user
   - Login (required)
