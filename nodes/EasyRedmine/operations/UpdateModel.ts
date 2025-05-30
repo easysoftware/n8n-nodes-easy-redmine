@@ -38,6 +38,16 @@ export interface PersonalContactUpdateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+export interface TimeEntryUpdateOptions {
+	hours: number | undefined;
+	comment: string | undefined;
+	spentOn: string | undefined;
+	projectId: number | undefined;
+	activityId: number | undefined;
+	userId: number | undefined;
+	customFields: { field: CustomField[] } | undefined;
+}
+
 export interface UserUpdateOptions {
 	login: string | undefined;
 	firstname: string | undefined;
@@ -53,4 +63,5 @@ export type UpdateOptionsWithCustomFields =
 	| LeadUpdateOptions
 	| OpportunityUpdateOptions
 	| PersonalContactUpdateOptions
+	| TimeEntryUpdateOptions
 	| UserUpdateOptions;
