@@ -42,7 +42,7 @@ const CommonTimeEntryOptions: INodeProperties[] = [
 		name: 'userId',
 		type: 'number',
 		default: '',
-		description: 'ID of the user who belongs the time entry to',
+		description: 'ID of the user to whom the time entry belongs',
 	},
 ];
 
