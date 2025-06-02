@@ -74,6 +74,27 @@ Account entity is used to manage company contacts. It has identifier `easy_conta
   - Name (known as `firstname` in the entity schema)
   - Type ID
 
+## Attendance
+
+Attendance is used to track user attendance. The entity name is `easy_attendance`.
+
+**Operations**
+
+- **Get one** - returns a detailed view of a single attendance record. The entity is specified by its ID.
+- **Get many** - returns a list of attendance records. You should use easy query id to specify the filter.
+- **Create** - creates a new attendance record.
+  - Arrival (required)
+  - Departure
+  - User ID
+  - Description
+  - Activity ID
+- **Update** - updates some fields of the attendance record.
+  - Arrival
+  - Departure
+  - User ID
+  - Description
+  - Activity ID
+
 ## Issues
 
 Issues are mostly Redmine issues. The identifier is `issue`.
