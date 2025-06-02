@@ -1,6 +1,6 @@
 # 0.3.0 (unreleased)
 
-- Implemented time entry entity operations.
+- Implemented time entry and attendance entities operations.
 - Fixes documentation
 
 # 0.2.6 (21.5.2025)

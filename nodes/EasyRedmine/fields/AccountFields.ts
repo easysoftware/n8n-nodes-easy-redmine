@@ -37,7 +37,7 @@ export const AccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['easy_contacts'],
+				resource: [EasyNodeResourceType.accounts],
 			},
 		},
 		default: '',

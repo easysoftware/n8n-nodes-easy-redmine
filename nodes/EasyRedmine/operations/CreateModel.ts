@@ -34,6 +34,13 @@ export interface AccountCreateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+export interface AttendanceCreateOptions {
+	departure: string | undefined;
+	userId: number | undefined;
+	description: string | undefined;
+	activityId: string | undefined;
+}
+
 export interface PersonalContactCreateOptions {
 	accountId: number | undefined;
 	partnerId: number | undefined;

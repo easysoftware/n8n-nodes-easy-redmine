@@ -12,6 +12,12 @@ export async function processGetManyOperation(
 
 	let query_id_parameter: string;
 	switch (resource) {
+		case EasyNodeResourceType.accounts:
+			query_id_parameter = 'accountQueryId';
+			break;
+		case EasyNodeResourceType.attendances:
+			query_id_parameter = 'attendanceQueryId';
+			break;
 		case EasyNodeResourceType.issues:
 			query_id_parameter = 'issueQueryId';
 			break;
@@ -20,9 +26,6 @@ export async function processGetManyOperation(
 			break;
 		case EasyNodeResourceType.opportunities:
 			query_id_parameter = 'opportunityQueryId';
-			break;
-		case EasyNodeResourceType.accounts:
-			query_id_parameter = 'accountQueryId';
 			break;
 		case EasyNodeResourceType.personalContacts:
 			query_id_parameter = 'personalContactQueryId';

@@ -28,6 +28,14 @@ export interface AccountUpdateOptions {
 	customFields: { field: CustomField[] } | undefined;
 }
 
+export interface AttendanceUpdateOptions {
+	arrival: string | undefined;
+	departure: string | undefined;
+	userId: number | undefined;
+	description: string | undefined;
+	activityId: string | undefined;
+}
+
 export interface PersonalContactUpdateOptions {
 	partnerId: number | undefined;
 	accountId: number | undefined;

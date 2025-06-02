@@ -22,6 +22,7 @@ import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
+import { AttendanceFields } from './fields/AttendanceFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -81,6 +82,10 @@ export class EasyRedmine implements INodeType {
 					{
 						name: 'Account',
 						value: EasyNodeResourceType.accounts,
+					},
+					{
+						name: 'Attendance',
+						value: EasyNodeResourceType.attendances,
 					},
 					{
 						name: 'Personal Contact',
@@ -147,6 +152,7 @@ export class EasyRedmine implements INodeType {
 				],
 			},
 
+			...AttendanceFields,
 			...IssueFields,
 			...LeadFields,
 			...OpportunityFields,
@@ -213,6 +219,12 @@ export class EasyRedmine implements INodeType {
 
 	methods = {
 		loadOptions: {
+      getEasyAttendancesQueries: async function (
+        this: ILoadOptionsFunctions,
+      ): Promise<INodePropertyOptions[]> {
+        return await getEasyQueries.call(this, 'EasyAttendanceQuery');
+      },
+
 			getEasyIssueQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
