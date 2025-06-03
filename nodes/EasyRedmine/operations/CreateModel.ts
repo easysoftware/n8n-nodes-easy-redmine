@@ -36,7 +36,6 @@ export interface AccountCreateOptions {
 
 export interface AttendanceCreateOptions {
 	departure: string | undefined;
-	userId: number | undefined;
 	description: string | undefined;
 	activityId: string | undefined;
 }

@@ -31,7 +31,6 @@ export interface AccountUpdateOptions {
 export interface AttendanceUpdateOptions {
 	arrival: string | undefined;
 	departure: string | undefined;
-	userId: number | undefined;
 	description: string | undefined;
 	activityId: string | undefined;
 }

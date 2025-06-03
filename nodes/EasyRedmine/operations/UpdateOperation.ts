@@ -112,11 +112,12 @@ function updateBodyForAttendance(
 		{},
 	) as AttendanceUpdateOptions;
 
+	this.logger.info(`Updating attendance with options: ${JSON.stringify(options)}`);
+
 	const body = {
 		easy_attendance: {
 			arrival: options.arrival,
 			departure: options.departure,
-			user_id: options.userId,
 			description: options.description,
 			easy_attendance_activity_id: options.activityId,
 		},

@@ -63,7 +63,7 @@ export const AccountFields: INodeProperties[] = [
 
 	{
 		displayName: 'Create Fields',
-		name: 'accountsCreateOptions',
+		name: 'accountCreateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},

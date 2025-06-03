@@ -9,21 +9,15 @@ const CommonAttendanceOptions: INodeProperties[] = [
 		default: '',
 	},
 	{
-		displayName: 'User ID',
-		name: 'userId',
-		type: 'number',
-		default: '',
-	},
-	{
 		displayName: 'Description',
 		name: 'description',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Activity',
-		name: 'activityid',
-		type: 'string',
+		displayName: 'Activity ID',
+		name: 'activityId',
+		type: 'number',
 		default: '',
 	},
 ];
@@ -123,7 +117,7 @@ export const AttendanceFields: INodeProperties[] = [
 
 	{
 		displayName: 'Create Fields',
-		name: 'attendancesCreateOptions',
+		name: 'attendanceCreateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
@@ -138,7 +132,7 @@ export const AttendanceFields: INodeProperties[] = [
 
 	{
 		displayName: 'Update Fields',
-		name: 'attendancesUpdateOptions',
+		name: 'attendanceUpdateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
@@ -148,6 +142,6 @@ export const AttendanceFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.attendances],
 			},
 		},
-		options: [...CommonAttendanceOptions, ...AttendanceUpdateOptions],
+		options: [...AttendanceUpdateOptions, ...CommonAttendanceOptions],
 	},
 ];

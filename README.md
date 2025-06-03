@@ -85,13 +85,11 @@ Attendance is used to track user attendance. The entity name is `easy_attendance
 - **Create** - creates a new attendance record.
   - Arrival (required)
   - Departure
-  - User ID
   - Description
   - Activity ID
 - **Update** - updates some fields of the attendance record.
   - Arrival
   - Departure
-  - User ID
   - Description
   - Activity ID
 

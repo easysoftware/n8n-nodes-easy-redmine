@@ -23,14 +23,10 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 
 function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'accountsCreateOptions',
+		'accountCreateOptions',
 		itemIndex,
 		{},
 	) as AccountCreateOptions;
-
-	// const firstname = this.getNodeParameter('firstname', itemIndex) as string;
-	// const lastname = this.getNodeParameter('lastname', itemIndex) as string;
-	// const email = this.getNodeParameter('email', itemIndex) as string;
 
 	this.logger.debug(`Create account with : ${JSON.stringify(options)}`);
 
@@ -47,19 +43,19 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 
 export function createBodyForAttendance(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
-		'accountsCreateOptions',
+		'attendanceCreateOptions',
 		itemIndex,
 		{},
 	) as AttendanceCreateOptions;
 
 	const arrival = this.getNodeParameter('arrival', itemIndex) as string;
 
+	this.logger.info(`Create attendance with : ${JSON.stringify(options)}`);
 
 	const body = {
 		easy_attendance: {
 			arrival,
 			departure: options.departure,
-			user_id: options.userId,
 			description: options.description,
 			easy_attendance_activity_id: options.activityId,
 		},
