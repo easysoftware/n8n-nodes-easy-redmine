@@ -53,11 +53,20 @@ const CommonIssueFields: INodeProperties[] = [
 		description: 'ID of the parent issue',
 	},
 	{
-		displayName: 'Priority ID',
+		displayName: 'Priority Name or ID',
 		name: 'priorityId',
-		type: 'number',
-		description: 'ID of the priority',
+		type: 'options', // 'resourceLocator',
+		// description: 'ID of the priority',
+		description: 'Priority of the issue. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		default: '',
+		typeOptions: {
+			loadOptionsMethod: 'getEasyPriorities2',
+			loadOptionsDependsOn: ['projectId'],
+			searchable: true,
+			showCreate: false,
+			// createEntityLabel: 'Priority',
+			// expirable: true,
+		},
 	},
 	{
 		displayName: 'Project ID',

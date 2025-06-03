@@ -22,6 +22,7 @@ import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
+import { INodeListSearchResult } from 'n8n-workflow/dist/Interfaces';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -212,7 +213,36 @@ export class EasyRedmine implements INodeType {
 	};
 
 	methods = {
+		listSearch: {
+			getEasyPriorities: async function (
+				this: ILoadOptionsFunctions,
+				filter?: string,
+				paginationToken?: string,
+			): Promise<INodeListSearchResult> {
+				this.logger.info('listSearch: getEasyPriorities');
+				return {
+					results: [
+						{
+							name: 'Jedna',
+							value: 1,
+						},
+					], // INodeListSearchItems[]
+				};
+			},
+		},
 		loadOptions: {
+			getEasyPriorities2: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				this.logger.info('listSearch: getEasyPriorities');
+				return [
+					{
+						name: 'Jedna',
+						value: 1,
+					},
+				]; // INodeListSearchItems[]
+			},
+
 			getEasyIssueQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
@@ -243,7 +273,8 @@ export class EasyRedmine implements INodeType {
 				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
 			},
 
-			getTimeEntryQueries: async function (this: ILoadOptionsFunctions,
+			getTimeEntryQueries: async function (
+				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyTimeEntryQuery');
 			},
