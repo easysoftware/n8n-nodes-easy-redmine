@@ -6,6 +6,7 @@ import {
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 export type EasyQueryType =
+  | 'EasyAttendanceQuery'
 	| 'EasyIssueQuery'
 	| 'EasyLeadQuery'
 	| 'EasyCrmCaseQuery'

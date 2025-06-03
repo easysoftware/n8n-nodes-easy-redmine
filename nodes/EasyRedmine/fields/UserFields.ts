@@ -67,7 +67,7 @@ export const UserFields: INodeProperties[] = [
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyUsersQueries',
+			loadOptionsMethod: 'getEasyUserQueries',
 		},
 		default: '',
 	},

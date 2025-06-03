@@ -3,7 +3,7 @@ import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 import {
-	AccountCreateOptions,
+	AccountCreateOptions, AttendanceCreateOptions,
 	CreateOptionsWithCustomFields,
 	IssueCreateOptions,
 	LeadCreateOptions,
@@ -18,6 +18,48 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 		id: customField.id,
 		value: customField.value,
 	}));
+}
+
+
+function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'accountCreateOptions',
+		itemIndex,
+		{},
+	) as AccountCreateOptions;
+
+	this.logger.debug(`Create account with : ${JSON.stringify(options)}`);
+
+	const customFields = convertCustomFields(options);
+	return {
+		easy_contact: {
+			firstname: options.firstname,
+			easy_contact_industry_id: options.industryId,
+			easy_contact_type_id: options.typeId,
+			custom_fields: customFields,
+		},
+	};
+}
+
+export function createBodyForAttendance(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'attendanceCreateOptions',
+		itemIndex,
+		{},
+	) as AttendanceCreateOptions;
+
+	const arrival = this.getNodeParameter('arrival', itemIndex) as string;
+
+	const body = {
+		easy_attendance: {
+			arrival,
+			departure: options.departure,
+			description: options.description,
+			easy_attendance_activity_id: options.activityId,
+		},
+	};
+	this.logger.debug(`Create attendance with : ${JSON.stringify(body)}`);
+	return body;
 }
 
 function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
@@ -176,30 +218,6 @@ function createBodyForUser(this: IExecuteFunctions, itemIndex: number): { [key: 
 	return body;
 }
 
-function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
-	const options = this.getNodeParameter(
-		'accountsCreateOptions',
-		itemIndex,
-		{},
-	) as AccountCreateOptions;
-
-	// const firstname = this.getNodeParameter('firstname', itemIndex) as string;
-	// const lastname = this.getNodeParameter('lastname', itemIndex) as string;
-	// const email = this.getNodeParameter('email', itemIndex) as string;
-
-	this.logger.debug(`Create account with : ${JSON.stringify(options)}`);
-
-	const customFields = convertCustomFields(options);
-	return {
-		easy_contact: {
-			firstname: options.firstname,
-			easy_contact_industry_id: options.industryId,
-			easy_contact_type_id: options.typeId,
-			custom_fields: customFields,
-		},
-	};
-}
-
 export async function createOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
@@ -212,6 +230,9 @@ export async function createOperation(
 	switch (resource) {
 		case EasyNodeResourceType.accounts:
 			body = createBodyForAccount.call(this, itemIndex);
+			break;
+		case EasyNodeResourceType.attendances:
+			body = createBodyForAttendance.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.issues:
 			body = createBodyForIssue.call(this, itemIndex);

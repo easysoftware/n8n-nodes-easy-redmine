@@ -22,6 +22,7 @@ import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
+import { AttendanceFields } from './fields/AttendanceFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -81,6 +82,10 @@ export class EasyRedmine implements INodeType {
 					{
 						name: 'Account',
 						value: EasyNodeResourceType.accounts,
+					},
+					{
+						name: 'Attendance',
+						value: EasyNodeResourceType.attendances,
 					},
 					{
 						name: 'Personal Contact',
@@ -147,6 +152,7 @@ export class EasyRedmine implements INodeType {
 				],
 			},
 
+			...AttendanceFields,
 			...IssueFields,
 			...LeadFields,
 			...OpportunityFields,
@@ -213,13 +219,19 @@ export class EasyRedmine implements INodeType {
 
 	methods = {
 		loadOptions: {
+			getEasyAttendanceQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyAttendanceQuery');
+			},
+
 			getEasyIssueQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyIssueQuery');
 			},
 
-			getEasyLeadsQueries: async function (
+			getEasyLeadQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyLeadQuery');
@@ -231,24 +243,25 @@ export class EasyRedmine implements INodeType {
 				return await getEasyQueries.call(this, 'EasyCrmCaseQuery');
 			},
 
-			getEasyAccountsQueries: async function (
+			getEasyAccountQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyContactQuery');
 			},
 
-			getEasyPersonalAccountsQueries: async function (
+			getEasyPersonalAccountQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
 			},
 
-			getTimeEntryQueries: async function (this: ILoadOptionsFunctions,
+			getTimeEntryQueries: async function (
+				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyTimeEntryQuery');
 			},
 
-			getEasyUsersQueries: async function (
+			getEasyUserQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyUserQuery');

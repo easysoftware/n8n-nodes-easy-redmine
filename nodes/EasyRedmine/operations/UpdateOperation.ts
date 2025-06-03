@@ -1,7 +1,7 @@
 import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import {
-	AccountUpdateOptions,
+	AccountUpdateOptions, AttendanceUpdateOptions,
 	CustomField,
 	IssueUpdateOptions,
 	LeadUpdateOptions,
@@ -102,6 +102,28 @@ function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 	};
 }
 
+function updateBodyForAttendance(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
+	const options = this.getNodeParameter(
+		'attendanceUpdateOptions',
+		itemIndex,
+		{},
+	) as AttendanceUpdateOptions;
+
+	const body = {
+		easy_attendance: {
+			arrival: options.arrival,
+			departure: options.departure,
+			description: options.description,
+			easy_attendance_activity_id: options.activityId,
+		},
+	};
+	this.logger.debug(`Updating attendance with body: ${JSON.stringify(body)}`);
+	return body;
+}
+
 function updateBodyForPersonalContact(
 	this: IExecuteFunctions,
 	itemIndex: number,
@@ -182,6 +204,12 @@ export async function updateOperation(
 
 	let body: { [key: string]: any };
 	switch (resource) {
+		case EasyNodeResourceType.accounts:
+			body = updateBodyForAccount.call(this, itemIndex);
+			break;
+		case EasyNodeResourceType.attendances:
+			body = updateBodyForAttendance.call(this, itemIndex);
+			break;
 		case EasyNodeResourceType.issues:
 			body = updateBodyForIssue.call(this, itemIndex);
 			break;
@@ -190,9 +218,6 @@ export async function updateOperation(
 			break;
 		case EasyNodeResourceType.opportunities:
 			body = updateBodyForOpportunity.call(this, itemIndex);
-			break;
-		case EasyNodeResourceType.accounts:
-			body = updateBodyForAccount.call(this, itemIndex);
 			break;
 		case EasyNodeResourceType.personalContacts:
 			body = updateBodyForPersonalContact.call(this, itemIndex);

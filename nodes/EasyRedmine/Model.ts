@@ -7,6 +7,7 @@ export enum EasyNodeOperationType {
 }
 
 export enum EasyNodeResourceType {
+	attendances = 'easy_attendances',
 	issues = 'issues',
 	leads = 'easy_leads',
 	opportunities = 'easy_crm_cases',

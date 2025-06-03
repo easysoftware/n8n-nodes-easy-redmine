@@ -49,7 +49,7 @@ export const LeadFields: INodeProperties[] = [
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyLeadsQueries',
+			loadOptionsMethod: 'getEasyLeadQueries',
 		},
 		default: '',
 	},

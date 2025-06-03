@@ -37,7 +37,7 @@ export const AccountFields: INodeProperties[] = [
 					EasyNodeOperationType.addComment,
 					EasyNodeOperationType.update,
 				],
-				resource: ['easy_contacts'],
+				resource: [EasyNodeResourceType.accounts],
 			},
 		},
 		default: '',
@@ -56,14 +56,14 @@ export const AccountFields: INodeProperties[] = [
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyAccountsQueries',
+			loadOptionsMethod: 'getEasyAccountQueries',
 		},
 		default: '',
 	},
 
 	{
 		displayName: 'Create Fields',
-		name: 'accountsCreateOptions',
+		name: 'accountCreateOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
