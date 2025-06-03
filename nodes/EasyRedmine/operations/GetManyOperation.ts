@@ -9,6 +9,7 @@ export async function processGetManyOperation(
 	itemIndex: number,
 ) {
 	const credentials = await this.getCredentials('easyRedmineApi');
+	const qs: IDataObject = {};
 
 	let query_id_parameter: string;
 	switch (resource) {
@@ -17,6 +18,7 @@ export async function processGetManyOperation(
 			break;
 		case EasyNodeResourceType.attendances:
 			query_id_parameter = 'attendanceQueryId';
+			qs['tab'] = 'list';
 			break;
 		case EasyNodeResourceType.issues:
 			query_id_parameter = 'issueQueryId';
@@ -41,7 +43,6 @@ export async function processGetManyOperation(
 	}
 
 	const queryId = this.getNodeParameter(query_id_parameter, itemIndex);
-	const qs: IDataObject = {};
 	if (queryId) {
 		qs.query_id = queryId;
 	}

@@ -1,4 +1,8 @@
-# 0.3.0 (unreleased)
+# 0.3.1 (2025-06-03)
+
+- Fixes problem with listing attendances.
+
+# 0.3.0 (2025-06-03)
 
 - Implemented time entry and attendance entities operations.
 - Fixes documentation
