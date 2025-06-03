@@ -56,7 +56,7 @@ export const AccountFields: INodeProperties[] = [
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyAccountsQueries',
+			loadOptionsMethod: 'getEasyAccountQueries',
 		},
 		default: '',
 	},

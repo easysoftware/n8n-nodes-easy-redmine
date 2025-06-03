@@ -97,7 +97,7 @@ export const AttendanceFields: INodeProperties[] = [
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyAttendancesQueries',
+			loadOptionsMethod: 'getEasyAttendanceQueries',
 		},
 		default: '',
 	},

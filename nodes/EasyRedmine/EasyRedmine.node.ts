@@ -219,11 +219,11 @@ export class EasyRedmine implements INodeType {
 
 	methods = {
 		loadOptions: {
-      getEasyAttendancesQueries: async function (
-        this: ILoadOptionsFunctions,
-      ): Promise<INodePropertyOptions[]> {
-        return await getEasyQueries.call(this, 'EasyAttendanceQuery');
-      },
+			getEasyAttendanceQueries: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getEasyQueries.call(this, 'EasyAttendanceQuery');
+			},
 
 			getEasyIssueQueries: async function (
 				this: ILoadOptionsFunctions,
@@ -231,7 +231,7 @@ export class EasyRedmine implements INodeType {
 				return await getEasyQueries.call(this, 'EasyIssueQuery');
 			},
 
-			getEasyLeadsQueries: async function (
+			getEasyLeadQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyLeadQuery');
@@ -243,24 +243,25 @@ export class EasyRedmine implements INodeType {
 				return await getEasyQueries.call(this, 'EasyCrmCaseQuery');
 			},
 
-			getEasyAccountsQueries: async function (
+			getEasyAccountQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyContactQuery');
 			},
 
-			getEasyPersonalAccountsQueries: async function (
+			getEasyPersonalAccountQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
 			},
 
-			getTimeEntryQueries: async function (this: ILoadOptionsFunctions,
+			getTimeEntryQueries: async function (
+				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyTimeEntryQuery');
 			},
 
-			getEasyUsersQueries: async function (
+			getEasyUserQueries: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyUserQuery');

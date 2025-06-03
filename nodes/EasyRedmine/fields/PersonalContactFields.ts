@@ -137,7 +137,7 @@ export const PersonalContactFields: INodeProperties[] = [
 			},
 		},
 		typeOptions: {
-			loadOptionsMethod: 'getEasyPersonalAccountsQueries',
+			loadOptionsMethod: 'getEasyPersonalAccountQueries',
 		},
 		default: '',
 	},

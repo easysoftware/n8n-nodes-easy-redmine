@@ -83,7 +83,7 @@ export async function processGetManyOperation(
 		offset += fetchedItemsCount;
 	} while (fetchedItemsCount >= limit && returnAll);
 
-	this.logger.info(`Fetched all ${resource} ${resultItems.length} items`);
+	this.logger.debug(`Fetched all ${resource} ${resultItems.length} items`);
 
 	const result: any = {};
 	result[resource] = resultItems;

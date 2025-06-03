@@ -50,8 +50,6 @@ export function createBodyForAttendance(this: IExecuteFunctions, itemIndex: numb
 
 	const arrival = this.getNodeParameter('arrival', itemIndex) as string;
 
-	this.logger.info(`Create attendance with : ${JSON.stringify(options)}`);
-
 	const body = {
 		easy_attendance: {
 			arrival,
@@ -60,7 +58,7 @@ export function createBodyForAttendance(this: IExecuteFunctions, itemIndex: numb
 			easy_attendance_activity_id: options.activityId,
 		},
 	};
-	this.logger.info(`Create attendance with : ${JSON.stringify(body)}`);
+	this.logger.debug(`Create attendance with : ${JSON.stringify(body)}`);
 	return body;
 }
 

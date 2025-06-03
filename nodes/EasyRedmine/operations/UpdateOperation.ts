@@ -112,8 +112,6 @@ function updateBodyForAttendance(
 		{},
 	) as AttendanceUpdateOptions;
 
-	this.logger.info(`Updating attendance with options: ${JSON.stringify(options)}`);
-
 	const body = {
 		easy_attendance: {
 			arrival: options.arrival,
@@ -122,7 +120,7 @@ function updateBodyForAttendance(
 			easy_attendance_activity_id: options.activityId,
 		},
 	};
-	this.logger.info(`Updating attendance with body: ${JSON.stringify(body)}`);
+	this.logger.debug(`Updating attendance with body: ${JSON.stringify(body)}`);
 	return body;
 }
 
