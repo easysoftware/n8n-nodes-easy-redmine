@@ -309,7 +309,11 @@ export class EasyRedmine implements INodeType {
 				// This node should never fail but we want to showcase how
 				// to handle errors.
 				if (this.continueOnFail()) {
-					items.push({ json: this.getInputData(itemIndex)[0].json, error, pairedItem: itemIndex });
+					const executionErrorData = this.helpers.constructExecutionMetaData(
+						this.helpers.returnJsonArray({ error: error.message }),
+						{ itemData: { item: itemIndex } },
+					);
+					returnData.push(...executionErrorData);
 				} else {
 					// Adding `itemIndex` allows other workflows to handle this error
 					if (error.context) {
