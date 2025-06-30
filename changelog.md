@@ -1,4 +1,4 @@
-# 0.3.2 (2025-06-31)
+# 0.3.2 (2025-06-30)
 
 - Improved error handling and responding when the node is set to continue on error.
 
