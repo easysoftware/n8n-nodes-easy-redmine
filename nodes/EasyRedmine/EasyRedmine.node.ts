@@ -309,8 +309,13 @@ export class EasyRedmine implements INodeType {
 				// This node should never fail but we want to showcase how
 				// to handle errors.
 				if (this.continueOnFail()) {
+					let errorMessage = error.message;
+					if (error.context?.data?.errors && Array.isArray(error.context.data.errors)) {
+						const errors = error.context.data.errors;
+						errorMessage = errors.join(", ");
+					}
 					const executionErrorData = this.helpers.constructExecutionMetaData(
-						this.helpers.returnJsonArray({ error: error.message }),
+						this.helpers.returnJsonArray({ error: errorMessage }),
 						{ itemData: { item: itemIndex } },
 					);
 					returnData.push(...executionErrorData);
