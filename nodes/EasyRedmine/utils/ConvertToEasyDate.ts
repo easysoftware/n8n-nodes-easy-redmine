@@ -8,10 +8,13 @@ export function convertToEasyDate(input: string | undefined): string | undefined
 	}
 
 	try {
-		// Parse the input date - handles both ISO dates and n8n dateTime formats
-		const date = new Date(input);
+		//  YYYY-MM-DD
+		const simpleMatch = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+		if (simpleMatch) {
+			return input;
+		}
 
-		// Check if the date is valid
+		const date = new Date(input);
 		if (isNaN(date.getTime())) {
 			return undefined;
 		}
