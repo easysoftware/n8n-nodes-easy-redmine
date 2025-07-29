@@ -8,7 +8,9 @@ export function convertToEasyDate(input: string | undefined): string | undefined
 	}
 
 	try {
-		// Parse the input date - handles both ISO dates and n8n dateTime formats
+		// Parse the input date - handles both ISO 8601 dates (e.g., "2023-03-15T13:45:00Z") 
+		// and n8n dateTime formats, which are typically ISO 8601 compliant. Examples:
+		// "2023-03-15T13:45:00Z", "2023-03-15", "2023-03-15T13:45:00+01:00".
 		const date = new Date(input);
 
 		// Check if the date is valid
