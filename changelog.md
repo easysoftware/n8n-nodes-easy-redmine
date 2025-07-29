@@ -1,6 +1,7 @@
 # 0.3.3
 
 - Even more improvements for error handling.
+- Fixes invalid due date and start date handling in issues
 
 # 0.3.2 (2025-06-30)
 
