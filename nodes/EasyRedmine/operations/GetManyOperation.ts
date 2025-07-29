@@ -1,6 +1,5 @@
-import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
-import { IDataObject } from 'n8n-workflow/dist/Interfaces';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 
 export async function processGetManyOperation(

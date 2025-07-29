@@ -1,3 +1,4 @@
+/* eslint-disable n8n-nodes-base/node-class-description-inputs-wrong-regular-node, n8n-nodes-base/node-class-description-outputs-wrong */
 import {
 	IDataObject,
 	IExecuteFunctions,
@@ -312,7 +313,7 @@ export class EasyRedmine implements INodeType {
 					let errorMessage = error.message;
 					if (error.context?.data?.errors && Array.isArray(error.context.data.errors)) {
 						const errors = error.context.data.errors;
-						errorMessage = errors.join(", ");
+						errorMessage = errors.join(', ');
 					}
 					const executionErrorData = this.helpers.constructExecutionMetaData(
 						this.helpers.returnJsonArray({ error: errorMessage }),
