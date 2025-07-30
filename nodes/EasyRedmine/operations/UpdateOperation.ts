@@ -13,6 +13,7 @@ import {
 	UserUpdateOptions,
 } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
+import { extractBillingOptions } from '../utils/ExtractBillingOptions';
 
 function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -93,6 +94,20 @@ function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 
 	const customFields = convertCustomFields(options);
 
+	const primaryBillingOptions = extractBillingOptions(
+		this,
+		'accountPrimaryBillingUpdateOptions',
+		itemIndex,
+		true,
+	);
+
+	const contactBillingOptions = extractBillingOptions(
+		this,
+		'accountContactBillingUpdateOptions',
+		itemIndex,
+		false,
+	);
+
 	return {
 		easy_contact: {
 			firstname: options.firstname,
@@ -109,41 +124,8 @@ function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 			account_closed: options.accountClosed,
 			easy_contact_customer_left_reason_id: options.customerLeftReasonId,
 
-			primary_easy_billing_info_attributes: {
-				organization: options.contactBillingOrganization,
-				street: options.contactBillingStreet,
-				city: options.contactBillingCity,
-				country_code: options.contactBillingCountryCode,
-				subdivision_code: options.contactBillingCountrySubdivisionCode,
-				postal_code: options.contactBillingPostalCode,
-				eEmail: options.contactBillingEmail,
-				telephone: options.contactBillingPhone,
-				vat_no: options.contactBillingVatNo,
-				vat_rate: options.contactBillingVatRate,
-				bank_account: options.contactBillingBankAccount,
-				iban: options.contactBillingIBAN,
-				variable_symbol: options.contactBillingVariableSymbol,
-				swift: options.contactBillingSWIFT,
-				bic: options.contactBillingBIC,
-			},
-
-			contact_easy_billing_info_attributes: {
-				organization: options.primaryBillingOrganization,
-				street: options.primaryBillingStreet,
-				city: options.primaryBillingCity,
-				country_code: options.primaryBillingCountryCode,
-				subdivision_code: options.primaryBillingCountrySubdivisionCode,
-				postal_code: options.primaryBillingPostalCode,
-				eEmail: options.primaryBillingEmail,
-				telephone: options.primaryBillingPhone,
-				vat_no: options.primaryBillingVatNo,
-				vat_rate: options.primaryBillingVatRate,
-				bank_account: options.primaryBillingBankAccount,
-				iban: options.primaryBillingIBAN,
-				variable_symbol: options.primaryBillingVariableSymbol,
-				swift: options.primaryBillingSWIFT,
-				bic: options.primaryBillingBIC,
-			}
+			contact_easy_billing_info_attributes: contactBillingOptions,
+			primary_easy_billing_info_attributes: primaryBillingOptions,
 		},
 	};
 }
@@ -164,11 +146,9 @@ function updateBodyForAttendance(
 			departure: options.departure,
 			description: options.description,
 			easy_attendance_activity_id: options.activityId,
-
-			contact_easy_billing_info_attributes,
-			primary_easy_billing_info_attributes
 		},
 	};
+
 	this.logger.debug(`Updating attendance with body: ${JSON.stringify(body)}`);
 	return body;
 }

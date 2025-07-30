@@ -17,7 +17,7 @@ const CommonAccountOptions: INodeProperties[] = [
 		description: 'Account name',
 	},
 	{
-		displayName: 'Accounts',
+		displayName: 'Accounts Type ID',
 		name: 'typeId',
 		type: 'number',
 		default: '',
@@ -25,35 +25,33 @@ const CommonAccountOptions: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Account Manager',
+		displayName: 'Account Manager ID',
 		name: 'assignedToId',
 		type: 'string',
 		default: '',
-		description: 'Account manager ID',
 	},
 	{
-		displayName: 'External Account Manager',
+		displayName: 'External Account Manager ID',
 		name: 'externalAssignedToId',
 		type: 'string',
 		default: '',
-		description: 'External account manager ID',
 	},
 	{
-		displayName: 'Account Status',
+		displayName: 'Account Status ID',
 		name: 'contactStatusId',
 		type: 'string',
 		default: '',
 		description: 'Current status of the account',
 	},
 	{
-		displayName: 'Account Level',
+		displayName: 'Account Level ID',
 		name: 'contactLevelId',
 		type: 'string',
 		default: '',
 		description: 'Level of the account',
 	},
 	{
-		displayName: 'Author',
+		displayName: 'Author ID',
 		name: 'authorId',
 		type: 'string',
 		default: '',
@@ -75,7 +73,7 @@ const CommonAccountOptions: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Customer Left - Reason',
+		displayName: 'Customer Left Reason ID',
 		name: 'customerLeftReasonId',
 		type: 'number',
 		default: '',
@@ -123,8 +121,8 @@ const BillingAccountOptions: INodeProperties[] = [
 	{
 		displayName: 'Email',
 		name: 'email',
-    placeholder: 'name@email.com',
-    type: 'string',
+		placeholder: 'name@email.com',
+		type: 'string',
 		default: '',
 	},
 	{
@@ -225,45 +223,38 @@ export const AccountFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.accounts],
 			},
 		},
-		options: [
-			...CommonAccountOptions,
-			CustomFieldsOption,
-		],
+		options: [...CommonAccountOptions, CustomFieldsOption],
 	},
 
-  {
-    displayName: 'Billing Fields',
-    name: 'accountPrimaryBillingCreateOptions',
-    type: 'collection',
-    placeholder: 'Add option',
-    default: {},
-    displayOptions: {
-      show: {
-        operation: [EasyNodeOperationType.create],
-        resource: [EasyNodeResourceType.accounts],
-      },
-    },
-    options: [
-      ...BillingAccountOptions,
-    ],
-  },
+	{
+		displayName: 'Billing Fields',
+		name: 'accountPrimaryBillingCreateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [...BillingAccountOptions],
+	},
 
-  {
-    displayName: 'Contact Fields',
-    name: 'accountContactBillingCreateOptions',
-    type: 'collection',
-    placeholder: 'Add option',
-    default: {},
-    displayOptions: {
-      show: {
-        operation: [EasyNodeOperationType.create],
-        resource: [EasyNodeResourceType.accounts],
-      },
-    },
-    options: [
-      ...BillingAccountOptions,
-    ],
-  },
+	{
+		displayName: 'Contact Fields',
+		name: 'accountContactBillingCreateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.create],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [...BillingAccountOptions],
+	},
 
 	{
 		displayName: 'Update Fields',
@@ -277,43 +268,36 @@ export const AccountFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.accounts],
 			},
 		},
-		options: [
-			...CommonAccountOptions,
-			CustomFieldsOption,
-		],
+		options: [...CommonAccountOptions, CustomFieldsOption],
 	},
 
-  {
-    displayName: 'Billing Fields',
-    name: 'accountPrimaryBillingUpdateOptions',
-    type: 'collection',
-    placeholder: 'Add option',
-    default: {},
-    displayOptions: {
-      show: {
-        operation: [EasyNodeOperationType.update],
-        resource: [EasyNodeResourceType.accounts],
-      },
-    },
-    options: [
-      ...BillingAccountOptions,
-    ],
-  },
+	{
+		displayName: 'Billing Fields',
+		name: 'accountPrimaryBillingUpdateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [...BillingAccountOptions],
+	},
 
-  {
-    displayName: 'Contact Fields',
-    name: 'accountContactBillingUpdateOptions',
-    type: 'collection',
-    placeholder: 'Add option',
-    default: {},
-    displayOptions: {
-      show: {
-        operation: [EasyNodeOperationType.update],
-        resource: [EasyNodeResourceType.accounts],
-      },
-    },
-    options: [
-      ...BillingAccountOptions,
-    ],
-  },
+	{
+		displayName: 'Contact Fields',
+		name: 'accountContactBillingUpdateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [...BillingAccountOptions],
+	},
 ];

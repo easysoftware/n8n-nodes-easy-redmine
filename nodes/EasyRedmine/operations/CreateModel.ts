@@ -30,9 +30,9 @@ export interface UserCreateOptions {
 export interface AccountCreateOptions {
   firstname: string | undefined;
   industryId: number | undefined;
-  typeId: number | undefined;
   customFields: { field: CustomField[] } | undefined;
 
+  typeId: number | undefined;
   assignedToId: number | undefined;
   externalAssignedToId: number | undefined;
   contactStatusId: number | undefined;

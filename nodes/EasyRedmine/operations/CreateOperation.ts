@@ -3,16 +3,17 @@ import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 import {
-  AccountBillingCreateOptions,
-  AccountCreateOptions, AttendanceCreateOptions,
-  CreateOptionsWithCustomFields,
-  IssueCreateOptions,
-  LeadCreateOptions,
-  OpportunityCreateOptions,
-  PersonalContactCreateOptions,
-  TimeEntryCreateOptions,
-  UserCreateOptions,
+	AccountCreateOptions,
+	AttendanceCreateOptions,
+	CreateOptionsWithCustomFields,
+	IssueCreateOptions,
+	LeadCreateOptions,
+	OpportunityCreateOptions,
+	PersonalContactCreateOptions,
+	TimeEntryCreateOptions,
+	UserCreateOptions,
 } from './CreateModel';
+import { extractBillingOptions } from '../utils/ExtractBillingOptions';
 
 function convertCustomFields(options: CreateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -20,7 +21,6 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 		value: customField.value,
 	}));
 }
-
 
 function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
@@ -31,59 +31,19 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 
 	this.logger.debug(`Create account with : ${JSON.stringify(options)}`);
 
-	const contactBillingOptions = this.getNodeParameter(
+	const primaryBillingOptions = extractBillingOptions(
+		this,
+		'accountPrimaryBillingCreateOptions',
+		itemIndex,
+		true,
+	);
+
+	const contactBillingOptions = extractBillingOptions(
+		this,
 		'accountContactBillingCreateOptions',
 		itemIndex,
-		{},
-	) as AccountBillingCreateOptions;
-	let contact_easy_billing_info_attributes: {} | undefined;
-	if (contactBillingOptions) {
-		contact_easy_billing_info_attributes = {
-			contact: 1,
-			organization: contactBillingOptions.organization,
-			street: contactBillingOptions.street,
-			city: contactBillingOptions.city,
-			country_code: contactBillingOptions.countryCode,
-			subdivision_code: contactBillingOptions.countrySubdivisionCode,
-			postal_code: contactBillingOptions.postalCode,
-			email: contactBillingOptions.email,
-			telephone: contactBillingOptions.phone,
-			vat_no: contactBillingOptions.vatNo,
-			vat_rate: contactBillingOptions.vatRate,
-			bank_account: contactBillingOptions.bankAccount,
-			iban: contactBillingOptions.iban,
-			variable_symbol: contactBillingOptions.variableSymbol,
-			swift: contactBillingOptions.swift,
-			bic: contactBillingOptions.bic,
-		}
-	}
-
-  const primaryBillingOptions = this.getNodeParameter(
-    'accountPrimaryBillingCreateOptions',
-    itemIndex,
-    {},
-  ) as AccountBillingCreateOptions;
-  let primary_easy_billing_info_attributes: {} | undefined;
-  if (primaryBillingOptions) {
-    primary_easy_billing_info_attributes = {
-      primary: 1,
-      organization: primaryBillingOptions.organization,
-      street: primaryBillingOptions.street,
-      city: primaryBillingOptions.city,
-      country_code: primaryBillingOptions.countryCode,
-      subdivision_code: primaryBillingOptions.countrySubdivisionCode,
-      postal_code: primaryBillingOptions.postalCode,
-      email: primaryBillingOptions.email,
-      telephone: primaryBillingOptions.phone,
-      vat_no: primaryBillingOptions.vatNo,
-      vat_rate: primaryBillingOptions.vatRate,
-      bank_account: primaryBillingOptions.bankAccount,
-      iban: primaryBillingOptions.iban,
-      variable_symbol: primaryBillingOptions.variableSymbol,
-      swift: primaryBillingOptions.swift,
-      bic: primaryBillingOptions.bic,
-    }
-  }
+		false,
+	);
 
 	const customFields = convertCustomFields(options);
 	return {
@@ -102,13 +62,16 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 			account_closed: options.accountClosed,
 			easy_contact_customer_left_reason_id: options.customerLeftReasonId,
 
-			contact_easy_billing_info_attributes,
-      primary_easy_billing_info_attributes
+			contact_easy_billing_info_attributes: contactBillingOptions,
+			primary_easy_billing_info_attributes: primaryBillingOptions,
 		},
 	};
 }
 
-export function createBodyForAttendance(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
+export function createBodyForAttendance(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
 	const options = this.getNodeParameter(
 		'attendanceCreateOptions',
 		itemIndex,
