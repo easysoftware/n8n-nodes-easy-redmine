@@ -2,6 +2,7 @@
 
 - Even more improvements for error handling.
 - Fixes invalid due date and start date handling in issues
+- Added couple of fields to account entity. Most importantly billing and contact information.
 
 # 0.3.2 (2025-06-30)
 
