@@ -164,6 +164,9 @@ function updateBodyForAttendance(
 			departure: options.departure,
 			description: options.description,
 			easy_attendance_activity_id: options.activityId,
+
+			contact_easy_billing_info_attributes,
+			primary_easy_billing_info_attributes
 		},
 	};
 	this.logger.debug(`Updating attendance with body: ${JSON.stringify(body)}`);

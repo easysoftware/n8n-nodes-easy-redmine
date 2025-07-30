@@ -85,185 +85,93 @@ const CommonAccountOptions: INodeProperties[] = [
 
 const BillingAccountOptions: INodeProperties[] = [
 	{
-		displayName: 'Primary Billing Company Name',
-		name: 'primaryBillingOrganization',
+		displayName: 'Company Name',
+		name: 'organization',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Street',
-		name: 'primaryBillingStreet',
+		displayName: 'Street',
+		name: 'street',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing City',
-		name: 'primaryBillingCity',
+		displayName: 'City',
+		name: 'city',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Country',
-		name: 'primaryBillingCountryCode',
+		displayName: 'Country Code',
+		name: 'countryCode',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Country Division',
-		name: 'primaryBillingCountrySubdivisionCode',
+		displayName: 'Country Division',
+		name: 'countrySubdivisionCode',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Postal Code',
-		name: 'primaryBillingPostalCode',
+		displayName: 'Postal Code',
+		name: 'postalCode',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Email',
-		name: 'primaryBillingEmail',
+		displayName: 'Email',
+		name: 'email',
+    placeholder: 'name@email.com',
+    type: 'string',
+		default: '',
+	},
+	{
+		displayName: 'Telephone',
+		name: 'phone',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Telephone',
-		name: 'primaryBillingPhone',
+		displayName: 'VAT Number',
+		name: 'vatNo',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing VAT Number',
-		name: 'primaryBillingVatNo',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Primary Billing VAT Rate',
-		name: 'primaryBillingVatRate',
+		displayName: 'VAT Rate',
+		name: 'vatRate',
 		type: 'number',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Bank Account Number',
-		name: 'primaryBillingBankAccount',
+		displayName: 'Bank Account Number',
+		name: 'bankAccount',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing IBAN',
-		name: 'primaryBillingIBAN',
+		displayName: 'IBAN',
+		name: 'iban',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing Variable Symbol',
-		name: 'primaryBillingVariableSymbol',
+		displayName: 'Variable Symbol',
+		name: 'variableSymbol',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing SWIFT',
-		name: 'primaryBillingSWIFT',
+		displayName: 'SWIFT',
+		name: 'swift',
 		type: 'string',
 		default: '',
 	},
 	{
-		displayName: 'Primary Billing BIC',
-		name: 'primaryBillingBIC',
-		type: 'string',
-		default: '',
-	},
-];
-
-const ContactAccountOptions: INodeProperties[] = [
-	{
-		displayName: 'Contact Billing Company Name',
-		name: 'contactBillingOrganization',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Street',
-		name: 'contactBillingStreet',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing City',
-		name: 'contactBillingCity',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Country',
-		name: 'contactBillingCountryCode',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Country Division',
-		name: 'contactBillingCountrySubdivisionCode',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Postal Code',
-		name: 'contactBillingPostalCode',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Email',
-		name: 'contactBillingEmail',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Telephone',
-		name: 'contactBillingPhone',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing VAT Number',
-		name: 'contactBillingVatNo',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing VAT Rate',
-		name: 'contactBillingVatRate',
-		type: 'number',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Bank Account Number',
-		name: 'contactBillingBankAccount',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing IBAN',
-		name: 'contactBillingIBAN',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing Variable Symbol',
-		name: 'contactBillingVariableSymbol',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing SWIFT',
-		name: 'contactBillingSWIFT',
-		type: 'string',
-		default: '',
-	},
-	{
-		displayName: 'Contact Billing BIC',
-		name: 'contactBillingBIC',
+		displayName: 'BIC',
+		name: 'bic',
 		type: 'string',
 		default: '',
 	},
@@ -320,10 +228,42 @@ export const AccountFields: INodeProperties[] = [
 		options: [
 			...CommonAccountOptions,
 			CustomFieldsOption,
-			...BillingAccountOptions,
-			...ContactAccountOptions,
 		],
 	},
+
+  {
+    displayName: 'Billing Fields',
+    name: 'accountPrimaryBillingCreateOptions',
+    type: 'collection',
+    placeholder: 'Add option',
+    default: {},
+    displayOptions: {
+      show: {
+        operation: [EasyNodeOperationType.create],
+        resource: [EasyNodeResourceType.accounts],
+      },
+    },
+    options: [
+      ...BillingAccountOptions,
+    ],
+  },
+
+  {
+    displayName: 'Contact Fields',
+    name: 'accountContactBillingCreateOptions',
+    type: 'collection',
+    placeholder: 'Add option',
+    default: {},
+    displayOptions: {
+      show: {
+        operation: [EasyNodeOperationType.create],
+        resource: [EasyNodeResourceType.accounts],
+      },
+    },
+    options: [
+      ...BillingAccountOptions,
+    ],
+  },
 
 	{
 		displayName: 'Update Fields',
@@ -340,8 +280,40 @@ export const AccountFields: INodeProperties[] = [
 		options: [
 			...CommonAccountOptions,
 			CustomFieldsOption,
-			...BillingAccountOptions,
-			...ContactAccountOptions,
 		],
 	},
+
+  {
+    displayName: 'Billing Fields',
+    name: 'accountPrimaryBillingUpdateOptions',
+    type: 'collection',
+    placeholder: 'Add option',
+    default: {},
+    displayOptions: {
+      show: {
+        operation: [EasyNodeOperationType.update],
+        resource: [EasyNodeResourceType.accounts],
+      },
+    },
+    options: [
+      ...BillingAccountOptions,
+    ],
+  },
+
+  {
+    displayName: 'Contact Fields',
+    name: 'accountContactBillingUpdateOptions',
+    type: 'collection',
+    placeholder: 'Add option',
+    default: {},
+    displayOptions: {
+      show: {
+        operation: [EasyNodeOperationType.update],
+        resource: [EasyNodeResourceType.accounts],
+      },
+    },
+    options: [
+      ...BillingAccountOptions,
+    ],
+  },
 ];

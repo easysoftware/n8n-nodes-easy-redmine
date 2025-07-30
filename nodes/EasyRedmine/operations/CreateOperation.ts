@@ -3,14 +3,15 @@ import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
 import { sanitizeDomain } from '../utils/SanitizeDomain';
 import {
-	AccountCreateOptions, AttendanceCreateOptions,
-	CreateOptionsWithCustomFields,
-	IssueCreateOptions,
-	LeadCreateOptions,
-	OpportunityCreateOptions,
-	PersonalContactCreateOptions,
-	TimeEntryCreateOptions,
-	UserCreateOptions,
+  AccountBillingCreateOptions,
+  AccountCreateOptions, AttendanceCreateOptions,
+  CreateOptionsWithCustomFields,
+  IssueCreateOptions,
+  LeadCreateOptions,
+  OpportunityCreateOptions,
+  PersonalContactCreateOptions,
+  TimeEntryCreateOptions,
+  UserCreateOptions,
 } from './CreateModel';
 
 function convertCustomFields(options: CreateOptionsWithCustomFields): CustomField[] | undefined {
@@ -30,6 +31,60 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 
 	this.logger.debug(`Create account with : ${JSON.stringify(options)}`);
 
+	const contactBillingOptions = this.getNodeParameter(
+		'accountContactBillingCreateOptions',
+		itemIndex,
+		{},
+	) as AccountBillingCreateOptions;
+	let contact_easy_billing_info_attributes: {} | undefined;
+	if (contactBillingOptions) {
+		contact_easy_billing_info_attributes = {
+			contact: 1,
+			organization: contactBillingOptions.organization,
+			street: contactBillingOptions.street,
+			city: contactBillingOptions.city,
+			country_code: contactBillingOptions.countryCode,
+			subdivision_code: contactBillingOptions.countrySubdivisionCode,
+			postal_code: contactBillingOptions.postalCode,
+			email: contactBillingOptions.email,
+			telephone: contactBillingOptions.phone,
+			vat_no: contactBillingOptions.vatNo,
+			vat_rate: contactBillingOptions.vatRate,
+			bank_account: contactBillingOptions.bankAccount,
+			iban: contactBillingOptions.iban,
+			variable_symbol: contactBillingOptions.variableSymbol,
+			swift: contactBillingOptions.swift,
+			bic: contactBillingOptions.bic,
+		}
+	}
+
+  const primaryBillingOptions = this.getNodeParameter(
+    'accountPrimaryBillingCreateOptions',
+    itemIndex,
+    {},
+  ) as AccountBillingCreateOptions;
+  let primary_easy_billing_info_attributes: {} | undefined;
+  if (primaryBillingOptions) {
+    primary_easy_billing_info_attributes = {
+      primary: 1,
+      organization: primaryBillingOptions.organization,
+      street: primaryBillingOptions.street,
+      city: primaryBillingOptions.city,
+      country_code: primaryBillingOptions.countryCode,
+      subdivision_code: primaryBillingOptions.countrySubdivisionCode,
+      postal_code: primaryBillingOptions.postalCode,
+      email: primaryBillingOptions.email,
+      telephone: primaryBillingOptions.phone,
+      vat_no: primaryBillingOptions.vatNo,
+      vat_rate: primaryBillingOptions.vatRate,
+      bank_account: primaryBillingOptions.bankAccount,
+      iban: primaryBillingOptions.iban,
+      variable_symbol: primaryBillingOptions.variableSymbol,
+      swift: primaryBillingOptions.swift,
+      bic: primaryBillingOptions.bic,
+    }
+  }
+
 	const customFields = convertCustomFields(options);
 	return {
 		easy_contact: {
@@ -47,41 +102,8 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 			account_closed: options.accountClosed,
 			easy_contact_customer_left_reason_id: options.customerLeftReasonId,
 
-			primary_easy_billing_info_attributes: {
-				organization: options.contactBillingOrganization,
-				street: options.contactBillingStreet,
-				city: options.contactBillingCity,
-				country_code: options.contactBillingCountryCode,
-				subdivision_code: options.contactBillingCountrySubdivisionCode,
-				postal_code: options.contactBillingPostalCode,
-				eEmail: options.contactBillingEmail,
-				telephone: options.contactBillingPhone,
-				vat_no: options.contactBillingVatNo,
-				vat_rate: options.contactBillingVatRate,
-				bank_account: options.contactBillingBankAccount,
-				iban: options.contactBillingIBAN,
-				variable_symbol: options.contactBillingVariableSymbol,
-				swift: options.contactBillingSWIFT,
-				bic: options.contactBillingBIC,
-			},
-
-			contact_easy_billing_info_attributes: {
-				organization: options.primaryBillingOrganization,
-				street: options.primaryBillingStreet,
-				city: options.primaryBillingCity,
-				country_code: options.primaryBillingCountryCode,
-				subdivision_code: options.primaryBillingCountrySubdivisionCode,
-				postal_code: options.primaryBillingPostalCode,
-				eEmail: options.primaryBillingEmail,
-				telephone: options.primaryBillingPhone,
-				vat_no: options.primaryBillingVatNo,
-				vat_rate: options.primaryBillingVatRate,
-				bank_account: options.primaryBillingBankAccount,
-				iban: options.primaryBillingIBAN,
-				variable_symbol: options.primaryBillingVariableSymbol,
-				swift: options.primaryBillingSWIFT,
-				bic: options.primaryBillingBIC,
-			}
+			contact_easy_billing_info_attributes,
+      primary_easy_billing_info_attributes
 		},
 	};
 }
