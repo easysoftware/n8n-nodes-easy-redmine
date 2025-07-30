@@ -1,7 +1,8 @@
 import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import {
-	AccountUpdateOptions, AttendanceUpdateOptions,
+	AccountUpdateOptions,
+	AttendanceUpdateOptions,
 	CustomField,
 	IssueUpdateOptions,
 	LeadUpdateOptions,
@@ -11,8 +12,7 @@ import {
 	UpdateOptionsWithCustomFields,
 	UserUpdateOptions,
 } from './UpdateModel';
-import { sanitizeDomain } from '../utils/SanitizeDomain';
-import { convertToEasyDate } from '../utils/ConvertToEasyDate';
+import { convertToEasyDate, extractBillingOptions, sanitizeDomain } from '../utils';
 
 function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -93,12 +93,38 @@ function updateBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 
 	const customFields = convertCustomFields(options);
 
+	const primaryBillingOptions = extractBillingOptions(
+		this,
+		'accountPrimaryBillingUpdateOptions',
+		itemIndex,
+		true,
+	);
+
+	const contactBillingOptions = extractBillingOptions(
+		this,
+		'accountContactBillingUpdateOptions',
+		itemIndex,
+		false,
+	);
+
 	return {
 		easy_contact: {
 			firstname: options.firstname,
 			easy_contact_industry_id: options.industryId,
 			easy_contact_type_id: options.typeId,
 			custom_fields: customFields,
+
+			assigned_to_id: options.assignedToId,
+			external_assigned_to_id: options.externalAssignedToId,
+			easy_contact_status_id: options.contactStatusId,
+			easy_contact_level_id: options.contactLevelId,
+			author_id: options.authorId,
+			account_opened: options.accountOpened,
+			account_closed: options.accountClosed,
+			easy_contact_customer_left_reason_id: options.customerLeftReasonId,
+
+			contact_easy_billing_info_attributes: contactBillingOptions,
+			primary_easy_billing_info_attributes: primaryBillingOptions,
 		},
 	};
 }
@@ -121,6 +147,7 @@ function updateBodyForAttendance(
 			easy_attendance_activity_id: options.activityId,
 		},
 	};
+
 	this.logger.debug(`Updating attendance with body: ${JSON.stringify(body)}`);
 	return body;
 }

@@ -26,6 +26,15 @@ export interface AccountUpdateOptions {
 	industryId: number | undefined;
 	typeId: number | undefined;
 	customFields: { field: CustomField[] } | undefined;
+
+	assignedToId: number | undefined;
+	externalAssignedToId: number | undefined;
+	contactStatusId: number | undefined;
+	contactLevelId: number | undefined;
+	authorId: number | undefined;
+	accountOpened: string | undefined;
+	accountClosed: string | undefined;
+	customerLeftReasonId: number | undefined;
 }
 
 export interface AttendanceUpdateOptions {

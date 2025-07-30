@@ -1,9 +1,9 @@
 import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { EasyNodeResourceType } from '../Model';
 import { CustomField } from './UpdateModel';
-import { sanitizeDomain } from '../utils/SanitizeDomain';
 import {
-	AccountCreateOptions, AttendanceCreateOptions,
+	AccountCreateOptions,
+	AttendanceCreateOptions,
 	CreateOptionsWithCustomFields,
 	IssueCreateOptions,
 	LeadCreateOptions,
@@ -12,7 +12,7 @@ import {
 	TimeEntryCreateOptions,
 	UserCreateOptions,
 } from './CreateModel';
-import { convertToEasyDate } from '../utils/ConvertToEasyDate';
+import { convertToEasyDate, extractBillingOptions, sanitizeDomain } from '../utils';
 
 function convertCustomFields(options: CreateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -20,7 +20,6 @@ function convertCustomFields(options: CreateOptionsWithCustomFields): CustomFiel
 		value: customField.value,
 	}));
 }
-
 
 function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter(
@@ -31,6 +30,20 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 
 	this.logger.debug(`Create account with : ${JSON.stringify(options)}`);
 
+	const primaryBillingOptions = extractBillingOptions(
+		this,
+		'accountPrimaryBillingCreateOptions',
+		itemIndex,
+		true,
+	);
+
+	const contactBillingOptions = extractBillingOptions(
+		this,
+		'accountContactBillingCreateOptions',
+		itemIndex,
+		false,
+	);
+
 	const customFields = convertCustomFields(options);
 	return {
 		easy_contact: {
@@ -38,11 +51,26 @@ function createBodyForAccount(this: IExecuteFunctions, itemIndex: number): { [ke
 			easy_contact_industry_id: options.industryId,
 			easy_contact_type_id: options.typeId,
 			custom_fields: customFields,
+
+			assigned_to_id: options.assignedToId,
+			external_assigned_to_id: options.externalAssignedToId,
+			easy_contact_status_id: options.contactStatusId,
+			easy_contact_level_id: options.contactLevelId,
+			author_id: options.authorId,
+			account_opened: options.accountOpened,
+			account_closed: options.accountClosed,
+			easy_contact_customer_left_reason_id: options.customerLeftReasonId,
+
+			contact_easy_billing_info_attributes: contactBillingOptions,
+			primary_easy_billing_info_attributes: primaryBillingOptions,
 		},
 	};
 }
 
-export function createBodyForAttendance(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
+export function createBodyForAttendance(
+	this: IExecuteFunctions,
+	itemIndex: number,
+): { [key: string]: any } {
 	const options = this.getNodeParameter(
 		'attendanceCreateOptions',
 		itemIndex,

@@ -38,12 +38,12 @@ Your profile edit page will open. Scroll down to the Preferences section. Here j
 
 Now, your credentials are ready to use.
 
-## Easy Redmine node
+# Easy Redmine node
 
 The custom node is created to handle all aspects of Easy Redmine integration with n8n.
 Currently available operations and resources are:
 
-### Easy Redmine Entities
+## Easy Redmine Entities
 
 A list of all available entities in Easy Redmine node.
 
@@ -54,7 +54,7 @@ A list of all available entities in Easy Redmine node.
 - Personal contacts
 - Users
 
-### Accounts
+## Accounts
 
 Account entity is used to manage company contacts. It has identifier `easy_contacts`
 
@@ -68,11 +68,52 @@ Account entity is used to manage company contacts. It has identifier `easy_conta
   - Industry ID
   - Name (known as `firstname` in the entity schema)
   - Type ID
+  - Account Manager ID
+  - External Account Manager ID
+  - Account Status ID
+  - Account Level ID
+  - Author ID
+  - Account Opened
+  - Account Closed
+  - Customer Left Reason ID
+  - Primary Billing Information (see below)
+  - Contact Information (see below)
 - **Update** - updates some fields of the entity.
   - Custom fields
   - Industry ID
   - Name (known as `firstname` in the entity schema)
   - Type ID
+  - Account Manager ID
+  - External Account Manager ID
+  - Account Status ID
+  - Account Level ID
+  - Author ID
+  - Account Opened
+  - Account Closed
+  - Customer Left Reason ID
+  - Primary Billing Information (see below)
+  - Contact Information (see below)
+
+### Primary Billing and Contact Information
+
+This is a complex field that contains information about the account's billing and contact details. The structure
+is the same for both cases.
+
+- Company Name
+- Street
+- City
+- Country Code
+- Country Division
+- Postal Code
+- Email
+- Telephone
+- VAT Number
+- VAT Rate
+- Bank Account Number
+- IBAN
+- Variable Symbol
+- SWIFT
+- BIC
 
 ## Attendance
 
