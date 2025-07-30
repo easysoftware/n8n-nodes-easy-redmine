@@ -41,22 +41,6 @@ export interface AccountCreateOptions {
   accountOpened: string | undefined;
   accountClosed: string | undefined;
   customerLeftReasonId: number | undefined;
-
-  contactBillingOrganization: string | undefined;
-  contactBillingStreet: string | undefined;
-  contactBillingCity: string | undefined;
-  contactBillingCountryCode: string | undefined;
-  contactBillingCountrySubdivisionCode: string | undefined;
-  contactBillingPostalCode: string | undefined;
-  contactBillingEmail: string | undefined;
-  contactBillingPhone: string | undefined;
-  contactBillingVatNo: string | undefined;
-  contactBillingVatRate: number | undefined;
-  contactBillingBankAccount: string | undefined;
-  contactBillingIBAN: string | undefined;
-  contactBillingVariableSymbol: string | undefined;
-  contactBillingSWIFT: string | undefined;
-  contactBillingBIC: string | undefined;
 }
 
 export interface AccountBillingCreateOptions {
