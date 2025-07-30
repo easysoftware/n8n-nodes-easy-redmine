@@ -53,8 +53,8 @@ const CommonAccountOptions: INodeProperties[] = [
 	{
 		displayName: 'Author ID',
 		name: 'authorId',
-		type: 'string',
-		default: '',
+		type: 'number',
+		default: 0,
 		description: 'Author who created the account',
 	},
 	{
