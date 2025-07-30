@@ -12,8 +12,7 @@ import {
 	UpdateOptionsWithCustomFields,
 	UserUpdateOptions,
 } from './UpdateModel';
-import { sanitizeDomain } from '../utils/SanitizeDomain';
-import { extractBillingOptions } from '../utils/ExtractBillingOptions';
+import { convertToEasyDate, extractBillingOptions, sanitizeDomain } from '../utils';
 
 function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -37,8 +36,8 @@ function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 			assigned_to_id: options.assignedToId,
 			estimated_hours: options.estimatedHours,
 			done_ratio: options.doneRatio,
-			start_date: options.startDate,
-			due_date: options.dueDate,
+			start_date: convertToEasyDate(options.startDate),
+			due_date: convertToEasyDate(options.dueDate),
 			is_private: options.isPrivate,
 			priority_id: options.priorityId,
 			status_id: options.statusId,
