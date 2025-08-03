@@ -62,15 +62,19 @@ export const OpportunityFields: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Project ID',
+		displayName: 'Project Name or ID',
 		name: 'projectId',
-		type: 'number',
+		type: 'options',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		default: '',
 		displayOptions: {
 			show: {
 				operation: [EasyNodeOperationType.create],
 				resource: [EasyNodeResourceType.opportunities],
 			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'getAccessibleProjects',
 		},
 	},
 

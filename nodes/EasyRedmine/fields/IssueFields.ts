@@ -2,6 +2,18 @@ import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
 
+const ProjectIdField: INodeProperties = {
+	displayName: 'Project Name or ID',
+	name: 'projectId',
+	type: 'options',
+	description:
+		'ID of the project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	default: '',
+	typeOptions: {
+		loadOptionsMethod: 'getAccessibleProjects',
+	},
+};
+
 const CommonIssueFields: INodeProperties[] = [
 	{
 		displayName: 'Assigned To ID',
@@ -59,13 +71,15 @@ const CommonIssueFields: INodeProperties[] = [
 		description: 'ID of the priority',
 		default: '',
 	},
-	{
-		displayName: 'Project ID',
-		name: 'projectId',
-		type: 'number',
-		description: 'ID of the project',
-		default: '',
-	},
+	// {
+	// 	...ProjectIdField,
+	// 	displayOptions: {
+	// 		show: {
+	// 			resource: [EasyNodeResourceType.issues],
+	// 			operation: [EasyNodeOperationType.update],
+	// 		},
+	// 	},
+	// },
 	{
 		displayName: 'Start Date',
 		name: 'startDate',
@@ -74,19 +88,24 @@ const CommonIssueFields: INodeProperties[] = [
 		default: '',
 	},
 	{
-		displayName: 'Status ID',
+		displayName: 'Status Name or ID',
 		name: 'statusId',
 		type: 'number',
-		description: 'ID of the status',
-		default: '',
+		description:
+			'ID of the status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		default: ''
 	},
 	{
-		displayName: 'Tracker ID',
+		displayName: 'Tracker Name or ID',
 		name: 'trackerId',
-		type: 'string',
-		description: 'ID of the tracker',
+		type: 'options',
+		description: 'ID of the tracker. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		default: '',
-	}
+		typeOptions: {
+			loadOptionsMethod: 'getProjectsTrackers',
+			loadOptionsDependsOn: ['projectId', 'id', 'issueUpdateOptions.projectId'],
+		},
+	},
 ];
 
 export const IssueFields: INodeProperties[] = [
@@ -111,7 +130,8 @@ export const IssueFields: INodeProperties[] = [
 		displayName: 'EasyRedmine Issues Query Name or ID',
 		name: 'issueQueryId',
 		type: 'options',
-		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description:
+			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.issues],
@@ -138,17 +158,13 @@ export const IssueFields: INodeProperties[] = [
 		default: '',
 	},
 	{
-		displayName: 'Project ID',
-		name: 'projectId',
-		type: 'number',
-		description: 'Assigned project ID',
+		...ProjectIdField,
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.issues],
 				operation: [EasyNodeOperationType.create],
 			},
 		},
-		default: '',
 	},
 
 	{
@@ -186,6 +202,7 @@ export const IssueFields: INodeProperties[] = [
 				default: '',
 				description: 'Subject of the issue',
 			},
+			ProjectIdField,
 			...CommonIssueFields,
 			CustomFieldsOption,
 		],

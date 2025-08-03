@@ -24,6 +24,7 @@ import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
+import { getAvailableProjects } from './load-options/GetAvailableProjects';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -266,6 +267,54 @@ export class EasyRedmine implements INodeType {
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
 				return await getEasyQueries.call(this, 'EasyUserQuery');
+			},
+
+			getAccessibleProjects: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getAvailableProjects(this);
+			},
+
+			getProjectsTrackers: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				/*const client = EasyRedmineClient(this);
+				const trackers = await client.listTrackers();
+				return trackers.map(tracker => ({
+					name: tracker.name,
+					value: tracker.id,
+				}));*/
+				let projectId = this.getNodeParameter('projectId', 0);
+				this.logger.info(`Fetching status from ${projectId}`);
+				if (!projectId) {
+					const updateOpts: any = this.getNodeParameter('issueUpdateOptions', {});
+					projectId = updateOpts['projectId'];
+					if (!projectId) {
+						// const issueId = this.getNodeParameter('id', 0);
+						return [{ name: 'All States', value: 12 }];
+					}
+				}
+
+				// https://n8n-integration-testing.easyredmine.com/projects/39.json?include=trackers&include=issue_categories&include=issue_custom_fields&include=enabled_modules&include=completed_percent&include=journals&include=easy_stakeholders
+
+				return [
+					{
+						name: 'New',
+						value: 1,
+					},
+					{
+						name: 'In Progress',
+						value: 2,
+					},
+					{
+						name: 'Resolved',
+						value: 3,
+					},
+					{
+						name: 'Closed',
+						value: 4,
+					},
+				];
 			},
 		},
 	};
