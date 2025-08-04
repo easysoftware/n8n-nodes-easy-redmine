@@ -65,11 +65,15 @@ const CommonIssueFields: INodeProperties[] = [
 		description: 'ID of the parent issue',
 	},
 	{
-		displayName: 'Priority ID',
+		displayName: 'Priority Name or ID',
 		name: 'priorityId',
-		type: 'number',
-		description: 'ID of the priority',
+		type: 'options',
+		description:
+			'ID of the priority. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		default: '',
+		typeOptions: {
+			loadOptionsMethod: 'getAvailablePriorities',
+		},
 	},
 	// {
 	// 	...ProjectIdField,
@@ -90,16 +94,20 @@ const CommonIssueFields: INodeProperties[] = [
 	{
 		displayName: 'Status Name or ID',
 		name: 'statusId',
-		type: 'number',
+		type: 'options',
 		description:
 			'ID of the status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
-		default: ''
+		default: '',
+		typeOptions: {
+			loadOptionsMethod: 'getAvailableStatuses',
+		},
 	},
 	{
 		displayName: 'Tracker Name or ID',
 		name: 'trackerId',
 		type: 'options',
-		description: 'ID of the tracker. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description:
+			'ID of the tracker. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		default: '',
 		typeOptions: {
 			loadOptionsMethod: 'getProjectsTrackers',

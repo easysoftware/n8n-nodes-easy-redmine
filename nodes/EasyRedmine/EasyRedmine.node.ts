@@ -24,7 +24,9 @@ import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
-import { getAvailableProjects } from './load-options/GetAvailableProjects';
+import { getAvailableProjects, getAvailablePriorities, getAvailableStatuses } from './load-options';
+import { EasyRedmineClient } from './client';
+import { tryToParseParameterAsNumber } from './utils';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -275,46 +277,56 @@ export class EasyRedmine implements INodeType {
 				return await getAvailableProjects(this);
 			},
 
+			getAvailablePriorities: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getAvailablePriorities(this);
+			},
+
+			getAvailableStatuses: async function (
+				this: ILoadOptionsFunctions,
+			): Promise<INodePropertyOptions[]> {
+				return await getAvailableStatuses(this);
+			},
+
 			getProjectsTrackers: async function (
 				this: ILoadOptionsFunctions,
 			): Promise<INodePropertyOptions[]> {
-				/*const client = EasyRedmineClient(this);
-				const trackers = await client.listTrackers();
-				return trackers.map(tracker => ({
-					name: tracker.name,
-					value: tracker.id,
-				}));*/
-				let projectId = this.getNodeParameter('projectId', 0);
-				this.logger.info(`Fetching status from ${projectId}`);
+				let projectId: number | undefined = tryToParseParameterAsNumber(this, 'projectId');
+				this.logger.info(`projectId: ${projectId}`);
 				if (!projectId) {
-					const updateOpts: any = this.getNodeParameter('issueUpdateOptions', {});
-					projectId = updateOpts['projectId'];
-					if (!projectId) {
-						// const issueId = this.getNodeParameter('id', 0);
-						return [{ name: 'All States', value: 12 }];
+					projectId = tryToParseParameterAsNumber(this, 'issueUpdateOptions.projectId');
+					this.logger.info(`issueUpdateOptions.projectId: ${projectId}`);
+				}
+
+				if (!projectId) {
+					const issueId = tryToParseParameterAsNumber(this, 'id');
+					if (issueId) {
+						try {
+							const client = new EasyRedmineClient(this, this.helpers);
+							const issue = await client.getIssue(issueId);
+							this.logger.info(`issueId: ${issue}`);
+							projectId = issue.project.id;
+							this.logger.info(`projectId from issue: ${projectId}`);
+						} catch (error) {
+							this.logger.error(error);
+						}
 					}
 				}
 
-				// https://n8n-integration-testing.easyredmine.com/projects/39.json?include=trackers&include=issue_categories&include=issue_custom_fields&include=enabled_modules&include=completed_percent&include=journals&include=easy_stakeholders
+				this.logger.info(`Fetching status from project ${projectId}`);
+				const client = new EasyRedmineClient(this, this.helpers);
+				const project = await client.getProject(projectId);
+				const trackers = project.trackers;
+				if (trackers) {
+					return trackers.map((tracker) => ({
+						name: tracker.name,
+						value: tracker.id,
+					}));
+				}
+				return [];
 
-				return [
-					{
-						name: 'New',
-						value: 1,
-					},
-					{
-						name: 'In Progress',
-						value: 2,
-					},
-					{
-						name: 'Resolved',
-						value: 3,
-					},
-					{
-						name: 'Closed',
-						value: 4,
-					},
-				];
+				// https://n8n-integration-testing.easyredmine.com/projects/39.json?include=trackers&include=issue_categories&include=issue_custom_fields&include=enabled_modules&include=completed_percent&include=journals&include=easy_stakeholders
 			},
 		},
 	};

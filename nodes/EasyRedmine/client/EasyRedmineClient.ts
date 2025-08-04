@@ -1,6 +1,8 @@
 import { IHttpRequestOptions, IAllExecuteFunctions, RequestHelperFunctions } from 'n8n-workflow';
-import { EasyProject } from './EasyProject';
+import { Project } from './Project';
 import { sanitizeDomain } from '../utils';
+import { EasyIssue, EasyIssueStatus } from './Issue';
+import { EasyAutocompleteItem } from './Autocomplete';
 
 interface ModifyRequestOptions {
 	options: IHttpRequestOptions;
@@ -20,7 +22,7 @@ export class EasyRedmineClient {
 		private readonly helpers: RequestHelperFunctions,
 	) {}
 
-	async listProjects(): Promise<EasyProject[]> {
+	async listProjects(): Promise<Project[]> {
 		const baseUrl = await this.baseUrl();
 		return await this.listRequest({
 			modifyOptionsFn: ({ options, offset, pageSize }) => {
@@ -34,6 +36,80 @@ export class EasyRedmineClient {
 			pageSize: 100,
 			resultItemKey: 'projects',
 		});
+	}
+
+	async getProject(projectId: number | undefined): Promise<Project> {
+		const baseUrl = await this.baseUrl();
+		this.that.logger.debug(`Loading Project ${projectId}`);
+
+		const options: IHttpRequestOptions = {
+			method: 'GET',
+			url: `${baseUrl}/projects/${projectId}.json`,
+			qs: {
+				include: 'trackers',
+			},
+			json: true,
+		};
+		const result = await this.helpers.httpRequestWithAuthentication.call(
+			this.that,
+			'easyRedmineApi', // Credential name
+			options,
+		);
+		return result['project'] as Project;
+	}
+
+	async getIssue(issueId: number): Promise<EasyIssue> {
+		const baseUrl = await this.baseUrl();
+		this.that.logger.debug(`Loading Project ${issueId}`);
+
+		const options: IHttpRequestOptions = {
+			method: 'GET',
+			url: `${baseUrl}/issues/${issueId}.json`,
+			qs: {
+				include: 'trackers',
+			},
+			json: true,
+		};
+		const result = await this.helpers.httpRequestWithAuthentication.call(
+			this.that,
+			'easyRedmineApi', // Credential name
+			options,
+		);
+		return result['issue'] as EasyIssue;
+	}
+
+	async listAllIssueStatuses(): Promise<EasyIssueStatus[]> {
+		const baseUrl = await this.baseUrl();
+		this.that.logger.debug(`Loading all issue statuses`);
+
+		const options: IHttpRequestOptions = {
+			method: 'GET',
+			url: `${baseUrl}/issue_statuses.json`,
+			json: true,
+		};
+		const result = await this.helpers.httpRequestWithAuthentication.call(
+			this.that,
+			'easyRedmineApi', // Credential name
+			options,
+		);
+		return result['issue_statuses'] as EasyIssueStatus[];
+	}
+
+	async listAutocompletePriorities(): Promise<EasyAutocompleteItem[]> {
+		const baseUrl = await this.baseUrl();
+		this.that.logger.debug(`Loading Autocomplete Priorities`);
+
+		const options: IHttpRequestOptions = {
+			method: 'GET',
+			url: `${baseUrl}/easy_autocompletes/issue_priorities.json`,
+			json: true,
+		};
+		const result = await this.helpers.httpRequestWithAuthentication.call(
+			this.that,
+			'easyRedmineApi', // Credential name
+			options,
+		);
+		return result as EasyAutocompleteItem[];
 	}
 
 	private async baseUrl(): Promise<string> {

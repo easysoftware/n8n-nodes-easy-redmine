@@ -1,15 +1,15 @@
 import { ILoadOptionsFunctions, INodePropertyOptions } from 'n8n-workflow';
 import { EasyRedmineClient } from '../client';
 
-export async function getAvailableProjects(
+export async function getAvailableStatuses(
 	that: ILoadOptionsFunctions,
 ): Promise<INodePropertyOptions[]> {
 	const client = new EasyRedmineClient(that, that.helpers);
-	const projects = await client.listProjects();
-	return projects
-		.map((project) => ({
-			name: project.name,
-			value: project.id,
+	const states = await client.listAllIssueStatuses();
+	return states
+		.map((state) => ({
+			name: state.name,
+			value: state.id,
 		}))
-		.sort((a, b) => a.name.localeCompare(b.name));
+		.sort((a, b) => a.value < b.value ? -1 : 1);
 }
