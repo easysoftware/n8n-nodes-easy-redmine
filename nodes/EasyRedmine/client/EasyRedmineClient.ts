@@ -3,6 +3,7 @@ import { Project } from './Project';
 import { sanitizeDomain } from '../utils';
 import { EasyIssue, EasyIssueStatus } from './Issue';
 import { EasyAutocompleteItem } from './Autocomplete';
+import { EasyQueryInfo, EasyQueryType } from './Resources';
 
 interface ModifyRequestOptions {
 	options: IHttpRequestOptions;
@@ -11,7 +12,14 @@ interface ModifyRequestOptions {
 }
 
 interface ListRequestOptions {
+	/**
+	 * Function to modify the request options for each page. Note that you have to specify
+	 * offset and limit params.
+	 */
 	modifyOptionsFn: (options: ModifyRequestOptions) => void;
+	/**
+	 * The default page size for pagination.
+	 */
 	pageSize: number;
 	resultItemKey: string;
 }
@@ -24,7 +32,7 @@ export class EasyRedmineClient {
 
 	async listProjects(): Promise<Project[]> {
 		const baseUrl = await this.baseUrl();
-		return await this.listRequest({
+		return await this.listAllItems({
 			modifyOptionsFn: ({ options, offset, pageSize }) => {
 				options.method = 'GET';
 				options.url = `${baseUrl}/projects.json`;
@@ -112,12 +120,35 @@ export class EasyRedmineClient {
 		return result as EasyAutocompleteItem[];
 	}
 
+	async listEasyQueries(type: EasyQueryType): Promise<EasyQueryInfo[]> {
+		const baseUrl = await this.baseUrl();
+		return await this.listAllItems({
+			modifyOptionsFn: ({ options, offset, pageSize }) => {
+				options.method = 'GET';
+				options.url = `${baseUrl}/easy_queries.json`;
+				options.qs = {
+					type: type,
+					offset,
+					limit: pageSize,
+				};
+			},
+			pageSize: 100,
+			resultItemKey: 'easy_queries',
+		});
+	}
+
+	/**
+	 * Returns the base URL for the EasyRedmine API.
+	 */
 	private async baseUrl(): Promise<string> {
 		const cred = await this.that.getCredentials('easyRedmineApi');
 		return sanitizeDomain(cred.domain as string);
 	}
 
-	private async listRequest(options: ListRequestOptions): Promise<any[]> {
+	/**
+	 * Helper method to perform correct paginated listing of all items.
+	 */
+	private async listAllItems(options: ListRequestOptions): Promise<any[]> {
 		const that = this.that;
 
 		let offset = 0;
