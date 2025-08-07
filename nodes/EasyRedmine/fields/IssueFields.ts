@@ -75,15 +75,7 @@ const CommonIssueFields: INodeProperties[] = [
 			loadOptionsMethod: 'getAvailablePriorities',
 		},
 	},
-	// {
-	// 	...ProjectIdField,
-	// 	displayOptions: {
-	// 		show: {
-	// 			resource: [EasyNodeResourceType.issues],
-	// 			operation: [EasyNodeOperationType.update],
-	// 		},
-	// 	},
-	// },
+
 	{
 		displayName: 'Start Date',
 		name: 'startDate',
