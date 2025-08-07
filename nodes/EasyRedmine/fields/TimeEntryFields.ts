@@ -24,11 +24,14 @@ const CommonTimeEntryOptions: INodeProperties[] = [
 		description: 'Date when the time was spent',
 	},
 	{
-		displayName: 'Project ID',
+		displayName: 'Project Name or ID',
 		name: 'projectId',
-		type: 'number',
+		type: 'options',
 		default: '',
-		description: 'ID of the project associated with the time entry',
+		description: 'ID of the project associated with the time entry. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'getAccessibleProjects',
+		},
 	},
 	{
 		displayName: 'Activity ID',

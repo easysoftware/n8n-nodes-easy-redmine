@@ -2,14 +2,11 @@
 import {
 	IDataObject,
 	IExecuteFunctions,
-	ILoadOptionsFunctions,
 	INodeExecutionData,
-	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
 } from 'n8n-workflow';
-import { getEasyQueries } from './operations/GetEasyQueries';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
 import { processGetManyOperation } from './operations/GetManyOperation';
 import { processGetOneOperation } from './operations/GetOneOperation';
@@ -24,6 +21,7 @@ import { UserFields } from './fields/UserFields';
 import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
+import { loadOptions } from './LoadOptions';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -219,55 +217,7 @@ export class EasyRedmine implements INodeType {
 	};
 
 	methods = {
-		loadOptions: {
-			getEasyAttendanceQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyAttendanceQuery');
-			},
-
-			getEasyIssueQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyIssueQuery');
-			},
-
-			getEasyLeadQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyLeadQuery');
-			},
-
-			getEasyCrmCaseQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyCrmCaseQuery');
-			},
-
-			getEasyAccountQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyContactQuery');
-			},
-
-			getEasyPersonalAccountQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyPersonalContactQuery');
-			},
-
-			getTimeEntryQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyTimeEntryQuery');
-			},
-
-			getEasyUserQueries: async function (
-				this: ILoadOptionsFunctions,
-			): Promise<INodePropertyOptions[]> {
-				return await getEasyQueries.call(this, 'EasyUserQuery');
-			},
-		},
+		loadOptions,
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {

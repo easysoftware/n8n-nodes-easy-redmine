@@ -1,5 +1,6 @@
-# 0.3.3
+# 0.4.0
 
+- Fields where you can encounter project name, available states, and trackers are loaded dynamically from the server, and displayed as a list with available options.
 - Even more improvements for error handling.
 - Fixes invalid due date and start date handling in issues
 - Added couple of fields to account entity. Most importantly billing and contact information.
