@@ -179,7 +179,5 @@ export const loadOptions: {
 			}));
 		}
 		return [];
-
-		// https://n8n-integration-testing.easyredmine.com/projects/39.json?include=trackers&include=issue_categories&include=issue_custom_fields&include=enabled_modules&include=completed_percent&include=journals&include=easy_stakeholders
 	},
 };

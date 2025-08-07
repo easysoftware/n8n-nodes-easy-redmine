@@ -154,16 +154,14 @@ export class EasyRedmineClient {
 		let offset = 0;
 		let pageSize = options.pageSize;
 		let fetchedItemsCount = pageSize;
-		const credentials = await that.getCredentials('easyRedmineApi');
 		let page = 1;
 		const allItems = [];
-		const domain = sanitizeDomain(credentials.domain as string);
 
 		while (fetchedItemsCount >= pageSize) {
 			that.logger.debug(`Loading page ${page}`);
 
 			const requestOptions: IHttpRequestOptions = {
-				url: `${domain}/easy_queries.json`,
+				url: '', // To be set by modifyOptionsFn
 				json: true,
 			};
 			// Modify the request options using the provided function
