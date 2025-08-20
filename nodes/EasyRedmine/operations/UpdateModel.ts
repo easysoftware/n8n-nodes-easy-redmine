@@ -18,6 +18,14 @@ export interface LeadUpdateOptions {
 export interface OpportunityUpdateOptions {
 	name: string | undefined;
 	description: string | undefined;
+
+	statusId: number | undefined;
+	assignedToId: number | undefined;
+	externalAssignedToId: number | undefined;
+	price: number | undefined;
+	contractDate: string | undefined;
+	projectId: number | undefined;
+
 	customFields: { field: CustomField[] } | undefined;
 }
 

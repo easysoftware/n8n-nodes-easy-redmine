@@ -206,10 +206,21 @@ Opportunities are CRM entities that represent a potential sale. The entity name 
   - Name (required)
   - Project ID (required)
   - Account ID (required)
+  - Status ID
+  - Assigned To ID
+  - External Assigned To ID
+  - Price
+  - Contract Date
   - Custom fields
 - **Update** - updates some fields of the opportunity.
   - Name
   - Description
+  - Project ID
+  - Status ID
+  - Assigned To ID
+  - External Assigned To ID
+  - Price
+  - Contract Date
   - Custom fields
 
 ## Personal contacts

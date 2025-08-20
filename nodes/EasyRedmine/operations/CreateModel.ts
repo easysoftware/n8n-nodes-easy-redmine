@@ -10,6 +10,12 @@ export interface LeadCreateOptions {
 }
 
 export interface OpportunityCreateOptions {
+	statusId: number | undefined;
+	assignedToId: number | undefined;
+	externalAssignedToId: number | undefined;
+	price: number | undefined;
+	contractDate: string | undefined;
+
 	customFields: { field: CustomField[] } | undefined;
 }
 

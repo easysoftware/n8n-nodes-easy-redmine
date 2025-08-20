@@ -159,6 +159,12 @@ function createBodyForOpportunity(
 			name,
 			account_id: accountId,
 			custom_fields: customFields,
+
+			easy_crm_case_status_id: options.statusId,
+			assigned_to_id: options.assignedToId,
+			external_assigned_to_id: options.externalAssignedToId,
+			price: options.price,
+			contract_date: options.contractDate,
 		},
 	};
 }

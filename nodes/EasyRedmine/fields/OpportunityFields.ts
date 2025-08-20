@@ -2,6 +2,41 @@ import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
 
+export const OpportunityOptions: INodeProperties[] = [
+	{
+		displayName: 'Status ID',
+		name: 'statusId',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'Account Manager ID',
+		name: 'assignedToId',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'External Account Manager ID',
+		name: 'externalAssignedToId',
+		type: 'number',
+		default: '',
+		description: 'External account manager identifier',
+	},
+	{
+		displayName: 'Price',
+		name: 'price',
+		type: 'number',
+		default: '',
+	},
+	{
+		displayName: 'Contract Date',
+		name: 'contractDate',
+		type: 'string',
+		default: '',
+		description: 'Contract date in YYYY-MM-DD format',
+	},
+];
+
 export const OpportunityFields: INodeProperties[] = [
 	{
 		displayName: 'Opportunity ID',
@@ -24,7 +59,8 @@ export const OpportunityFields: INodeProperties[] = [
 		displayName: 'EasyRedmine Opportunities Query Name or ID',
 		name: 'opportunityQueryId',
 		type: 'options',
-		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description:
+			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.opportunities],
@@ -65,7 +101,8 @@ export const OpportunityFields: INodeProperties[] = [
 		displayName: 'Project Name or ID',
 		name: 'projectId',
 		type: 'options',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		default: '',
 		displayOptions: {
 			show: {
@@ -90,7 +127,10 @@ export const OpportunityFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.opportunities],
 			},
 		},
-		options: [CustomFieldsOption],
+		options: [
+			...OpportunityOptions,
+			CustomFieldsOption,
+		],
 	},
 
 	{
@@ -119,6 +159,18 @@ export const OpportunityFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Opportunity description',
+			},
+			...OpportunityOptions,
+			{
+				displayName: 'Project Name or ID',
+				name: 'projectId',
+				type: 'options',
+				description:
+					'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getAccessibleProjects',
+				},
 			},
 			CustomFieldsOption,
 		],

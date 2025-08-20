@@ -1,3 +1,7 @@
+# 0.4.1 (2025-07-15)
+
+- Added additional fields to opportunity entity.
+
 # 0.4.0
 
 - Fields where you can encounter project name, available states, and trackers are loaded dynamically from the server, and displayed as a list with available options.
