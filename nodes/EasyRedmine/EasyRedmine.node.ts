@@ -2,6 +2,7 @@
 import {
 	IDataObject,
 	IExecuteFunctions,
+	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
@@ -22,6 +23,9 @@ import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
 import { loadOptions } from './LoadOptions';
+import { EasyRedmineClient } from './client';
+import { INodeListSearchResult } from 'n8n-workflow/dist/esm/interfaces';
+import {processSearchOperation} from "./operations/SearchOperation";
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -43,6 +47,7 @@ export class EasyRedmine implements INodeType {
 		},
 		inputs: ['main'],
 		outputs: ['main'],
+		usableAsTool: true,
 		credentials: [
 			{
 				name: 'easyRedmineApi',
@@ -109,7 +114,6 @@ export class EasyRedmine implements INodeType {
 				displayOptions: {
 					show: {
 						resource: [
-							EasyNodeResourceType.issues,
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
 							EasyNodeResourceType.accounts,
@@ -218,6 +222,25 @@ export class EasyRedmine implements INodeType {
 
 	methods = {
 		loadOptions,
+		listSearch: {
+			getProjects: async function (
+				this: ILoadOptionsFunctions,
+				filter?: string,
+				paginationToken?: string,
+			): Promise<INodeListSearchResult> {
+				const client = new EasyRedmineClient(this, this.helpers);
+				const projects = (await client.listProjects()).sort((p0, p1) =>
+					p0.name.localeCompare(p1.name),
+				);
+				return {
+					results: projects.map((project) => ({
+						name: project.name,
+						value: project.id,
+					})),
+					paginationToken: undefined,
+				};
+			},
+		},
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -236,6 +259,9 @@ export class EasyRedmine implements INodeType {
 					case EasyNodeOperationType.getMany:
 						responseData = await processGetManyOperation.call(this, resource, itemIndex);
 						break;
+						case EasyNodeOperationType.search:
+							responseData = await processSearchOperation.call(this, resource, itemIndex);
+							break;
 					case EasyNodeOperationType.getOne:
 						responseData = await processGetOneOperation.call(this, resource, itemIndex);
 						break;
