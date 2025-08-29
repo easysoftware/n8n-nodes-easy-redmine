@@ -1,3 +1,7 @@
+# 0.4.2 (2025-08-29)
+
+- Updates npm build
+
 # 0.4.1 (2025-07-15)
 
 - Added additional fields to opportunity entity.
