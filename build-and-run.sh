@@ -6,13 +6,13 @@ pnpm lint
 if [[ "$?" != "0" ]] ; then
   echo "Lint failed"
   cd $PWD
-  exit
+  exit 1
 fi
 
 pnpm build
 if [[ "$?" != "0" ]] ; then
   echo "Build failed"
-  exit
+  exit 1
 fi
 
 cd ~/.n8n/custom
