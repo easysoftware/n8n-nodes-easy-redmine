@@ -20,3 +20,8 @@ if [[ "$?" != "0" ]] ; then
 fi
 
 npm publish --access public
+
+sleep 1
+
+npx @n8n/scan-community-package '@easysoftware/n8n-nodes-easy-redmine'
+
