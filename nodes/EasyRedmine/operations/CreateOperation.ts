@@ -97,7 +97,13 @@ function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 	this.logger.debug(`Create issue with subject: ${JSON.stringify(options)}`);
 
 	const subject = this.getNodeParameter('subject', itemIndex) as string;
-	const projectId = this.getNodeParameter('projectId', itemIndex) as string;
+	let projectId = this.getNodeParameter('projectId', itemIndex) as any;
+	if (projectId['mode'] === 'id') {
+		projectId = projectId['value'];
+	}
+	else {
+		throw new Error('Only project by ID is supported');
+	}
 	const customFields = convertCustomFields(options);
 
 	return {
@@ -298,7 +304,7 @@ export async function createOperation(
 		json: true,
 	};
 
-	this.logger.debug(`Create ${resource} with ${JSON.stringify(options)}`);
+	this.logger.info(`Create ${resource} with ${JSON.stringify(options)}`);
 
 	return await this.helpers.httpRequestWithAuthentication.call(this, 'easyRedmineApi', options);
 }
