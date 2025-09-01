@@ -31,6 +31,19 @@ export const loadOptions: {
 			.sort((a, b) => a.name.localeCompare(b.name));
 	},
 
+	getEasyProjectQueries: async function (
+		this: ILoadOptionsFunctions,
+	): Promise<INodePropertyOptions[]> {
+		const client = new EasyRedmineClient(this, this.helpers);
+		const queries = await client.listEasyQueries('EasyProjectQuery');
+		return queries
+			.map((query) => ({
+				name: query.name,
+				value: query.id,
+			}))
+			.sort((a, b) => a.name.localeCompare(b.name));
+	},
+
 	getEasyLeadQueries: async function (
 		this: ILoadOptionsFunctions,
 	): Promise<INodePropertyOptions[]> {

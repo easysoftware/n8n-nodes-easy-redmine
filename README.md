@@ -248,6 +248,14 @@ Personal contacts are CRM entities that represent a person. The entity name is `
   - Job title
   - Custom fields
 
+## Projects
+
+Projects are used to manage project tasks. The entity name is `project`.
+
+**Operations**
+* *Get one** - returns a detailed view of a single project. The entity is specified by its ID.
+* **Get many** - returns a list of projects. You should use easy query id to specify the filter.
+
 ## Time entries
 
 Time entries are used to track time spent on issues. The entity name is `time_entry`.
