@@ -7,25 +7,28 @@ import {
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
+	INodeListSearchResult,
 } from 'n8n-workflow';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
-import { processGetManyOperation } from './operations/GetManyOperation';
-import { processGetOneOperation } from './operations/GetOneOperation';
-import { addCommentOperation } from './operations/AddCommentOperation';
-import { updateOperation } from './operations/UpdateOperation';
+import {
+	processGetManyOperation,
+	processGetOneOperation,
+	addCommentOperation,
+	updateOperation,
+	createOperation,
+	processSearchOperation,
+} from './operations';
 import { IssueFields } from './fields/IssueFields';
 import { LeadFields } from './fields/LeadFields';
 import { OpportunityFields } from './fields/OpportunityFields';
 import { AccountFields } from './fields/AccountFields';
 import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
-import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
 import { loadOptions } from './LoadOptions';
 import { EasyRedmineClient } from './client';
-import { INodeListSearchResult } from 'n8n-workflow/dist/esm/interfaces';
-import {processSearchOperation} from "./operations/SearchOperation";
+import { ProjectFields } from './fields/ProjectFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -82,6 +85,10 @@ export class EasyRedmine implements INodeType {
 					{
 						name: 'Opportunity',
 						value: EasyNodeResourceType.opportunities,
+					},
+					{
+						name: 'Project',
+						value: EasyNodeResourceType.projects,
 					},
 					{
 						name: 'Account',
@@ -159,6 +166,7 @@ export class EasyRedmine implements INodeType {
 			...IssueFields,
 			...LeadFields,
 			...OpportunityFields,
+			...ProjectFields,
 			...AccountFields,
 			...PersonalContactFields,
 			...TimeEntryFields,
@@ -259,9 +267,9 @@ export class EasyRedmine implements INodeType {
 					case EasyNodeOperationType.getMany:
 						responseData = await processGetManyOperation.call(this, resource, itemIndex);
 						break;
-						case EasyNodeOperationType.search:
-							responseData = await processSearchOperation.call(this, resource, itemIndex);
-							break;
+					case EasyNodeOperationType.search:
+						responseData = await processSearchOperation.call(this, resource, itemIndex);
+						break;
 					case EasyNodeOperationType.getOne:
 						responseData = await processGetOneOperation.call(this, resource, itemIndex);
 						break;

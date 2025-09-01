@@ -1,3 +1,7 @@
+# 0.5.0 (Unreleased)
+
+- Add get and get-many operations for the products entity.
+
 # 0.4.2 (2025-08-29)
 
 - Updates npm build

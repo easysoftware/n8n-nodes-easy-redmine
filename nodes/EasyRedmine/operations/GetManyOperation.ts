@@ -31,6 +31,9 @@ export async function processGetManyOperation(
 		case EasyNodeResourceType.personalContacts:
 			query_id_parameter = 'personalContactQueryId';
 			break;
+		case EasyNodeResourceType.projects:
+			query_id_parameter = 'projectQueryId';
+			break;
 		case EasyNodeResourceType.users:
 			query_id_parameter = 'userQueryId';
 			break;
