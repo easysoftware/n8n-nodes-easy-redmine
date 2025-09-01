@@ -6,6 +6,7 @@ export type EasyQueryType =
 	| 'EasyContactQuery'
 	| 'EasyGanttEasyProjectQuery'
 	| 'EasyPersonalContactQuery'
+	| 'EasyProjectQuery'
 	| 'EasyTimeEntryQuery'
 	| 'EasyUserQuery';
 

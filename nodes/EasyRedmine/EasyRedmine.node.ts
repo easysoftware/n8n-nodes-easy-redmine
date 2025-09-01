@@ -22,6 +22,7 @@ import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
 import { loadOptions } from './LoadOptions';
+import { ProjectFields } from './fields/ProjectFields';
 
 /**
  * Node that enables communication with EasyRedmine.
@@ -77,6 +78,10 @@ export class EasyRedmine implements INodeType {
 					{
 						name: 'Opportunity',
 						value: EasyNodeResourceType.opportunities,
+					},
+					{
+						name: 'Project',
+						value: EasyNodeResourceType.projects,
 					},
 					{
 						name: 'Account',
@@ -155,6 +160,7 @@ export class EasyRedmine implements INodeType {
 			...IssueFields,
 			...LeadFields,
 			...OpportunityFields,
+			...ProjectFields,
 			...AccountFields,
 			...PersonalContactFields,
 			...TimeEntryFields,
