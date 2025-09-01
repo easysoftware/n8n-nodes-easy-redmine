@@ -12,7 +12,7 @@ import {
 	TimeEntryCreateOptions,
 	UserCreateOptions,
 } from './CreateModel';
-import { convertToEasyDate, extractBillingOptions, sanitizeDomain } from '../utils';
+import { convertToEasyDate, extractBillingOptions, getProjectId, sanitizeDomain } from '../utils';
 
 function convertCustomFields(options: CreateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -97,13 +97,7 @@ function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 	this.logger.debug(`Create issue with subject: ${JSON.stringify(options)}`);
 
 	const subject = this.getNodeParameter('subject', itemIndex) as string;
-	let projectId = this.getNodeParameter('projectId', itemIndex) as any;
-	if (projectId['mode'] === 'id') {
-		projectId = projectId['value'];
-	}
-	else {
-		throw new Error('Only project by ID is supported');
-	}
+	const projectId = getProjectId.call(this, itemIndex);
 	const customFields = convertCustomFields(options);
 
 	return {

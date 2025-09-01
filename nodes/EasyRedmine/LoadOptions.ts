@@ -109,19 +109,6 @@ export const loadOptions: {
 			.sort((a, b) => a.name.localeCompare(b.name));
 	},
 
-	getAccessibleProjects: async function (
-		this: ILoadOptionsFunctions,
-	): Promise<INodePropertyOptions[]> {
-		const client = new EasyRedmineClient(this, this.helpers);
-		const projects = await client.listProjects();
-		return projects
-			.map((project) => ({
-				name: project.name,
-				value: project.id,
-			}))
-			.sort((a, b) => a.name.localeCompare(b.name));
-	},
-
 	getAvailablePriorities: async function (
 		this: ILoadOptionsFunctions,
 	): Promise<INodePropertyOptions[]> {
