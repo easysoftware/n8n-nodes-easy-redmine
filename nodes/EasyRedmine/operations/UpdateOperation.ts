@@ -12,7 +12,7 @@ import {
 	UpdateOptionsWithCustomFields,
 	UserUpdateOptions,
 } from './UpdateModel';
-import { convertToEasyDate, extractBillingOptions, sanitizeDomain } from '../utils';
+import { convertToEasyDate, extractBillingOptions, getProjectId, sanitizeDomain } from '../utils';
 
 function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomField[] | undefined {
 	return options.customFields?.field.map((customField) => ({
@@ -23,6 +23,7 @@ function convertCustomFields(options: UpdateOptionsWithCustomFields): CustomFiel
 
 function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key: string]: any } {
 	const options = this.getNodeParameter('issueUpdateOptions', itemIndex, {}) as IssueUpdateOptions;
+ const projectId =	getProjectId.call(this, options.projectId);
 
 	this.logger.debug(`Update issue with subject: ${JSON.stringify(options)}`);
 
@@ -31,7 +32,7 @@ function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 		issue: {
 			subject: options.subject,
 			description: options.description,
-			projectId: options.projectId,
+			projectId,
 			parent_issue_id: options.parentIssueId,
 			assigned_to_id: options.assignedToId,
 			estimated_hours: options.estimatedHours,
@@ -74,6 +75,7 @@ function updateBodyForOpportunity(
 	) as OpportunityUpdateOptions;
 
 	const customFields = convertCustomFields(options);
+	const projectId =	getProjectId.call(this, options.projectId);
 
 	return {
 		easy_crm_case: {
@@ -87,7 +89,7 @@ function updateBodyForOpportunity(
 			price: options.price,
 			contract_date: options.contractDate,
 
-			project_id: options.projectId,
+			project_id: projectId,
 		},
 	};
 }
@@ -195,6 +197,7 @@ function updateBodyForTimeEntry(
 		{},
 	) as TimeEntryUpdateOptions;
 
+	const projectId =	getProjectId.call(this, options.projectId);
 	const customFields = convertCustomFields(options);
 
 	return {
@@ -202,7 +205,7 @@ function updateBodyForTimeEntry(
 			comments: options.comment,
 			hours: options.hours,
 			spent_on: options.spentOn,
-			project_id: options.projectId,
+			project_id: projectId,
 			activity_id: options.activityId,
 			user_id: options.userId,
 			custom_fields: customFields,

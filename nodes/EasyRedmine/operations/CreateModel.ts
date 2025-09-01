@@ -1,5 +1,6 @@
 import { CustomField } from './UpdateModel';
 import { BaseIssueOptions } from './BaseModel';
+import { ProjectIdValue } from '../utils';
 
 export type IssueCreateOptions = BaseIssueOptions;
 
@@ -22,7 +23,7 @@ export interface OpportunityCreateOptions {
 export interface TimeEntryCreateOptions {
 	activityId: number | undefined;
 	comment: string | undefined;
-	projectId: number | undefined;
+	projectId: number | ProjectIdValue | undefined;
 	spentOn: string | undefined;
 	userId: number | undefined;
 	customFields: { field: CustomField[] } | undefined;

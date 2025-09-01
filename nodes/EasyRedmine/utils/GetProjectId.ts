@@ -1,18 +1,40 @@
 import { IExecuteFunctions } from 'n8n-workflow';
 
-export function getProjectId(this: IExecuteFunctions, itemIndex: number): number | undefined {
-	let projectId = this.getNodeParameter('projectId', itemIndex) as any;
+export interface ProjectIdValue {
+	mode: string;
+	value: string | number;
+}
+
+export function getProjectId(
+	this: IExecuteFunctions,
+	projectId: ProjectIdValue | number | string | undefined,
+): number | undefined {
+	if (typeof projectId === 'undefined') {
+		return undefined;
+	}
+
 	// For backward compatibility
 	if (typeof projectId === 'string') {
-		return parseInt(projectId, 10);
+		const result = parseInt(projectId, 10);
+		if (isNaN(result)) {
+			return undefined;
+		}
+		return result;
 	} else if (typeof projectId === 'number') {
 		return projectId;
 	}
 
-	if (projectId['mode'] === 'id') {
-		return projectId['value'];
+	if (!projectId) {
+		return undefined;
+	}
+
+	if (typeof projectId.value === 'string') {
+		const result = parseInt(projectId.value);
+		if (isNaN(result)) {
+			return undefined;
+		}
+		return result;
 	} else {
-		this.logger.error(`Project id '${JSON.stringify(projectId)}' data not supported`);
-		throw new Error('Only project by ID is supported');
+		return projectId.value;
 	}
 }

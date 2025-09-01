@@ -97,7 +97,8 @@ function createBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 	this.logger.debug(`Create issue with subject: ${JSON.stringify(options)}`);
 
 	const subject = this.getNodeParameter('subject', itemIndex) as string;
-	const projectId = getProjectId.call(this, itemIndex);
+	let projectIdValue = this.getNodeParameter('projectId', itemIndex) as any;
+	const projectId = getProjectId.call(this, projectIdValue);
 	const customFields = convertCustomFields(options);
 
 	return {
@@ -145,7 +146,8 @@ function createBodyForOpportunity(
 		{},
 	) as OpportunityCreateOptions;
 
-	const projectId = this.getNodeParameter('projectId', itemIndex) as string;
+	let projectIdValue = this.getNodeParameter('projectId', itemIndex) as any;
+	const projectId = getProjectId.call(this, projectIdValue);
 	const name = this.getNodeParameter('name', itemIndex) as string;
 	const accountId = this.getNodeParameter('accountId', itemIndex) as string;
 
@@ -212,6 +214,7 @@ function createBodyForTimeEntry(
 		{},
 	) as TimeEntryCreateOptions;
 
+	const projectId =	getProjectId.call(this, options.projectId);
 	const hours = this.getNodeParameter('hours', itemIndex) as number;
 
 	const customFields = convertCustomFields(options);
@@ -221,7 +224,7 @@ function createBodyForTimeEntry(
 			activity_id: options.activityId,
 			comments: options.comment,
 			custom_fields: customFields,
-			project_id: options.projectId,
+			project_id: projectId,
 			spent_on: options.spentOn,
 			user_id: options.userId,
 		},
