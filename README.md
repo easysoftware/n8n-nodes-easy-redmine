@@ -291,6 +291,14 @@ Users are Easy Redmine users. The entity name is `user`.
 
 - **Get one** - returns a detailed view of a single user. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
+- **Search** - searches for users with filtering options.
+  - Email - search by email address (partial match)
+  - First name - search by first name (partial match)  
+  - Last name - search by last name (partial match)
+  - Login - search by login username (partial match)
+  - Status - filter by user status (integer value)
+  - Last login time from - filter users who logged in after this date
+  - Last login time to - filter users who logged in before this date
 - **Create** - creates a new user
   - Login (required)
   - First name (required)

@@ -28,6 +28,12 @@ export const UserFields: INodeProperties[] = [
 				action: 'Get many',
 			},
 			{
+				name: 'Search',
+				description: 'Search users',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
+			},
+			{
 				name: 'Create',
 				description: 'Create user',
 				value: EasyNodeOperationType.create,
@@ -194,6 +200,72 @@ export const UserFields: INodeProperties[] = [
 			},
 
 			CustomFieldsOption,
+		],
+	},
+
+	{
+		displayName: 'Search Options',
+		name: 'userSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		options: [
+			{
+				displayName: 'Email',
+				name: 'email',
+				type: 'string',
+				placeholder: 'name@email.com',
+				default: '',
+				description: 'Search by email address (partial match)',
+			},
+			{
+				displayName: 'First Name',
+				name: 'firstname',
+				type: 'string',
+				default: '',
+				description: 'Search by first name (partial match)',
+			},
+			{
+				displayName: 'Last Login Time From',
+				name: 'lastLoginTimeFrom',
+				type: 'dateTime',
+				default: '',
+				description: 'Filter users who logged in after this date',
+			},
+			{
+				displayName: 'Last Login Time To',
+				name: 'lastLoginTimeTo',
+				type: 'dateTime',
+				default: '',
+				description: 'Filter users who logged in before this date',
+			},
+			{
+				displayName: 'Last Name',
+				name: 'lastname',
+				type: 'string',
+				default: '',
+				description: 'Search by last name (partial match)',
+			},
+			{
+				displayName: 'Login',
+				name: 'login',
+				type: 'string',
+				default: '',
+				description: 'Search by login username (partial match)',
+			},
+			{
+				displayName: 'Status',
+				name: 'status',
+				type: 'number',
+				default: '',
+				description: 'Filter by user status (integer value)',
+			},
 		],
 	},
 ];

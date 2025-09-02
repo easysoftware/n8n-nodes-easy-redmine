@@ -1,7 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
-import { ProjectIdField } from './ProjectIdField';
-import { CustomFieldsOption } from './CustomFields';
 
 export const ProjectFields: INodeProperties[] = [
 	{
@@ -71,14 +69,14 @@ export const ProjectFields: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Update Fields',
-		name: 'issueUpdateOptions',
+		displayName: 'Search Fields',
+		name: 'projectSearchOptions',
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
 		displayOptions: {
 			show: {
-				operation: [EasyNodeOperationType.update],
+				operation: [EasyNodeOperationType.search],
 				resource: [EasyNodeResourceType.projects],
 			},
 		},

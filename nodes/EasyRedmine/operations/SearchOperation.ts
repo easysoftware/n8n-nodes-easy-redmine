@@ -46,6 +46,42 @@ function enhanceProjectRequestOptions(
 	}
 }
 
+function enhanceUserRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('userSearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.email) {
+		qs['f[mail]'] = `~${options.email}`;
+	}
+
+	if (options.firstname) {
+		qs['f[firstname]'] = `~${options.firstname}`;
+	}
+
+	if (options.lastname) {
+		qs['f[lastname]'] = `~${options.lastname}`;
+	}
+
+	if (options.login) {
+		qs['f[login]'] = `~${options.login}`;
+	}
+
+	if (options.status !== undefined) {
+		qs['f[status]'] = options.status;
+	}
+
+	if (options.lastLoginTimeFrom || options.lastLoginTimeTo) {
+		const timeFrom = options.lastLoginTimeFrom ?? '2000-01-01';
+		const timeTo = options.lastLoginTimeTo ?? '2040-01-01';
+		qs['f[last_login_on]'] = `${timeFrom}|${timeTo}`;
+	}
+}
+
 export async function processSearchOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
@@ -86,6 +122,9 @@ export async function processSearchOperation(
 				break;
 			case EasyNodeResourceType.projects:
 				enhanceProjectRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.users:
+				enhanceUserRequestOptions.call(this, itemIndex, options);
 				break;
 			default:
 				throw new Error('Not implemented!');
