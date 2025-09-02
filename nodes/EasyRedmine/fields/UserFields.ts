@@ -268,4 +268,55 @@ export const UserFields: INodeProperties[] = [
 			},
 		],
 	},
+
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.users],
+			},
+		},
+		default: false,
+		description: 'Whether to return all results or only up to a given limit',
+	},
+
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.users],
+				returnAll: [false],
+			},
+		},
+		typeOptions: {
+			minValue: 1,
+			maxValue: 100,
+		},
+		default: 50,
+		description: 'Max number of results to return',
+	},
+
+	{
+		displayName: 'Offset',
+		name: 'offset',
+		type: 'number',
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.users],
+				returnAll: [false],
+			},
+		},
+		typeOptions: {
+			minValue: 0,
+		},
+		default: 0,
+		description: 'Number of results to skip',
+	},
 ];
