@@ -32,6 +32,20 @@ function enhanceIssueRequestOptions(
 	}
 }
 
+function enhanceProjectRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('projectSearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+}
+
 export async function processSearchOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
@@ -69,6 +83,9 @@ export async function processSearchOperation(
 		switch (resource) {
 			case EasyNodeResourceType.issues:
 				enhanceIssueRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.projects:
+				enhanceProjectRequestOptions.call(this, itemIndex, options);
 				break;
 			default:
 				throw new Error('Not implemented!');

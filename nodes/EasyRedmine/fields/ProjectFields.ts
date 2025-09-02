@@ -1,5 +1,7 @@
 import { INodeProperties } from 'n8n-workflow';
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
+import { ProjectIdField } from './ProjectIdField';
+import { CustomFieldsOption } from './CustomFields';
 
 export const ProjectFields: INodeProperties[] = [
 	{
@@ -25,6 +27,12 @@ export const ProjectFields: INodeProperties[] = [
 				description: 'Get multiple projects',
 				value: EasyNodeOperationType.getMany,
 				action: 'Get many',
+			},
+			{
+				name: 'Search',
+				description: 'Search for multiple projects',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
 			},
 		],
 	},
@@ -60,5 +68,28 @@ export const ProjectFields: INodeProperties[] = [
 			loadOptionsMethod: 'getEasyProjectQueries',
 		},
 		default: '',
+	},
+
+	{
+		displayName: 'Update Fields',
+		name: 'issueUpdateOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.update],
+				resource: [EasyNodeResourceType.projects],
+			},
+		},
+		options: [
+			{
+				displayName: 'Free Text',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Free text query to search for projects',
+			},
+		],
 	},
 ];
