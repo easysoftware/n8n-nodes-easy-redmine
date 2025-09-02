@@ -82,6 +82,30 @@ function enhanceUserRequestOptions(
 	}
 }
 
+function enhanceTimeEntryRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('timeEntrySearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+
+	if (options.projectId) {
+		qs['f[project_id]'] = options.projectId;
+	}
+
+	if (options.from || options.to) {
+		const dateFrom = options.from ?? '2000-01-01';
+		const dateTo = options.to ?? '2040-01-01';
+		qs['f[spent_on]'] = `${dateFrom}|${dateTo}`;
+	}
+}
+
 export async function processSearchOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
@@ -125,6 +149,9 @@ export async function processSearchOperation(
 				break;
 			case EasyNodeResourceType.users:
 				enhanceUserRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.timeEntries:
+				enhanceTimeEntryRequestOptions.call(this, itemIndex, options);
 				break;
 			default:
 				throw new Error('Not implemented!');

@@ -65,7 +65,8 @@ export const UserFields: INodeProperties[] = [
 		displayName: 'EasyRedmine User Query Name or ID',
 		name: 'userQueryId',
 		type: 'options',
-		description: 'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description:
+			'Choose a query to filter the results. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: [EasyNodeResourceType.users],
@@ -267,56 +268,5 @@ export const UserFields: INodeProperties[] = [
 				description: 'Filter by user status (integer value)',
 			},
 		],
-	},
-
-	{
-		displayName: 'Return All',
-		name: 'returnAll',
-		type: 'boolean',
-		displayOptions: {
-			show: {
-				operation: [EasyNodeOperationType.search],
-				resource: [EasyNodeResourceType.users],
-			},
-		},
-		default: false,
-		description: 'Whether to return all results or only up to a given limit',
-	},
-
-	{
-		displayName: 'Limit',
-		name: 'limit',
-		type: 'number',
-		displayOptions: {
-			show: {
-				operation: [EasyNodeOperationType.search],
-				resource: [EasyNodeResourceType.users],
-				returnAll: [false],
-			},
-		},
-		typeOptions: {
-			minValue: 1,
-			maxValue: 100,
-		},
-		default: 50,
-		description: 'Max number of results to return',
-	},
-
-	{
-		displayName: 'Offset',
-		name: 'offset',
-		type: 'number',
-		displayOptions: {
-			show: {
-				operation: [EasyNodeOperationType.search],
-				resource: [EasyNodeResourceType.users],
-				returnAll: [false],
-			},
-		},
-		typeOptions: {
-			minValue: 0,
-		},
-		default: 0,
-		description: 'Number of results to skip',
 	},
 ];

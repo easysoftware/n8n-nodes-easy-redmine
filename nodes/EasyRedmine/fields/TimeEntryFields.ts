@@ -67,6 +67,12 @@ export const TimeEntryFields: INodeProperties[] = [
 				action: 'Get many',
 			},
 			{
+				name: 'Search',
+				description: 'Search time entries',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
+			},
+			{
 				name: 'Create',
 				description: 'Create entity',
 				value: EasyNodeOperationType.create,
@@ -166,4 +172,48 @@ export const TimeEntryFields: INodeProperties[] = [
 			CustomFieldsOption,
 		],
 	},
+
+	{
+		displayName: 'Search Options',
+		name: 'timeEntrySearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.timeEntries],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Text search query to filter time entries',
+			},
+			{
+				displayName: 'Project ID',
+				name: 'projectId',
+				type: 'number',
+				default: '',
+				description: 'Filter by project ID',
+			},
+			{
+				displayName: 'From',
+				name: 'from',
+				type: 'dateTime',
+				default: '',
+				description: 'Filter time entries from this date',
+			},
+			{
+				displayName: 'To',
+				name: 'to',
+				type: 'dateTime',
+				default: '',
+				description: 'Filter time entries to this date',
+			},
+		],
+	}
 ];

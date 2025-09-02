@@ -180,7 +180,7 @@ export class EasyRedmine implements INodeType {
 				description: 'Whether to return all results or only up to a given limit',
 				displayOptions: {
 					show: {
-						operation: [EasyNodeOperationType.getMany],
+						operation: [EasyNodeOperationType.getMany, EasyNodeOperationType.search],
 					},
 				},
 			},
@@ -190,9 +190,12 @@ export class EasyRedmine implements INodeType {
 				type: 'number',
 				default: 0,
 				description: 'Result offset',
+				typeOptions: {
+					minValue: 0,
+				},
 				displayOptions: {
 					show: {
-						operation: [EasyNodeOperationType.getMany],
+						operation: [EasyNodeOperationType.getMany, EasyNodeOperationType.search],
 						returnAll: [false],
 					},
 				},
@@ -208,7 +211,7 @@ export class EasyRedmine implements INodeType {
 				description: 'Max number of results to return',
 				displayOptions: {
 					show: {
-						operation: [EasyNodeOperationType.getMany],
+						operation: [EasyNodeOperationType.getMany, EasyNodeOperationType.search],
 						returnAll: [false],
 					},
 				},
