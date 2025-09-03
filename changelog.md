@@ -1,6 +1,7 @@
 # 0.5.0 (Unreleased)
 
 - Add get and get-many operations for the products entity.
+- Add search operation support for issue, project, user entities with query parameter and additional filtering options.
 
 # 0.4.2 (2025-08-29)
 

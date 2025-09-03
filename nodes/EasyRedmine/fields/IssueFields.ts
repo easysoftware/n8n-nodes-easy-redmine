@@ -1,18 +1,7 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
-
-const ProjectIdField: INodeProperties = {
-	displayName: 'Project Name or ID',
-	name: 'projectId',
-	type: 'options',
-	description:
-		'ID of the project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
-	default: '',
-	typeOptions: {
-		loadOptionsMethod: 'getAccessibleProjects',
-	},
-};
+import { ProjectIdField } from './ProjectIdField';
 
 const CommonIssueFields: INodeProperties[] = [
 	{
@@ -110,6 +99,56 @@ const CommonIssueFields: INodeProperties[] = [
 
 export const IssueFields: INodeProperties[] = [
 	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: {
+			show: {
+				resource: [EasyNodeResourceType.issues],
+			},
+		},
+		default: 'get-many',
+		options: [
+			{
+				name: 'Get One',
+				description: 'Get a single entity',
+				value: EasyNodeOperationType.getOne,
+				action: 'Get one',
+			},
+			{
+				name: 'Get Many',
+				description: 'Get multiple entities',
+				value: EasyNodeOperationType.getMany,
+				action: 'Get many',
+			},
+			{
+				name: 'Search',
+				description: 'Search for multiple issues',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
+			},
+			{
+				name: 'Add Comment',
+				description: 'Add a comment to entity',
+				value: EasyNodeOperationType.addComment,
+				action: 'Add comment',
+			},
+			{
+				name: 'Create',
+				description: 'Create entity',
+				value: EasyNodeOperationType.create,
+				action: 'Create',
+			},
+			{
+				name: 'Update',
+				description: 'Update entity',
+				value: EasyNodeOperationType.update,
+				action: 'Update',
+			},
+		],
+	},
+	{
 		displayName: 'Issue ID',
 		name: 'id',
 		type: 'number',
@@ -205,6 +244,50 @@ export const IssueFields: INodeProperties[] = [
 			ProjectIdField,
 			...CommonIssueFields,
 			CustomFieldsOption,
+		],
+	},
+
+	{
+		displayName: 'Search Fields',
+		name: 'issueSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.issues],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Query the name of the issue',
+			},
+			{
+				displayName: 'Assigned To ID',
+				name: 'assignedToId',
+				type: 'string',
+				default: '',
+				description: 'ID of the user the issue is assigned to',
+			},
+			{
+				displayName: 'Due Date From',
+				name: 'dueDateFrom',
+				type: 'string',
+				default: '',
+				placeholder: '2025-01-01',
+			},
+			{
+				displayName: 'Due Date To',
+				name: 'dueDateTo',
+				type: 'string',
+				default: '',
+				placeholder: '2025-01-31',
+			},
 		],
 	},
 ];

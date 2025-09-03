@@ -253,8 +253,10 @@ Personal contacts are CRM entities that represent a person. The entity name is `
 Projects are used to manage project tasks. The entity name is `project`.
 
 **Operations**
-* *Get one** - returns a detailed view of a single project. The entity is specified by its ID.
+* **Get one** - returns a detailed view of a single project. The entity is specified by its ID.
 * **Get many** - returns a list of projects. You should use easy query id to specify the filter.
+* **Search** - searches for projects with filtering options.
+  - Query - text search query to filter projects
 
 ## Time entries
 
@@ -289,6 +291,14 @@ Users are Easy Redmine users. The entity name is `user`.
 
 - **Get one** - returns a detailed view of a single user. The entity is specified by its ID.
 - **Get many** - returns a list of entities. You should use easy query id to specify the filter.
+- **Search** - searches for users with filtering options.
+  - Email - search by email address (partial match)
+  - First name - search by first name (partial match)  
+  - Last name - search by last name (partial match)
+  - Login - search by login username (partial match)
+  - Status - filter by user status (integer value)
+  - Last login time from - filter users who logged in after this date
+  - Last login time to - filter users who logged in before this date
 - **Create** - creates a new user
   - Login (required)
   - First name (required)

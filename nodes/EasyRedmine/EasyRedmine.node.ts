@@ -2,26 +2,32 @@
 import {
 	IDataObject,
 	IExecuteFunctions,
+	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
+	INodeListSearchResult,
 } from 'n8n-workflow';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
-import { processGetManyOperation } from './operations/GetManyOperation';
-import { processGetOneOperation } from './operations/GetOneOperation';
-import { addCommentOperation } from './operations/AddCommentOperation';
-import { updateOperation } from './operations/UpdateOperation';
+import {
+	processGetManyOperation,
+	processGetOneOperation,
+	addCommentOperation,
+	updateOperation,
+	createOperation,
+	processSearchOperation,
+} from './operations';
 import { IssueFields } from './fields/IssueFields';
 import { LeadFields } from './fields/LeadFields';
 import { OpportunityFields } from './fields/OpportunityFields';
 import { AccountFields } from './fields/AccountFields';
 import { PersonalContactFields } from './fields/PersonalContactFields';
 import { UserFields } from './fields/UserFields';
-import { createOperation } from './operations/CreateOperation';
 import { TimeEntryFields } from './fields/TimeEntryFields';
 import { AttendanceFields } from './fields/AttendanceFields';
 import { loadOptions } from './LoadOptions';
+import { EasyRedmineClient } from './client';
 import { ProjectFields } from './fields/ProjectFields';
 
 /**
@@ -44,6 +50,7 @@ export class EasyRedmine implements INodeType {
 		},
 		inputs: ['main'],
 		outputs: ['main'],
+		usableAsTool: true,
 		credentials: [
 			{
 				name: 'easyRedmineApi',
@@ -114,7 +121,6 @@ export class EasyRedmine implements INodeType {
 				displayOptions: {
 					show: {
 						resource: [
-							EasyNodeResourceType.issues,
 							EasyNodeResourceType.leads,
 							EasyNodeResourceType.opportunities,
 							EasyNodeResourceType.accounts,
@@ -134,6 +140,12 @@ export class EasyRedmine implements INodeType {
 						description: 'Get multiple entities',
 						value: EasyNodeOperationType.getMany,
 						action: 'Get many',
+					},
+					{
+						name: 'Search',
+						description: 'Search entities',
+						value: EasyNodeOperationType.search,
+						action: 'Search',
 					},
 					{
 						name: 'Add Comment',
@@ -174,7 +186,7 @@ export class EasyRedmine implements INodeType {
 				description: 'Whether to return all results or only up to a given limit',
 				displayOptions: {
 					show: {
-						operation: [EasyNodeOperationType.getMany],
+						operation: [EasyNodeOperationType.getMany, EasyNodeOperationType.search],
 					},
 				},
 			},
@@ -184,9 +196,12 @@ export class EasyRedmine implements INodeType {
 				type: 'number',
 				default: 0,
 				description: 'Result offset',
+				typeOptions: {
+					minValue: 0,
+				},
 				displayOptions: {
 					show: {
-						operation: [EasyNodeOperationType.getMany],
+						operation: [EasyNodeOperationType.getMany, EasyNodeOperationType.search],
 						returnAll: [false],
 					},
 				},
@@ -202,7 +217,7 @@ export class EasyRedmine implements INodeType {
 				description: 'Max number of results to return',
 				displayOptions: {
 					show: {
-						operation: [EasyNodeOperationType.getMany],
+						operation: [EasyNodeOperationType.getMany, EasyNodeOperationType.search],
 						returnAll: [false],
 					},
 				},
@@ -224,6 +239,25 @@ export class EasyRedmine implements INodeType {
 
 	methods = {
 		loadOptions,
+		listSearch: {
+			getProjects: async function (
+				this: ILoadOptionsFunctions,
+				filter?: string,
+				paginationToken?: string,
+			): Promise<INodeListSearchResult> {
+				const client = new EasyRedmineClient(this, this.helpers);
+				const projects = (await client.listProjects()).sort((p0, p1) =>
+					p0.name.localeCompare(p1.name),
+				);
+				return {
+					results: projects.map((project) => ({
+						name: project.name,
+						value: project.id,
+					})),
+					paginationToken: undefined,
+				};
+			},
+		},
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -241,6 +275,9 @@ export class EasyRedmine implements INodeType {
 				switch (operation) {
 					case EasyNodeOperationType.getMany:
 						responseData = await processGetManyOperation.call(this, resource, itemIndex);
+						break;
+					case EasyNodeOperationType.search:
+						responseData = await processSearchOperation.call(this, resource, itemIndex);
 						break;
 					case EasyNodeOperationType.getOne:
 						responseData = await processGetOneOperation.call(this, resource, itemIndex);

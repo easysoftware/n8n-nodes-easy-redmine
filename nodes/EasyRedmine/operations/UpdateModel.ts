@@ -1,4 +1,5 @@
 import { BaseIssueOptions } from './BaseModel';
+import { ProjectIdValue } from '../utils';
 
 export interface CustomField {
 	id: number;
@@ -24,7 +25,7 @@ export interface OpportunityUpdateOptions {
 	externalAssignedToId: number | undefined;
 	price: number | undefined;
 	contractDate: string | undefined;
-	projectId: number | undefined;
+	projectId: number | ProjectIdValue | undefined;
 
 	customFields: { field: CustomField[] } | undefined;
 }

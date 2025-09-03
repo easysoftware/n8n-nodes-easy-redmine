@@ -1,6 +1,7 @@
 import { INodeProperties } from 'n8n-workflow';
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { CustomFieldsOption } from './CustomFields';
+import { ProjectIdField } from './ProjectIdField';
 
 const CommonTimeEntryOptions: INodeProperties[] = [
 	{
@@ -23,16 +24,7 @@ const CommonTimeEntryOptions: INodeProperties[] = [
 		placeholder: 'YYYY-MM-DD',
 		description: 'Date when the time was spent',
 	},
-	{
-		displayName: 'Project Name or ID',
-		name: 'projectId',
-		type: 'options',
-		default: '',
-		description: 'ID of the project associated with the time entry. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
-		typeOptions: {
-			loadOptionsMethod: 'getAccessibleProjects',
-		},
-	},
+	ProjectIdField,
 	{
 		displayName: 'Activity ID',
 		name: 'activityId',
@@ -57,9 +49,7 @@ export const TimeEntryFields: INodeProperties[] = [
 		noDataExpression: true,
 		displayOptions: {
 			show: {
-				resource: [
-					EasyNodeResourceType.timeEntries
-				],
+				resource: [EasyNodeResourceType.timeEntries],
 			},
 		},
 		default: 'get-many',
@@ -75,6 +65,12 @@ export const TimeEntryFields: INodeProperties[] = [
 				description: 'Get multiple entities',
 				value: EasyNodeOperationType.getMany,
 				action: 'Get many',
+			},
+			{
+				name: 'Search',
+				description: 'Search time entries',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
 			},
 			{
 				name: 'Create',
@@ -176,4 +172,48 @@ export const TimeEntryFields: INodeProperties[] = [
 			CustomFieldsOption,
 		],
 	},
+
+	{
+		displayName: 'Search Options',
+		name: 'timeEntrySearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.timeEntries],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Text search query to filter time entries',
+			},
+			{
+				displayName: 'Project ID',
+				name: 'projectId',
+				type: 'number',
+				default: '',
+				description: 'Filter by project ID',
+			},
+			{
+				displayName: 'From',
+				name: 'from',
+				type: 'dateTime',
+				default: '',
+				description: 'Filter time entries from this date',
+			},
+			{
+				displayName: 'To',
+				name: 'to',
+				type: 'dateTime',
+				default: '',
+				description: 'Filter time entries to this date',
+			},
+		],
+	}
 ];

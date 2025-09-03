@@ -1,6 +1,7 @@
 import { EasyNodeOperationType, EasyNodeResourceType } from '../Model';
 import { INodeProperties } from 'n8n-workflow';
 import { CustomFieldsOption } from './CustomFields';
+import { ProjectIdField } from './ProjectIdField';
 
 export const OpportunityOptions: INodeProperties[] = [
 	{
@@ -98,23 +99,14 @@ export const OpportunityFields: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Project Name or ID',
-		name: 'projectId',
-		type: 'options',
-		description:
-			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
-		default: '',
+		...ProjectIdField,
 		displayOptions: {
 			show: {
-				operation: [EasyNodeOperationType.create],
 				resource: [EasyNodeResourceType.opportunities],
+				operation: [EasyNodeOperationType.create],
 			},
 		},
-		typeOptions: {
-			loadOptionsMethod: 'getAccessibleProjects',
-		},
 	},
-
 	{
 		displayName: 'Create Options',
 		name: 'opportunityCreateOptions',
@@ -127,10 +119,7 @@ export const OpportunityFields: INodeProperties[] = [
 				resource: [EasyNodeResourceType.opportunities],
 			},
 		},
-		options: [
-			...OpportunityOptions,
-			CustomFieldsOption,
-		],
+		options: [...OpportunityOptions, CustomFieldsOption],
 	},
 
 	{
@@ -161,18 +150,31 @@ export const OpportunityFields: INodeProperties[] = [
 				description: 'Opportunity description',
 			},
 			...OpportunityOptions,
-			{
-				displayName: 'Project Name or ID',
-				name: 'projectId',
-				type: 'options',
-				description:
-					'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
-				default: '',
-				typeOptions: {
-					loadOptionsMethod: 'getAccessibleProjects',
-				},
-			},
+			ProjectIdField,
 			CustomFieldsOption,
+		],
+	},
+
+	{
+		displayName: 'Search Options',
+		name: 'opportunitySearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.opportunities],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Search query for opportunities',
+			},
 		],
 	},
 ];

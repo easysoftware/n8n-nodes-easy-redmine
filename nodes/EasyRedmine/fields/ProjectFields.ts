@@ -26,6 +26,12 @@ export const ProjectFields: INodeProperties[] = [
 				value: EasyNodeOperationType.getMany,
 				action: 'Get many',
 			},
+			{
+				name: 'Search',
+				description: 'Search for multiple projects',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
+			},
 		],
 	},
 
@@ -60,5 +66,28 @@ export const ProjectFields: INodeProperties[] = [
 			loadOptionsMethod: 'getEasyProjectQueries',
 		},
 		default: '',
+	},
+
+	{
+		displayName: 'Search Fields',
+		name: 'projectSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.projects],
+			},
+		},
+		options: [
+			{
+				displayName: 'Free Text',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Free text query to search for projects',
+			},
+		],
 	},
 ];

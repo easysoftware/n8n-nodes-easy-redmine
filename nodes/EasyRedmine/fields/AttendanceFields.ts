@@ -57,6 +57,12 @@ export const AttendanceFields: INodeProperties[] = [
 				action: 'Get many',
 			},
 			{
+				name: 'Search',
+				description: 'Search attendance entities',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
+			},
+			{
 				name: 'Create',
 				description: 'Create attendance entity',
 				value: EasyNodeOperationType.create,
@@ -143,5 +149,28 @@ export const AttendanceFields: INodeProperties[] = [
 			},
 		},
 		options: [...AttendanceUpdateOptions, ...CommonAttendanceOptions],
+	},
+
+	{
+		displayName: 'Search Options',
+		name: 'attendanceSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.attendances],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Search query for attendances',
+			},
+		],
 	},
 ];
