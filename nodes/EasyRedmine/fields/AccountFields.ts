@@ -300,4 +300,27 @@ export const AccountFields: INodeProperties[] = [
 		},
 		options: [...BillingAccountOptions],
 	},
+
+	{
+		displayName: 'Search Options',
+		name: 'accountSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.accounts],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Search query for accounts',
+			},
+		],
+	},
 ];

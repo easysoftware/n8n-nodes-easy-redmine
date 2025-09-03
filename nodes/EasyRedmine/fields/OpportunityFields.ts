@@ -154,4 +154,27 @@ export const OpportunityFields: INodeProperties[] = [
 			CustomFieldsOption,
 		],
 	},
+
+	{
+		displayName: 'Search Options',
+		name: 'opportunitySearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.opportunities],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Search query for opportunities',
+			},
+		],
+	},
 ];

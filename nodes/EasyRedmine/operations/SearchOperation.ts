@@ -106,6 +106,76 @@ function enhanceTimeEntryRequestOptions(
 	}
 }
 
+function enhanceLeadRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('leadSearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+}
+
+function enhanceOpportunityRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('opportunitySearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+}
+
+function enhancePersonalContactRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('personalContactSearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+}
+
+function enhanceAccountRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('accountSearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+}
+
+function enhanceAttendanceRequestOptions(
+	this: IExecuteFunctions,
+	itemIndex: number,
+	req: IHttpRequestOptions,
+) {
+	const options = this.getNodeParameter('attendanceSearchOptions', itemIndex, {}) as any;
+
+	const qs = req.qs as IDataObject;
+
+	if (options.query) {
+		qs.easy_query_q = options.query;
+	}
+}
+
 export async function processSearchOperation(
 	this: IExecuteFunctions,
 	resource: EasyNodeResourceType,
@@ -153,11 +223,21 @@ export async function processSearchOperation(
 			case EasyNodeResourceType.timeEntries:
 				enhanceTimeEntryRequestOptions.call(this, itemIndex, options);
 				break;
-        // personalContacts
-        // leads
-        // opportunities
-        // accounts
-        // attendances
+			case EasyNodeResourceType.leads:
+				enhanceLeadRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.opportunities:
+				enhanceOpportunityRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.personalContacts:
+				enhancePersonalContactRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.accounts:
+				enhanceAccountRequestOptions.call(this, itemIndex, options);
+				break;
+			case EasyNodeResourceType.attendances:
+				enhanceAttendanceRequestOptions.call(this, itemIndex, options);
+				break;
 			default:
 				throw new Error('Not implemented!');
 		}

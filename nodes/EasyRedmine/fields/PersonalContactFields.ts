@@ -88,6 +88,12 @@ export const PersonalContactFields: INodeProperties[] = [
 				action: 'Get many',
 			},
 			{
+				name: 'Search',
+				description: 'Search personal contacts',
+				value: EasyNodeOperationType.search,
+				action: 'Search',
+			},
+			{
 				name: 'Add Comment',
 				description: 'Add comment to personal contact',
 				value: EasyNodeOperationType.addComment,
@@ -210,5 +216,28 @@ export const PersonalContactFields: INodeProperties[] = [
 			},
 		},
 		options: [...PersonalContactUpdateOptionalFields, CustomFieldsOption],
+	},
+
+	{
+		displayName: 'Search Options',
+		name: 'personalContactSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.personalContacts],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Search query for personal contacts',
+			},
+		],
 	},
 ];
