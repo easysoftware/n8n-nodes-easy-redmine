@@ -153,6 +153,11 @@ export async function processSearchOperation(
 			case EasyNodeResourceType.timeEntries:
 				enhanceTimeEntryRequestOptions.call(this, itemIndex, options);
 				break;
+        // personalContacts
+        // leads
+        // opportunities
+        // accounts
+        // attendances
 			default:
 				throw new Error('Not implemented!');
 		}

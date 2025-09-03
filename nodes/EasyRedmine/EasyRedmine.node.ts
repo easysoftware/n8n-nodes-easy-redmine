@@ -142,6 +142,12 @@ export class EasyRedmine implements INodeType {
 						action: 'Get many',
 					},
 					{
+						name: 'Search',
+						description: 'Search entities',
+						value: EasyNodeOperationType.search,
+						action: 'Search',
+					},
+					{
 						name: 'Add Comment',
 						description: 'Add a comment to entity',
 						value: EasyNodeOperationType.addComment,

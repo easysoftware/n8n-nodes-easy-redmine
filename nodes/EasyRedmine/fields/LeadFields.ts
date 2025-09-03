@@ -83,4 +83,27 @@ export const LeadFields: INodeProperties[] = [
 		},
 		options: [...CommonLeadOptions, CustomFieldsOption],
 	},
+
+	{
+		displayName: 'Search Options',
+		name: 'leadSearchOptions',
+		type: 'collection',
+		placeholder: 'Add option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: [EasyNodeOperationType.search],
+				resource: [EasyNodeResourceType.leads],
+			},
+		},
+		options: [
+			{
+				displayName: 'Query',
+				name: 'query',
+				type: 'string',
+				default: '',
+				description: 'Search query for leads',
+			},
+		],
+	},
 ];
