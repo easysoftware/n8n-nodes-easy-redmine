@@ -1,4 +1,4 @@
-# 0.5.1 (2025-11-06)
+# 0.5.1 (2025-11-07)
 
 - Fixes invalid project_id field for updating issue.
 
