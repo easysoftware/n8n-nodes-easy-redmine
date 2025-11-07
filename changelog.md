@@ -1,4 +1,8 @@
-# 0.5.0 (Unreleased)
+# 0.5.1 (2025-11-06)
+
+- Fixes invalid project_id field for updating issue.
+
+# 0.5.0 (2025-09-01)
 
 - Add get and get-many operations for the products entity.
 
