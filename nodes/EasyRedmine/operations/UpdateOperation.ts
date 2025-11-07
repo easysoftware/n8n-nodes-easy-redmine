@@ -31,7 +31,7 @@ function updateBodyForIssue(this: IExecuteFunctions, itemIndex: number): { [key:
 		issue: {
 			subject: options.subject,
 			description: options.description,
-			projectId: options.projectId,
+			project_id: options.projectId,
 			parent_issue_id: options.parentIssueId,
 			assigned_to_id: options.assignedToId,
 			estimated_hours: options.estimatedHours,
