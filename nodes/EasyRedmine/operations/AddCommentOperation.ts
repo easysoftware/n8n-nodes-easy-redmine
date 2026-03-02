@@ -16,6 +16,10 @@ export async function addCommentOperation(
 		notes: comment,
 	};
 
+	if (resource === EasyNodeResourceType.issues) {
+		entity['private_notes'] = this.getNodeParameter('privateNotes', itemIndex) as boolean;;
+	}
+
 	const body: { [key: string]: any } = {};
 	switch (resource) {
 		case EasyNodeResourceType.issues:

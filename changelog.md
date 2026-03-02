@@ -1,3 +1,9 @@
+# 0.5.1 (2026-03-03)
+
+- Adds support for private comment for issues.
+- Fixes invalid default resource when creating a new node.
+- Upgraded node package build and run script commands
+
 # 0.5.1 (2025-11-07)
 
 - Fixes invalid project_id field for updating issue.

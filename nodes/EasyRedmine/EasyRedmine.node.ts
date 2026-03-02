@@ -64,7 +64,7 @@ export class EasyRedmine implements INodeType {
 				displayName: 'Resource',
 				name: 'resource',
 				type: 'options',
-				default: 'issues',
+				default: '',
 				noDataExpression: true,
 				options: [
 					{
@@ -114,8 +114,8 @@ export class EasyRedmine implements INodeType {
 				displayOptions: {
 					show: {
 						resource: [
-							EasyNodeResourceType.issues,
 							EasyNodeResourceType.leads,
+							EasyNodeResourceType.issues,
 							EasyNodeResourceType.opportunities,
 							EasyNodeResourceType.accounts,
 						],
@@ -218,6 +218,18 @@ export class EasyRedmine implements INodeType {
 					},
 				},
 				default: '',
+			},
+			{
+				displayName: 'Private Note',
+				name: 'privateNotes',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						operation: [EasyNodeOperationType.addComment],
+						resource: ['issues'],
+					},
+				},
+				default: false,
 			},
 		],
 	};
