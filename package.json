@@ -1,58 +1,58 @@
 {
-	"name": "@easysoftware/n8n-nodes-easy-redmine",
-	"version": "0.5.2",
-	"description": "n8n integration with EasyRedmine",
-	"keywords": [
-		"n8n-community-node-package"
-	],
-	"license": "MIT",
-	"homepage": "https://easyredmine.com",
-	"author": {
-		"name": "Martin Novák",
-		"email": "martin.novak@easysoftware.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/easysoftware/n8n-nodes-easy-redmine"
-	},
-	"engines": {
-		"node": ">=18.10",
-		"pnpm": ">=9.1"
-	},
-	"packageManager": "pnpm@9.1.4",
-	"main": "index.js",
-	"scripts": {
-		"build": "n8n-node build",
-		"build:watch": "tsc --watch",
-		"dev": "N8N_LOG_LEVEL=debug n8n-node dev",
-		"lint": "n8n-node lint",
-		"lint:fix": "n8n-node lint --fix",
-		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
-	},
-	"files": [
-		"dist"
-	],
-	"n8n": {
-		"n8nNodesApiVersion": 1,
-		"credentials": [
-			"dist/credentials/EasyRedmineApi.credentials.js"
-		],
-		"nodes": [
-			"dist/nodes/EasyRedmine/EasyRedmine.node.js"
-		]
-	},
-	"devDependencies": {
-		"@n8n/node-cli": "*",
-		"@typescript-eslint/parser": "^8.56.1",
-		"eslint": "^10.0.2",
-		"eslint-plugin-n8n-nodes-base": "^1.16.6",
-		"gulp": "^5.0.1",
-		"prettier": "^3.8.1",
-		"release-it": "^19.2.4",
-		"typescript": "~5.9.3"
-	},
-	"peerDependencies": {
-		"n8n-workflow": "*"
-	}
+  "name": "@easysoftware/n8n-nodes-easy-redmine",
+  "version": "0.5.2",
+  "description": "n8n integration with EasyRedmine",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "license": "MIT",
+  "homepage": "https://easyredmine.com",
+  "author": {
+    "name": "Martin Novák",
+    "email": "martin.novak@easysoftware.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/easysoftware/n8n-nodes-easy-redmine"
+  },
+  "engines": {
+    "node": ">=18.10",
+    "pnpm": ">=9.1"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "main": "index.js",
+  "scripts": {
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "N8N_LOG_LEVEL=debug n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/EasyRedmineApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/EasyRedmine/EasyRedmine.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "*",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.2",
+    "eslint-plugin-n8n-nodes-base": "^1.16.6",
+    "gulp": "^5.0.1",
+    "prettier": "^3.8.1",
+    "release-it": "^19.2.4",
+    "typescript": "~5.9.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
 }
