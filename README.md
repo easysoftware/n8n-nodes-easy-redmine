@@ -175,7 +175,7 @@ Issues are mostly Redmine issues. The identifier is `issue`.
   - Status ID
 - **Add Comment** - adds a comment to the issue.
   - Comment (required)
-  - Is private
+  - Private Note
 
 ## Leads
 
