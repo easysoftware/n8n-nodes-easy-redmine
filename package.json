@@ -44,10 +44,7 @@
   },
   "devDependencies": {
     "@n8n/node-cli": "*",
-    "@typescript-eslint/parser": "^8.56.1",
-    "eslint": "^10.0.2",
-    "eslint-plugin-n8n-nodes-base": "^1.16.6",
-    "gulp": "^5.0.1",
+    "eslint": "^9.39.3",
     "prettier": "^3.8.1",
     "release-it": "^19.2.4",
     "typescript": "~5.9.3"
