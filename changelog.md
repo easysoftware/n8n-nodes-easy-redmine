@@ -1,4 +1,4 @@
-# 0.5.1 (2026-03-03)
+# 0.5.2 (2026-03-03)
 
 - Adds support for private comment for issues.
 - Fixes invalid default resource when creating a new node.
