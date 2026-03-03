@@ -173,6 +173,9 @@ Issues are mostly Redmine issues. The identifier is `issue`.
   - Subject
   - Tracker ID
   - Status ID
+- **Add Comment** - adds a comment to the issue.
+  - Comment (required)
+  - Private Note
 
 ## Leads
 
