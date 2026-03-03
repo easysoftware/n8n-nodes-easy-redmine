@@ -1,6 +1,6 @@
-# Easy Redmine credentials and node for n8n
+# Easy8 credentials and node for n8n
 
-This repo contains n8n node for communication with Easy Redmine.
+This repo contains n8n node for communication with Easy8.
 
 ## How to install
 
@@ -17,14 +17,14 @@ Redmine node in n8n.
 
 ### 🔑 Setup credentials
 
-You need to set up credentials for the Easy Redmine node.
-You can do this by going to the credentials section in n8n and adding a new credential of type "Easy Redmine".
+You need to set up credentials for the Easy8 node.
+You can do this by going to the credentials section in n8n and adding a new credential of type "Easy8".
 
 In the newly created credential, you need to fill in domain, and user api key.
 
 The domain should be, for example, `https://instance.easyproject.com`.
 
-To find the API key, go to your Easy Redmine instance, click on your profile in the top right corner.
+To find the API key, go to your Easy8 instance, click on your profile in the top right corner.
 
 ![Go to profile](images/cred-guide-1.png)
 
@@ -38,14 +38,14 @@ Your profile edit page will open. Scroll down to the Preferences section. Here j
 
 Now, your credentials are ready to use.
 
-# Easy Redmine node
+# Easy8 node
 
-The custom node is created to handle all aspects of Easy Redmine integration with n8n.
+The custom node is created to handle all aspects of Easy8 integration with n8n.
 Currently available operations and resources are:
 
-## Easy Redmine Entities
+## Easy8 Entities
 
-A list of all available entities in Easy Redmine node.
+A list of all available entities in Easy8 node.
 
 - Accounts
 - Issues
@@ -286,7 +286,7 @@ Time entries are used to track time spent on issues. The entity name is `time_en
 
 ## Users
 
-Users are Easy Redmine users. The entity name is `user`.
+Users are Easy8 users. The entity name is `user`.
 
 **Operations**
 

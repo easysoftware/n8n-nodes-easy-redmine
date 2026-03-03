@@ -13,7 +13,7 @@ export class EasyRedmineApi implements ICredentialType {
 		dark: 'file:EasyRedmine.dark.svg',
 	} as const;
 
-	displayName = 'Easy Redmine API';
+	displayName = 'Easy8 API';
 	documentationUrl = 'https://easyredmine.com/documentation/';
 
 	properties: INodeProperties[] = [

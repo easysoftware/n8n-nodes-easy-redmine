@@ -28,7 +28,7 @@ import { ProjectFields } from './fields/ProjectFields';
  */
 export class EasyRedmine implements INodeType {
   description: INodeTypeDescription = {
-    displayName: 'Easy Redmine',
+    displayName: 'Easy8',
     subtitle: '={{$parameter["operation"]}}:{{$parameter["resource"]}}',
     name: 'easyRedmine',
     icon: {
@@ -37,9 +37,9 @@ export class EasyRedmine implements INodeType {
     } as const,
     group: ['transform'],
     version: 1,
-    description: 'Easy Redmine Operations',
+    description: 'Easy8 Operations',
     defaults: {
-      name: 'Easy Redmine Node',
+      name: 'Easy8 Node',
     },
     inputs: ['main'],
     outputs: ['main'],
