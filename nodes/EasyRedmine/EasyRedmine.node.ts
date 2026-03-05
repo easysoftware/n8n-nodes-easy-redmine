@@ -1,10 +1,10 @@
 import {
-	IDataObject,
-	IExecuteFunctions,
-	INodeExecutionData,
-	INodeType,
-	INodeTypeDescription,
-	NodeOperationError,
+  IDataObject,
+  IExecuteFunctions,
+  INodeExecutionData,
+  INodeType,
+  INodeTypeDescription,
+  NodeOperationError,
 } from 'n8n-workflow';
 import { EasyNodeOperationType, EasyNodeResourceType } from './Model';
 import { processGetManyOperation } from './operations/GetManyOperation';
@@ -28,7 +28,7 @@ import { ProjectFields } from './fields/ProjectFields';
  */
 export class EasyRedmine implements INodeType {
   description: INodeTypeDescription = {
-    displayName: 'Easy8',
+    displayName: 'Easy Redmine',
     subtitle: '={{$parameter["operation"]}}:{{$parameter["resource"]}}',
     name: 'easyRedmine',
     icon: {
@@ -37,9 +37,9 @@ export class EasyRedmine implements INodeType {
     } as const,
     group: ['transform'],
     version: 1,
-    description: 'Easy8 Operations',
+    description: 'Easy Redmine Operations',
     defaults: {
-      name: 'Easy8 Node',
+      name: 'Easy Redmine Node',
     },
     inputs: ['main'],
     outputs: ['main'],
