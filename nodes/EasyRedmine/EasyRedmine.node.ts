@@ -28,7 +28,7 @@ import { ProjectFields } from './fields/ProjectFields';
  */
 export class EasyRedmine implements INodeType {
   description: INodeTypeDescription = {
-    displayName: 'Easy Redmine',
+    displayName: 'Easy Redmine (Deprecated)',
     subtitle: '={{$parameter["operation"]}}:{{$parameter["resource"]}}',
     name: 'easyRedmine',
     icon: {
@@ -37,7 +37,7 @@ export class EasyRedmine implements INodeType {
     } as const,
     group: ['transform'],
     version: 1,
-    description: 'Easy Redmine Operations',
+    description: 'Deprecated: Use @easy8/n8n-nodes-easy8 instead',
     defaults: {
       name: 'Easy Redmine Node',
     },
@@ -59,6 +59,13 @@ export class EasyRedmine implements INodeType {
     },
 
     properties: [
+      {
+        displayName:
+          'This node is deprecated. Use Easy8 node (<a href="https://github.com/Easy8Com/n8n-nodes-easy8" target="_blank">@easy8/n8n-nodes-easy8</a>) instead.',
+        name: 'deprecationNotice',
+        type: 'notice',
+        default: '',
+      },
       {
         displayName: 'Resource',
         name: 'resource',

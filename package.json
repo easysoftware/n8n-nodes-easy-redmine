@@ -1,7 +1,7 @@
 {
   "name": "@easysoftware/n8n-nodes-easy-redmine",
   "version": "0.5.3",
-  "description": "n8n integration with Easy Redmine",
+  "description": "Deprecated n8n integration with Easy Redmine; use @easy8/n8n-nodes-easy8 instead",
   "keywords": [
     "n8n-community-node-package"
   ],

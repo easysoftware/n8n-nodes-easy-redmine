@@ -2,6 +2,9 @@
 
 This repo contains n8n node for communication with Easy Redmine.
 
+> **Deprecated:** This node is deprecated. Use Easy8 node
+> [`@easy8/n8n-nodes-easy8`](https://github.com/Easy8Com/n8n-nodes-easy8) instead.
+
 ## How to install
 
 ### ⚙️ Requirements
